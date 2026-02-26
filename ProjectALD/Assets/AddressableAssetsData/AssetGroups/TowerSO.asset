@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: TowerSO
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: TowerSO
+  m_GUID: 0395f6c93623f2349828aa0643cf8fe6
+  m_SerializeEntries:
+  - m_GUID: 1649765558b21f141b25eeec576544a0
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Towers/WallSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - towerSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b975eedf93504a4385511a4285720b7
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Towers/TowerSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - towerSO
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 434411bc4d4ede8459f31c87bc08039f, type: 2}
+    - {fileID: 11400000, guid: 867459c340d0248458dc8b7827f3c5ae, type: 2}

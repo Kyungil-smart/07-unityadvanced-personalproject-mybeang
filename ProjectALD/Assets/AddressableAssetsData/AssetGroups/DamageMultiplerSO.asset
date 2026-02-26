@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: DamageMultiplerSO
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: DamageMultiplerSO
+  m_GUID: 65eaa0be973eb644381c4dffaa2d1ae8
+  m_SerializeEntries:
+  - m_GUID: 5739bb98108c3ef43a3dced11385831e
+    m_Address: Assets/Scripts/Data/ScriptableObjects/DamageMultiplers/NormalSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - dmSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 654a74b11c7bc8d41a89d1e311b5d7da
+    m_Address: Assets/Scripts/Data/ScriptableObjects/DamageMultiplers/FireSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - dmSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c6449369c943a74ab669ae440e55d97
+    m_Address: Assets/Scripts/Data/ScriptableObjects/DamageMultiplers/PhysicSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - dmSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93a1bc933dc2ab546b7a3d23f726c74d
+    m_Address: Assets/Scripts/Data/ScriptableObjects/DamageMultiplers/IceSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - dmSO
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4ba5f1ec2a9316c4b9d77856885da8a7, type: 2}
+    - {fileID: 11400000, guid: 729a6325d5d51754c8925a5c278fe70d, type: 2}

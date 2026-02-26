@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -44,13 +45,11 @@ public class GridManager : MonoBehaviour
             {
                 Vector3 pos = new Vector3(x + _startPosX, y + _startPosY, 0);
                 GameObject tile = Instantiate(TilePrefab, pos, Quaternion.identity);
+                Tile t = tile.GetComponent<Tile>();
+                t.GridPos = new Vector2Int(x, y);
                 if (x == _width - 1)
-                {
-                    Tile t = tile.GetComponent<Tile>();
                     t.HasObject = Instantiate(WallPrefab, pos, Quaternion.identity);
-                }
                 _grid[y, x] = tile;
-
             }
         }
     }
@@ -64,5 +63,59 @@ public class GridManager : MonoBehaviour
             _grid[0, y + 10].GetComponent<Tile>().HasObject = mine;
             y -= 5;
         }
+    }
+
+    public GameObject GetObjectOnTile(Vector2Int pos)
+    {
+        return GetObjectOnTile(pos.x, pos.y);
+    }
+    public GameObject GetObjectOnTile(int x, int y)
+    {
+        return _grid[y, x].GetComponent<Tile>().HasObject;
+    }
+
+    public GameObject[] GetObjectsAroundTile(Vector2Int pos)
+    {
+        return GetObjectsAroundTile(pos.x, pos.y);
+    }
+
+    public GameObject[] GetObjectsAroundTile(int x, int y)
+    {
+        List<GameObject> objects = new List<GameObject>();
+        (int y, int x)[] directions = {(0, 1), (0, -1), (1, 0), (-1, 0)};
+        foreach (var dir in directions)
+        {
+            GameObject go = _grid[dir.y + y, dir.x + x]?.GetComponent<Tile>().HasObject; 
+            if (go) objects.Add(go);
+        }
+        return objects.ToArray();
+    }
+
+    public void PutObjectOnTile(int x, int y, GameObject go)
+    {
+        _grid[y, x].GetComponent<Tile>().HasObject = go;
+    }
+
+    public bool IsObjectOnTile(int x, int y)
+    {
+        return  _grid[y, x].GetComponent<Tile>().HasObject != null;
+    }
+
+    public bool IsTargetObjectOnAroundTile(Vector2Int pos, GameObject targetObject)
+    {
+        return IsTargetObjectOnAroundTile(pos.x, pos.y, targetObject);
+    }
+    
+    public bool IsTargetObjectOnAroundTile(int x, int y, GameObject targetObject)
+    {
+        (int y, int x)[] directions = {(0, 1), (0, -1), (1, 0), (-1, 0)};
+        foreach (var dir in directions)
+        {
+            if (_grid[dir.y + y, dir.x + x].GetComponent<Tile>().HasObject == targetObject)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

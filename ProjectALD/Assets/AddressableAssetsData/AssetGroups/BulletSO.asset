@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: BulletSO
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: BulletSO
+  m_GUID: b8915a3df85a5c94f970f75d6ac9ff1a
+  m_SerializeEntries:
+  - m_GUID: 21e9f8a1be6b75b4eb8f826358de914c
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/CannonIceSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f429bb7b2b2a1244a47fd7bc56ae727
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/ArrowSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 832f103f404dd8d44a75b55bba8d5636
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/BulletSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0b4b17666d4a054b917b4f8800ae8be
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/CannonFireSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c83dc7d6ee151614ab3a16e653d9e2cb
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/BulletFireSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ceaa062b539ab674b8f5aa6e56f45d76
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/BulletIceSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d50b8e3a71d91e44b9eef2d297e99946
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/CannonSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd9019b79d825ac48a3b98b4616d0c61
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Bullets/DarkMaterSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - bulletSO
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 28c854ba6cd0c874ab3349c9c38a7607, type: 2}
+    - {fileID: 11400000, guid: ea51e87ee537f2543a0ce3d3fa3f5ff1, type: 2}

@@ -17,3 +17,7 @@ MonoBehaviour:
   maxUpgradeLevel: 30
   initUpgradeCost: 100
   incrementUpgradeCost: 50
+  multiplierDamage: 0.1
+  initDamageUpgradeCost: 150
+  incrementDamageUpgradeCost: 150
+  maxDamageUpgradeLevel: 15
