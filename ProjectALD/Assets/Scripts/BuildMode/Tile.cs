@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour
         {
             value.GetComponent<ObjectOnTile>().myTile = this;
             _hasObject = value;
+            SetRenderPriority();
         }
     }
     public Material _materialOn;
@@ -36,5 +37,11 @@ public class Tile : MonoBehaviour
     {
         Gizmos.color = new Color(0f,0f,1f,.5f);
         Gizmos.DrawCube(transform.position, Vector3.one * 0.95f);
+    }
+
+    private void SetRenderPriority()
+    {
+        int priority = 100 - GridPos.y;
+        _hasObject.GetComponent<ObjectOnTile>()?.SetLayerPriority(priority);
     }
 }

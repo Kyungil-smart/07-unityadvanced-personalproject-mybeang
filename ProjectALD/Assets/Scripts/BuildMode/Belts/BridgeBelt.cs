@@ -1,15 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
-public class BridgeBelt : MonoBehaviour
+public class BridgeBelt : ObjectOnTile, IBeltBehavior, IInteractableBeltPut
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public IEnumerator GetItem()
     {
-        
+        yield return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator PutItem()
+    {
+        yield return null;
+    }
+
+    public void InteractBeltPut(BaseBelt baseBelt)
     {
         
     }

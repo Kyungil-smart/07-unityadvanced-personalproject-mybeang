@@ -1,13 +1,16 @@
-﻿using UnityEngine;
-public class BaseBelt : ObjectOnTile, IInteractableBeltPut
+﻿using System.Collections;
+using UnityEngine;
+public class BaseBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
 {
     public Item item;
     public GameObject tail;
     public GameObject head;
     public bool IsConnectTail { get => (tail != null); }
     public bool IsConnectHead { get => (head != null); }
-
+    
+    private Direction _direction = Direction.East;
     private Transform _tf;
+    private WaitForSeconds _waitOneSecond;
     
     private void Awake()
     {
@@ -16,7 +19,7 @@ public class BaseBelt : ObjectOnTile, IInteractableBeltPut
 
     private void Start()
     {
-        
+        _waitOneSecond = new WaitForSeconds(1f);
     }
 
     private void Init()
@@ -24,29 +27,71 @@ public class BaseBelt : ObjectOnTile, IInteractableBeltPut
         // left tail, right head
     }
     
-    public void GetItem()
+    public IEnumerator GetItem()
     {
-        tail?.GetComponent<IInteractableBeltGet>()?.InteractBeltGet(this);
+        while (true)
+        {
+            tail?.GetComponent<IInteractableBeltGet>()?.InteractBeltGet(this);
+            yield return _waitOneSecond;    
+        }
+        
     }
 
-    public void PutItem()
+    public IEnumerator PutItem()
     {
-        tail?.GetComponent<IInteractableBeltPut>()?.InteractBeltPut(this);
+        while (true)
+        {
+            head?.GetComponent<IInteractableBeltPut>()?.InteractBeltPut(this);
+            yield return _waitOneSecond;
+        }
     }
 
     public void Rotate()
     {
-        // rotate image
-        _tf.rotation = Quaternion.Euler(0, 0, _tf.rotation.eulerAngles.z - 90f);
-        
-        // insert new tail
-        tail = GridManager.Instance.GetObjectOnTile(myTile.GridPos.x, myTile.GridPos.y);
+        DirectionUtil.Rotate(ref _direction);
+        RotateImage();
+        ConnectTailNHead();
+    }
 
-        // insert new haad
+    private void RotateImage()
+    {
+        _tf.rotation = Quaternion.Euler(0, 0, _tf.rotation.eulerAngles.z - 90f);
+    }
+
+    private void ConnectTailNHead()
+    {
+        tail = null;
+        head = null;
+        
+        Vector2Int pos = myTile.GridPos;
+        Vector2Int tailPos;
+        Vector2Int headPos;
+        switch (_direction)
+        {
+            case Direction.West:
+                tailPos = pos + DirectionUtil.ToAxis[Direction.East];
+                headPos = pos + DirectionUtil.ToAxis[Direction.West];
+                break;
+            case Direction.North:
+                tailPos = pos + DirectionUtil.ToAxis[Direction.South];
+                headPos = pos + DirectionUtil.ToAxis[Direction.North];  
+                break;
+            case Direction.South:
+                tailPos = pos + DirectionUtil.ToAxis[Direction.North];
+                headPos = pos + DirectionUtil.ToAxis[Direction.South];
+                break;
+            default:
+                tailPos = pos + DirectionUtil.ToAxis[Direction.West];
+                headPos = pos + DirectionUtil.ToAxis[Direction.East];
+                break;
+        }
+        tail = GridManager.Instance.GetObjectOnTile(tailPos);
+        head = GridManager.Instance.GetObjectOnTile(headPos);
     }
 
     public void InteractBeltPut(BaseBelt baseBelt)
     {
-        
+        baseBelt.item = item;
+        item = null;
     }
 }

@@ -40,7 +40,6 @@ public class DataManager : MonoBehaviour
             foreach (var data in dataList)
             {
                 dict.TryAdd(data.name, data);
-                Debug.Log($"Load {data.name}'s data successful.");
             }
         };
     }
