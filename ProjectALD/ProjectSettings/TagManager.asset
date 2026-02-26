@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Wall
+    uniqueID: 3559482093
+    locked: 0
+  - name: Tower
+    uniqueID: 212210231
+    locked: 0
+  - name: Belt
+    uniqueID: 827990765
+    locked: 0
+  - name: FactoryMine
+    uniqueID: 922763363
+    locked: 0
+  - name: Trees
+    uniqueID: 3022797429
+    locked: 0
+  m_RenderingLayers:
+  - Default
