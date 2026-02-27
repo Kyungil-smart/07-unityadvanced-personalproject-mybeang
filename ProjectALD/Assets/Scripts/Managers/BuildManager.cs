@@ -47,5 +47,35 @@ public class BuildManager : MonoBehaviour
         if (_selectNumber > -1)
             SelectedBuilding = Instantiate(_buildings[_selectNumber]);
     }
+
+    public void Build()
+    {
+        // 이미 다른 빌딩이 tile 에 있으면 안되야함.
+        
+        // belt type
+        // miner type
+        // factory type
+        // tower
+    }
+
+    private void BuildBelt()
+    {
+        
+    }
+
+    private void BuildMiner()
+    {
+        
+    }
+
+    private void BuildFactory()
+    {
+        
+    }
+
+    private void BuildTower()
+    {
+        
+    }
      
 }

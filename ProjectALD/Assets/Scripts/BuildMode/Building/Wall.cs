@@ -7,4 +7,12 @@ public class Wall : ObjectOnTile
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+    protected override void InitNumberOfConnectPoint()
+    {
+    }
+
+    public override void PutOnTileHandler()
+    {
+    }
 }

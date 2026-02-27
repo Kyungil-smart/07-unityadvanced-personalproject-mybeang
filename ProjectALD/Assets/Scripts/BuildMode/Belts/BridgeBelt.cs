@@ -17,4 +17,14 @@ public class BridgeBelt : ObjectOnTile, IBeltBehavior, IInteractableBeltPut
     {
         
     }
+
+    protected override void InitNumberOfConnectPoint()
+    {
+        
+    }
+
+    public override void PutOnTileHandler()
+    {
+        
+    }
 }

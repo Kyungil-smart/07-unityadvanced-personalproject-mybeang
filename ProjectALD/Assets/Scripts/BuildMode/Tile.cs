@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Tile : MonoBehaviour
@@ -10,11 +12,11 @@ public class Tile : MonoBehaviour
         get { return _hasObject; }
         set
         {
-            value.GetComponent<ObjectOnTile>().myTile = this;
             _hasObject = value;
-            SetRenderPriority();
+            OnChangedObject?.Invoke();
         }
     }
+    public UnityEvent OnChangedObject;
     public Material _materialOn;
     public Material _materialOff;
     private SpriteRenderer _spriteRenderer;
@@ -24,7 +26,22 @@ public class Tile : MonoBehaviour
     {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
-    
+
+    private void Start()
+    {
+        DrawOutline(false);
+    }
+
+    private void OnEnable()
+    {
+        OnChangedObject.AddListener(PutOnObject);
+    }
+
+    private void OnDisable()
+    {
+        OnChangedObject.RemoveListener(PutOnObject);
+    }
+
     public void DrawOutline(bool enable)
     {
         if (enable)
@@ -39,9 +56,12 @@ public class Tile : MonoBehaviour
         Gizmos.DrawCube(transform.position, Vector3.one * 0.95f);
     }
 
-    private void SetRenderPriority()
+    private void PutOnObject()
     {
         int priority = 100 - GridPos.y;
-        _hasObject.GetComponent<ObjectOnTile>()?.SetLayerPriority(priority);
+        ObjectOnTile objectOnTile = HasObject.GetComponent<ObjectOnTile>();
+        objectOnTile.myTile = this;
+        objectOnTile.SetLayerPriority(priority);
+        objectOnTile.PutOnTileHandler();
     }
 }

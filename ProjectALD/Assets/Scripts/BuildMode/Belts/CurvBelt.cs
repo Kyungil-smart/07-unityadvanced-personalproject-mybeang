@@ -16,4 +16,14 @@ public class CurvBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
     {
         yield return null;
     }
+
+    protected override void InitNumberOfConnectPoint()
+    {
+        
+    }
+
+    public override void PutOnTileHandler()
+    {
+        
+    }
 }

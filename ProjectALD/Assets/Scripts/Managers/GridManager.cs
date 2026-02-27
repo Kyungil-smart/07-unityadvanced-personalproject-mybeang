@@ -59,8 +59,8 @@ public class GridManager : MonoBehaviour
         int y = 7;
         foreach (var mine in MineList)
         {
-            _grid[y + 10, 0].GetComponent<Tile>().HasObject = mine;
             mine.transform.position = _grid[y + 10, 0].transform.position;
+            _grid[y + 10, 0].GetComponent<Tile>().HasObject = mine;
             y -= 5;
         }
     }

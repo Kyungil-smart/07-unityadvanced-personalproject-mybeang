@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TileOutlineMaterial
+  m_Name: TileOutlineMaterial_OFF
   m_Shader: {fileID: 4800000, guid: 62505ee61d20098489c6f861ed25cce1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,7 +16,7 @@ Material:
   - ETC1_EXTERNAL_ALPHA
   - _FRAMEMODE_GENERAL
   - _OUTLINEENABLED_ON
-  - _OUTLINEMODE_GRADIENT
+  - _OUTLINEMODE_SOLID
   - _OUTLINEPOSITION_INSIDE_UNDER_SPRITE
   - _OUTLINESHAPE_FRAME
   - _TILEMODE_STRETCH
@@ -87,7 +87,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineEnabled: 1
-    - _OutlineMode: 1
+    - _OutlineMode: 0
     - _OutlinePosition: 0
     - _OutlineShape: 1
     - _Parallax: 0.02
@@ -95,17 +95,17 @@ Material:
     - _SpecularHighlights: 1
     - _SpriteOverlay: 0
     - _SrcBlend: 1
-    - _Thickness: 25
+    - _Thickness: 10
     - _TileMode: 0
     - _UVSec: 0
-    - _Weight: 0.2
+    - _Weight: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GradientOutline1: {r: 0, g: 0.027524829, b: 0.5849056, a: 1}
-    - _GradientOutline2: {r: 0.2688679, g: 0.5842583, b: 1, a: 1}
+    - _GradientOutline1: {r: 0, g: 0.045454502, b: 1, a: 1}
+    - _GradientOutline2: {r: 1, g: 1, b: 1, a: 1}
     - _ImageOutline: {r: 1, g: 1, b: 1, a: 1}
-    - _SolidOutline: {r: 0.9117647, g: 0, b: 0, a: 1}
+    - _SolidOutline: {r: 1, g: 1, b: 1, a: 0.09411765}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

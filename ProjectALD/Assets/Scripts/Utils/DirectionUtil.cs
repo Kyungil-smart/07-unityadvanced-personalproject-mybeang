@@ -29,4 +29,14 @@ public static class DirectionUtil
                 break;
         }
     }
+
+    public static bool IsOppositeDirection(Direction orgDir, Direction targetDir)
+    {
+        if ((orgDir == Direction.East && targetDir == Direction.West) ||
+            (orgDir == Direction.West && targetDir == Direction.East) ||
+            (orgDir == Direction.North && targetDir == Direction.North) ||
+            (orgDir == Direction.East && targetDir == Direction.South))
+            return true;
+        return false;
+    }
 }

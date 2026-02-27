@@ -17,4 +17,14 @@ public class LbBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
     {
         yield return null;
     }
+
+    protected override void InitNumberOfConnectPoint()
+    {
+        
+    }
+
+    public override void PutOnTileHandler()
+    {
+        
+    }
 }

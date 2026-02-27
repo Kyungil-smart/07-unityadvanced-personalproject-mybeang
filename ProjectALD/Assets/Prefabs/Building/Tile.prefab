@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   _materialOn: {fileID: 2100000, guid: 23c24b0af1ddc1a4994329a25d498fb9, type: 2}
-  _materialOff: {fileID: 2100000, guid: b6349d08a5335cd4aa534282435d11cc, type: 3}
+  _materialOff: {fileID: 2100000, guid: 51aa4a4bf532549439bfa7fb3b79dbc0, type: 2}
   GridPos: {x: 0, y: 0}
 --- !u!61 &-6406900943932780764
 BoxCollider2D:
