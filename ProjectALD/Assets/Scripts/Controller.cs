@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class Controller : MonoBehaviour
 {  
     private BuildAction _buildAction;
-    private Vector2 _mousePosition;
     private Camera _camera;
     private Tile _selectedTile;
     
@@ -23,7 +22,8 @@ public class Controller : MonoBehaviour
         _buildAction.Build.SelectBuilding.started += OnSelectBuilding;
         _buildAction.Build.Action.started += OnAction;
         _buildAction.Build.GameTime.started += OnGameTime;
-        _buildAction.Build.TrackingMousePosition.started += OnTrackingMousePosition;
+        _buildAction.Build.TrackingMousePosition.performed += OnTrackingMousePosition;
+        _buildAction.Build.Cancel.started += OnCancel;
     }
 
     private void OnDisable()
@@ -32,6 +32,8 @@ public class Controller : MonoBehaviour
         _buildAction.Build.SelectBuilding.started -= OnSelectBuilding;
         _buildAction.Build.Action.started -= OnAction;
         _buildAction.Build.GameTime.started -= OnGameTime;
+        _buildAction.Build.TrackingMousePosition.performed -= OnTrackingMousePosition;
+        _buildAction.Build.Cancel.started -= OnCancel;
     }
 
     private void OnSelectBuilding(InputAction.CallbackContext context)
@@ -58,14 +60,25 @@ public class Controller : MonoBehaviour
                 _selectedTile = tile;
                 if (BuildManager.Instance.SelectedBuilding != null)
                 {
-                    Debug.Log("빌딩을 지어라");
+                    Debug.Log($"{BuildManager.Instance.SelectedBuilding.name} 빌딩을 지어라");
                 } 
                 else if (tile.HasObject != null)
                 {
                     Debug.Log("해당하는 메뉴를 열어라");
                 }
             }
+            else
+            {
+                ClearAction();
+            }
         }
+    }
+
+    private void ClearAction()
+    {
+        if (_selectedTile != null) _selectedTile.DrawOutline(false);
+        _selectedTile = null;
+        BuildManager.Instance.SelectNumber = -1;
     }
     
     private bool IsPointerOverUI()
@@ -79,6 +92,7 @@ public class Controller : MonoBehaviour
         EventSystem.current.RaycastAll(eventData, results);
         return results.Count > 0;
     }
+    
     private void OnGameTime(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -89,6 +103,17 @@ public class Controller : MonoBehaviour
 
     private void OnTrackingMousePosition(InputAction.CallbackContext context)
     {
-        _mousePosition = _buildAction.Build.TrackingMousePosition.ReadValue<Vector2>();
+        Vector2 screenPos = _buildAction.Build.TrackingMousePosition.ReadValue<Vector2>();
+        if (BuildManager.Instance.SelectedBuilding != null)
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f));
+            BuildManager.Instance.SelectedBuilding.transform.position = worldPos;
+        }
+    }
+
+    private void OnCancel(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            ClearAction();
     }
 }

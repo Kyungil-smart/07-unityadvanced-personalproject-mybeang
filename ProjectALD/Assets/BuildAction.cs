@@ -127,6 +127,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad6031fd-b3db-4c35-8bf7-211f94541eef"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -272,6 +281,17 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""TrackingMousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25d8fd1e-f4dc-48fb-a58c-2fbbb7f9311d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -301,6 +321,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_Action = m_Build.FindAction("Action", throwIfNotFound: true);
         m_Build_GameTime = m_Build.FindAction("GameTime", throwIfNotFound: true);
         m_Build_TrackingMousePosition = m_Build.FindAction("TrackingMousePosition", throwIfNotFound: true);
+        m_Build_Cancel = m_Build.FindAction("Cancel", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -385,6 +406,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_Action;
     private readonly InputAction m_Build_GameTime;
     private readonly InputAction m_Build_TrackingMousePosition;
+    private readonly InputAction m_Build_Cancel;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -412,6 +434,10 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/TrackingMousePosition".
         /// </summary>
         public InputAction @TrackingMousePosition => m_Wrapper.m_Build_TrackingMousePosition;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_Build_Cancel;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -450,6 +476,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @TrackingMousePosition.started += instance.OnTrackingMousePosition;
             @TrackingMousePosition.performed += instance.OnTrackingMousePosition;
             @TrackingMousePosition.canceled += instance.OnTrackingMousePosition;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         /// <summary>
@@ -473,6 +502,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @TrackingMousePosition.started -= instance.OnTrackingMousePosition;
             @TrackingMousePosition.performed -= instance.OnTrackingMousePosition;
             @TrackingMousePosition.canceled -= instance.OnTrackingMousePosition;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         /// <summary>
@@ -554,5 +586,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackingMousePosition(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

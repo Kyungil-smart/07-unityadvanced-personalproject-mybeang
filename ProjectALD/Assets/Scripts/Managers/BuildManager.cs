@@ -6,15 +6,15 @@ using UnityEngine.Events;
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
-    public int _selectNumber;
+    public int _selectNumber = -1;
     public UnityEvent OnSelectNumber;
     public int SelectNumber
     {
         get => _selectNumber;
         set
         {
-            OnSelectNumber?.Invoke();
             _selectNumber = value;
+            OnSelectNumber?.Invoke();
         }
     }
 
@@ -37,9 +37,15 @@ public class BuildManager : MonoBehaviour
         OnSelectNumber.RemoveListener(SelectBuilding);
     }
 
-    public void SelectBuilding()
-    {
-        GameObject building = Instantiate(_buildings[_selectNumber]);
+    private void SelectBuilding()
+    {   // ToDo: Object Pool for buildings
+        if (SelectedBuilding != null)
+        {
+            Destroy(SelectedBuilding);
+            SelectedBuilding = null;
+        }
+        if (_selectNumber > -1)
+            SelectedBuilding = Instantiate(_buildings[_selectNumber]);
     }
      
 }
