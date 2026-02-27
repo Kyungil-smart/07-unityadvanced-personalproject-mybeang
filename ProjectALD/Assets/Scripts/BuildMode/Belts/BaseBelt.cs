@@ -9,9 +9,34 @@ public class BaseBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
     private Direction _direction = Direction.East;
     private Transform _tf;
     private WaitForSeconds _waitOneSecond;
-    
-    public ConnectPoint tail { get => tails[0]; set => tails[0] = value; }
-    public ConnectPoint head { get => heads[0]; set => heads[0] = value; }
+
+    public ConnectPoint tail
+    {
+        get
+        {
+            if (tails.Count == 0) return null;
+            return tails[0];
+        }
+        set
+        {
+            if (tails.Count == 0) tails.Add(value);
+            else tails[0] = value;
+        }
+    }
+
+    public ConnectPoint head
+    {
+        get
+        {
+            if (heads.Count == 0) return null;
+            return heads[0];
+        }
+        set
+        {
+            if (heads.Count == 0) heads.Add(value);
+            else heads[0] = value;
+        } 
+    }
     
     private Coroutine _getItemRoutine;
     private Coroutine _putItemRoutine;
@@ -36,7 +61,7 @@ public class BaseBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
     {
         if (IsConnected() && _getItemRoutine == null && _putItemRoutine == null) 
             StartOpearation();
-        else 
+        else if (!IsConnected() && (_getItemRoutine == null || _putItemRoutine == null))
             StopOpearation();
     }
     
@@ -59,8 +84,8 @@ public class BaseBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
 
     private void StopOpearation()
     {
-        StopCoroutine(_getItemRoutine);
-        StopCoroutine(_putItemRoutine);
+        if (_getItemRoutine != null) StopCoroutine(_getItemRoutine);
+        if (_putItemRoutine != null) StopCoroutine(_putItemRoutine);
         _getItemRoutine = null;
         _putItemRoutine = null;
     }
@@ -85,6 +110,7 @@ public class BaseBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior
 
     private bool IsConnected()
     {
+        if (heads.Count == 0 || tails.Count == 0) return false;
         if (head.neighbor == null || tail.neighbor == null) return false;
         return true;
     }

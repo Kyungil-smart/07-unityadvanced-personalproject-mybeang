@@ -1,7 +1,7 @@
 ﻿public enum ResourceType
 {
-    CopperOre,
-    IronOre,
-    FireElement,
-    IceElement
+    Copper,
+    Iron,
+    Fire,
+    Ice
 }

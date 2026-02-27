@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class DataManager : MonoBehaviour
+public class DataManager : MonoBehaviour, IInitializable
 {
     public static DataManager Instance { get; private set; }
     
@@ -17,32 +19,25 @@ public class DataManager : MonoBehaviour
         if (Instance == null) Instance = this;
     }
 
-    private void Start()
-    {
-        Init();
-    }
-    
-    private void Init()
-    {
-        LoadAllData("bulletSO", bulletData);
-        LoadAllData("minerSO", minerData);
-        LoadAllData("dmSO", damageMultiplierData);
-        LoadAllData("monsterSO", monsterData);
-        LoadAllData("towerSO", towerData);
-    }
-
-    private void LoadAllData<T>(string labelName, Dictionary<string, T> dict) where T : ScriptableObject
+    private async Task LoadAllData<T>(string labelName, Dictionary<string, T> dict) where T : ScriptableObject
     {
         var handle = Addressables.LoadAssetsAsync<T>(labelName);
-        handle.Completed += (resultHandle) =>
+        await handle.Task;
+        if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            IList<T> dataList = resultHandle.Result;
+            IList<T> dataList = handle.Result;
             foreach (var data in dataList)
-            {
                 dict.TryAdd(data.name, data);
-            }
-        };
+        }
+        
     }
 
-    
+    public async Task InitDataAsync()
+    {
+        await LoadAllData("bulletSO", bulletData);
+        await LoadAllData("minerSO", minerData);
+        await LoadAllData("dmSO", damageMultiplierData);
+        await LoadAllData("monsterSO", monsterData);
+        await LoadAllData("towerSO", towerData);
+    }
 }

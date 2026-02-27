@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2993815805740379507}
   - component: {fileID: 7966661464622446789}
   - component: {fileID: -6477227798412356566}
+  - component: {fileID: -8276026265100804611}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -115,6 +116,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-8276026265100804611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823494418016485753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e71dfe17bd8da047a951e1e43f6552b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Miner
+  myTile: {fileID: 0}
+  _currentResourceCount: 0
+  _maxResourceCount: 20
 --- !u!1 &9151666161852704133
 GameObject:
   m_ObjectHideFlags: 0

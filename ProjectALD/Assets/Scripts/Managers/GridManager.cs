@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 
-public class GridManager : MonoBehaviour
+public class GridManager : MonoBehaviour, IInitializable
 {
     public static GridManager Instance { get; private set; }
     public GameObject TilePrefab;
@@ -32,8 +33,6 @@ public class GridManager : MonoBehaviour
     {
         _startPosX = (int)transform.position.x;
         _startPosY = (int)transform.position.y;
-        CreateGrid();
-        PositioningMines();
     }
     
     private void CreateGrid()
@@ -85,6 +84,8 @@ public class GridManager : MonoBehaviour
         (int y, int x)[] directions = {(0, 1), (0, -1), (1, 0), (-1, 0)};
         foreach (var dir in directions)
         {
+            if (dir.x + x < 0 || dir.x + x >= _width) continue;
+            if (dir.y + y < 0 || dir.y + y >= _height) continue;
             GameObject go = _grid[dir.y + y, dir.x + x]?.GetComponent<Tile>().HasObject; 
             if (go) objects.Add(go);
         }
@@ -117,5 +118,12 @@ public class GridManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public Task InitDataAsync()
+    {
+        CreateGrid();
+        PositioningMines();
+        return Task.CompletedTask;
     }
 }

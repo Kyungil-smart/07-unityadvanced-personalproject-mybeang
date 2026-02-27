@@ -8,10 +8,13 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
     [SerializeField] private int _currentResourceCount;
     [SerializeField] private int _maxResourceCount;
 
-    public Queue<GameObject> item;
+    public Queue<GameObject> items = new();
     private WaitForSeconds _oneSecond = new WaitForSeconds(1f);
     private Coroutine _minerCoroutine;
     private bool _connectedMine;
+    private Mine _mine;
+    
+    private MinerData _minerData;
 
     private void Awake()
     {
@@ -33,9 +36,18 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
         StopMining();
     }
 
+    public void DataLoad()
+    {
+        if (_mine == null) return;
+        string key = $"{_mine.resourceType}MinerSO";
+        Debug.Log(key);
+        _minerData = DataManager.Instance.minerData[key];
+    }
+
     public override void PutOnTileHandler()
     {
         SearchMine();
+        DataLoad();
     }
     
     private void SearchMine()
@@ -47,17 +59,16 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
         GameObject[] objects = GridManager.Instance.GetObjectsAroundTile(myTile.GridPos);
         if (objects.Length == 0 || objects.Length > 1) return;
         GameObject mine = objects[0];
-        
         if (mine.GetComponent<IInteracterableMiner>() != null)
             ConnectToMine(mine);
     }
 
     private void ConnectToMine(GameObject mineObj)
     {
-        Mine mine = mineObj.GetComponent<IInteracterableMiner>() as Mine;
+        _mine = mineObj.GetComponent<IInteracterableMiner>() as Mine;
         foreach (ConnectPoint tail in tails)
         {
-            if (mine.IsConnectWith(gameObject, tail))
+            if (_mine.IsConnectWith(gameObject, tail))
             {
                 tail.neighbor = mineObj;
                 _connectedMine = true;
@@ -65,6 +76,7 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
                 return;
             }
         }
+        _mine = null;
     }
 
     private void StartMining()
@@ -82,9 +94,23 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
 
     private IEnumerator MiningRoutine()
     {
-        while (_currentResourceCount <= _maxResourceCount)
+        while (true)
         {
-            _currentResourceCount++;
+            if (_currentResourceCount < _maxResourceCount)
+            {
+                if (!_animator.GetBool("IsPicking")) 
+                    _animator.SetBool("IsPicking", true);
+                
+                if (_mine != null)
+                {
+                    _mine.InteractMiner(this);
+                    _currentResourceCount = items.Count;    
+                }    
+            }
+            else
+            {
+                _animator.SetBool("IsPicking", false);
+            }
             yield return _oneSecond;
         }
     }

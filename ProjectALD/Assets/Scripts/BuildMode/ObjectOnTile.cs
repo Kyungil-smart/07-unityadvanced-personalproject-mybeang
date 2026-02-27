@@ -8,8 +8,8 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
 
-    public List<ConnectPoint> tails;
-    public List<ConnectPoint> heads;
+    public List<ConnectPoint> tails = new();
+    public List<ConnectPoint> heads = new();
 
     protected abstract void InitNumberOfConnectPoint();
     public abstract void PutOnTileHandler();

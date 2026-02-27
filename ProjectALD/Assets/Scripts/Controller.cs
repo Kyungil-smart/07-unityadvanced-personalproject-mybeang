@@ -8,6 +8,7 @@ public class Controller : MonoBehaviour
     private BuildAction _buildAction;
     private Camera _camera;
     private Tile _selectedTile;
+    private Vector3 _mouseWorldPos;
     
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class Controller : MonoBehaviour
         if (context.started)
         {
             int pressedKey = int.Parse(context.control.name);
-            BuildManager.Instance.SelectNumber = pressedKey;
+            BuildManager.Instance.SelectBuilding(pressedKey, _mouseWorldPos);
         }
     }
     
@@ -61,6 +62,7 @@ public class Controller : MonoBehaviour
                 if (BuildManager.Instance.SelectedBuilding != null)
                 {
                     Debug.Log($"{BuildManager.Instance.SelectedBuilding.name} 빌딩을 지어라");
+                    BuildManager.Instance.Build(tile);
                 } 
                 else if (tile.HasObject != null)
                 {
@@ -78,7 +80,7 @@ public class Controller : MonoBehaviour
     {
         if (_selectedTile != null) _selectedTile.DrawOutline(false);
         _selectedTile = null;
-        BuildManager.Instance.SelectNumber = -1;
+        BuildManager.Instance.SelectBuilding(-1, Vector2.zero);
     }
     
     private bool IsPointerOverUI()
@@ -104,11 +106,9 @@ public class Controller : MonoBehaviour
     private void OnTrackingMousePosition(InputAction.CallbackContext context)
     {
         Vector2 screenPos = _buildAction.Build.TrackingMousePosition.ReadValue<Vector2>();
+        _mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f));
         if (BuildManager.Instance.SelectedBuilding != null)
-        {
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f));
-            BuildManager.Instance.SelectedBuilding.transform.position = worldPos;
-        }
+            BuildManager.Instance.SelectedBuilding.transform.position = _mouseWorldPos;
     }
 
     private void OnCancel(InputAction.CallbackContext context)
