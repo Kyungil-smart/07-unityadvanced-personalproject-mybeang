@@ -9821,7 +9821,7 @@ GameObject:
   - component: {fileID: 770764239}
   - component: {fileID: 770764238}
   m_Layer: 5
-  m_Name: DoNotBuildWarning
+  m_Name: WarningWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13813,6 +13813,7 @@ MonoBehaviour:
   IsPause: 0
   CurrentWave: 1
   TotalWave: 30
+  HP: 0
   OnChangedGold:
     m_PersistentCalls:
       m_Calls: []
@@ -40578,7 +40579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03dd5d7276a1a104ebca5c35a64d9c01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIControlManager
-  _doNotbuildWarning: {fileID: 770764237}
+  _WarningWindow: {fileID: 770764237}
+  _warningText: {fileID: 1643808980}
+  OnChangedWarningText:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1503051990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42345,8 +42350,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

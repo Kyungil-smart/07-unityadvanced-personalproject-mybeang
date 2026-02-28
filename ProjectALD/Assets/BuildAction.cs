@@ -136,6 +136,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d211dee-c1fb-42e1-8f81-41cc3bf59f44"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -292,6 +301,17 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a58a9418-a4be-4900-8954-2238a0969c37"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -322,6 +342,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_GameTime = m_Build.FindAction("GameTime", throwIfNotFound: true);
         m_Build_TrackingMousePosition = m_Build.FindAction("TrackingMousePosition", throwIfNotFound: true);
         m_Build_Cancel = m_Build.FindAction("Cancel", throwIfNotFound: true);
+        m_Build_RotateBuilding = m_Build.FindAction("RotateBuilding", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -407,6 +428,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_GameTime;
     private readonly InputAction m_Build_TrackingMousePosition;
     private readonly InputAction m_Build_Cancel;
+    private readonly InputAction m_Build_RotateBuilding;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -438,6 +460,10 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/Cancel".
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_Build_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/RotateBuilding".
+        /// </summary>
+        public InputAction @RotateBuilding => m_Wrapper.m_Build_RotateBuilding;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -479,6 +505,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @RotateBuilding.started += instance.OnRotateBuilding;
+            @RotateBuilding.performed += instance.OnRotateBuilding;
+            @RotateBuilding.canceled += instance.OnRotateBuilding;
         }
 
         /// <summary>
@@ -505,6 +534,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @RotateBuilding.started -= instance.OnRotateBuilding;
+            @RotateBuilding.performed -= instance.OnRotateBuilding;
+            @RotateBuilding.canceled -= instance.OnRotateBuilding;
         }
 
         /// <summary>
@@ -593,5 +625,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotateBuilding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotateBuilding(InputAction.CallbackContext context);
     }
 }

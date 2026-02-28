@@ -4,12 +4,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
-{  
+{
     private BuildAction _buildAction;
     private Camera _camera;
     private Tile _selectedTile;
     private Vector3 _mouseWorldPos;
-    
+
     private void Awake()
     {
         _buildAction = new BuildAction();
@@ -25,6 +25,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.GameTime.started += OnGameTime;
         _buildAction.Build.TrackingMousePosition.performed += OnTrackingMousePosition;
         _buildAction.Build.Cancel.started += OnCancel;
+        _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
     }
 
     private void OnDisable()
@@ -35,6 +36,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.GameTime.started -= OnGameTime;
         _buildAction.Build.TrackingMousePosition.performed -= OnTrackingMousePosition;
         _buildAction.Build.Cancel.started -= OnCancel;
+        _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
     }
 
     private void OnSelectBuilding(InputAction.CallbackContext context)
@@ -45,7 +47,7 @@ public class Controller : MonoBehaviour
             BuildManager.Instance.SelectBuilding(pressedKey, _mouseWorldPos);
         }
     }
-    
+
     private void OnAction(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -63,7 +65,7 @@ public class Controller : MonoBehaviour
                 {
                     Debug.Log($"{BuildManager.Instance.SelectedBuilding.name} 빌딩을 지어라");
                     BuildManager.Instance.Build(tile);
-                } 
+                }
                 else if (tile.HasObject != null)
                 {
                     Debug.Log("해당하는 메뉴를 열어라");
@@ -82,7 +84,7 @@ public class Controller : MonoBehaviour
         _selectedTile = null;
         BuildManager.Instance.SelectBuilding(-1, Vector2.zero);
     }
-    
+
     private bool IsPointerOverUI()
     {
         if (EventSystem.current == null) return false;
@@ -94,12 +96,12 @@ public class Controller : MonoBehaviour
         EventSystem.current.RaycastAll(eventData, results);
         return results.Count > 0;
     }
-    
+
     private void OnGameTime(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            GameManager.Instance.IsPause = !GameManager.Instance.IsPause;    
+            GameManager.Instance.IsPause = !GameManager.Instance.IsPause;
         }
     }
 
@@ -115,5 +117,25 @@ public class Controller : MonoBehaviour
     {
         if (context.started)
             ClearAction();
+    }
+
+    private void OnRotateBuilding(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (BuildManager.Instance.SelectedBuilding != null)
+            {
+                BuildManager.Instance.SelectedBuilding.GetComponent<IRotatable>()?.Rotate();    
+            }
+            else if (_selectedTile != null)
+            {
+                _selectedTile.Rotate();
+            }
+        } 
+    }
+
+public void PickUp(GameObject gameObject)
+    {
+        // UI 에서 건물 이동시
     }
 }

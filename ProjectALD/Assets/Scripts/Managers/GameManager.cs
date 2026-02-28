@@ -9,6 +9,11 @@ public class GameManager : SingleTon<GameManager>
     public bool IsPause;
     public int CurrentWave = 1;
     public int TotalWave = 30;
+    
+    public int HP;
+    public int RepairCost => HP;
+    public float HealPoint => HP * 0.5f;
+    
     private int _gold = 1000000;
     public int Gold { 
         get => _gold;

@@ -2,6 +2,7 @@
 
 public interface IBeltBehavior
 {
-    public IEnumerator GetItem();
-    public IEnumerator PutItem();
+    public IEnumerator DeliverItem();
+    public void GetItem();
+    public void PutItem();
 }

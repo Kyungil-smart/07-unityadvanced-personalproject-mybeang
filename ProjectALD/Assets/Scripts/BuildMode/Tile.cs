@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPlacable, IRotatable
 {
     private GameObject _hasObject;
 
@@ -60,8 +60,14 @@ public class Tile : MonoBehaviour
     {
         int priority = 100 - GridPos.y;
         ObjectOnTile objectOnTile = HasObject.GetComponent<ObjectOnTile>();
+        HasObject.transform.position = transform.position;
         objectOnTile.myTile = this;
         objectOnTile.SetLayerPriority(priority);
         objectOnTile.PutOnTileHandler();
+    }
+
+    public void Rotate()
+    {
+        (HasObject.GetComponent<MonoBehaviour>() as IRotatable)?.Rotate();
     }
 }

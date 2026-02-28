@@ -32,6 +32,8 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
         }
     }
 
+    public override void TakeOffTileHandler() { }
+
     public void InteractMiner(Miner miner)
     {
         GameObject item = Instantiate(_resourcePrefab);

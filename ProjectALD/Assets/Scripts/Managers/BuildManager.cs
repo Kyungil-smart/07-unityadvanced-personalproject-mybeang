@@ -23,7 +23,7 @@ public class BuildManager : MonoBehaviour
             SelectedBuilding = null;
         }
         if (selectNumber > -1)
-            SelectedBuilding = Instantiate(_buildings[selectNumber - 1], position, Quaternion.identity);
+            SelectedBuilding = BuildingObject.Create(_buildings[selectNumber - 1], position, Quaternion.identity);
     }
 
     public void Build(Tile tile)
@@ -31,12 +31,18 @@ public class BuildManager : MonoBehaviour
         // 이미 다른 빌딩이 tile 에 있으면 안되야함.
         if (tile.HasObject != null)
         {
-            UIControlManager.Instance.ShowDoNotbuildWarning();
+            string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["AlreayBuildingOnTile"];
+            UIControlManager.Instance.WarningText = text;
             return;
         }
+        MonoBehaviour script = SelectedBuilding?.GetComponent<MonoBehaviour>();
         // belt type
+        if (script != null & script is IBeltBehavior)
+        {
+            BuildBelt(tile);
+        }
         // miner type
-        if (SelectedBuilding.GetComponent<Miner>() != null)
+        else if (SelectedBuilding?.GetComponent<Miner>() != null)
         {
             BuildMiner(tile);
         }
@@ -44,13 +50,21 @@ public class BuildManager : MonoBehaviour
         // tower
     }
 
-    private void BuildBelt()
+    private void BuildBelt(Tile tile)
     {
-        
+        tile.HasObject = SelectedBuilding;
+        SelectedBuilding = null;
     }
 
     private void BuildMiner(Tile tile)
     {
+        Miner miner = SelectedBuilding.GetComponent<Miner>();
+        if (!miner.SearchMine(tile.GridPos))
+        {
+            string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["MinerMustBuildNearMine"];
+            UIControlManager.Instance.WarningText = text;
+            return;  
+        }
         tile.HasObject = SelectedBuilding;
         SelectedBuilding = null;
     }

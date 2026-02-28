@@ -1,0 +1,30 @@
+﻿{
+  "WarningWindow": {
+    "AlreayBuildingOnTile": "이미 다른 건물이 배치되어 있습니다.",
+    "MinerMustBuildNearMine": "채광기는 광산옆에만 설치할 수 있습니다."
+  },
+  "PopUpWindow": {
+    "Basic": {
+      "Rotate": "회전",
+      "Move": "이동",
+      "Remove": "철거"
+    },
+    "Wall": {
+      "ArcherRmoeve": "궁수 철거",
+    },
+    "Upgrade": {
+      "ArcherDamageUpgrade": {
+        "BtTxt": "궁수 데미지 업그레이드",
+        "Desc": "탄약의 데미지를 조금 상승한다."
+      },
+      "HPUpgarde": {
+        "BtTxt": "체력 업그레이드",
+        "Desc": "최대 체력을 일정 수치 올린다."
+      },
+      "Heal": {
+        "BtTxt": "체력 회복",
+        "Desc": "최대 체력의 50% 를 회복한다."
+      }
+    }
+  }  
+}

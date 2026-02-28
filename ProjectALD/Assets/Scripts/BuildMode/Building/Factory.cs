@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class Factory : MonoBehaviour
+public class Factory : ObjectOnTile, IMovableBuilding
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void InitNumberOfConnectPoint()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void PutOnTileHandler()
+    {
+        
+    }
+
+    public override void TakeOffTileHandler()
     {
         
     }

@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Miner : ObjectOnTile, IInteractableBeltGet
+// ToDo: 개별 UI 개발 후 Upgrade Logic 구현 
+
+public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
 {
     [SerializeField] private int _currentResourceCount;
     [SerializeField] private int _maxResourceCount;
@@ -13,6 +15,7 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
     private Coroutine _minerCoroutine;
     private bool _connectedMine;
     private Mine _mine;
+    private GameObject _mineObj;
     
     private MinerData _minerData;
 
@@ -40,37 +43,50 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
     {
         if (_mine == null) return;
         string key = $"{_mine.resourceType}MinerSO";
-        Debug.Log(key);
         _minerData = DataManager.Instance.minerData[key];
     }
 
     public override void PutOnTileHandler()
     {
-        SearchMine();
-        DataLoad();
+        if (SearchMine(myTile.GridPos))
+        {
+            ConnectToMine();
+            DataLoad();    
+        }
     }
-    
-    private void SearchMine()
+
+    public override void TakeOffTileHandler()
+    {
+        // ToDo: Move 시 추가 구현 필요.
+    }
+
+    public bool SearchMine(Vector2Int gridPos)
     {
         // Stop Mining before search.
         _connectedMine = false;
         StopMining();
         
-        GameObject[] objects = GridManager.Instance.GetObjectsAroundTile(myTile.GridPos);
-        if (objects.Length == 0 || objects.Length > 1) return;
-        GameObject mine = objects[0];
-        if (mine.GetComponent<IInteracterableMiner>() != null)
-            ConnectToMine(mine);
+        GameObject[] objects = GridManager.Instance.GetObjectsAroundTile(gridPos);
+        if (objects.Length == 0) return false;
+        foreach (var obj in objects)
+        {
+            if (obj?.GetComponent<Mine>() != null)
+            {
+                _mineObj = obj;
+                _mine = obj.GetComponent<IInteracterableMiner>() as Mine;
+                return true;
+            }
+        }
+        return false;
     }
 
-    private void ConnectToMine(GameObject mineObj)
+    private void ConnectToMine()
     {
-        _mine = mineObj.GetComponent<IInteracterableMiner>() as Mine;
         foreach (ConnectPoint tail in tails)
         {
             if (_mine.IsConnectWith(gameObject, tail))
             {
-                tail.neighbor = mineObj;
+                tail.neighbor = _mineObj;
                 _connectedMine = true;
                 StartMining();
                 return;
@@ -115,10 +131,11 @@ public class Miner : ObjectOnTile, IInteractableBeltGet
         }
     }
     
-    public void InteractBeltGet(BaseBelt baseBelt)
+    public void InteractBeltGet(BasicBelt basicBelt)
     {
-        if (_currentResourceCount > 0)
-            _currentResourceCount -= 1;
+        if (items.Count == 0) return;
+        if (basicBelt.item == null)
+            basicBelt.item = items.Dequeue();
     }
 
     protected override void InitNumberOfConnectPoint()

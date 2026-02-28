@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wall : ObjectOnTile
+public class Wall : ObjectOnTile, IPlacable
 {
     private GameObject _tower;
     private void Awake()
@@ -8,11 +8,7 @@ public class Wall : ObjectOnTile
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected override void InitNumberOfConnectPoint()
-    {
-    }
-
-    public override void PutOnTileHandler()
-    {
-    }
+    protected override void InitNumberOfConnectPoint() { }
+    public override void PutOnTileHandler() { }
+    public override void TakeOffTileHandler() { }
 }

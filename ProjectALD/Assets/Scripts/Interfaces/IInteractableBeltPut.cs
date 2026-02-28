@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IInteractableBeltPut
 {
-    public void InteractBeltPut(BaseBelt baseBelt);
+    public void InteractBeltPut(BasicBelt basicBelt);
 }

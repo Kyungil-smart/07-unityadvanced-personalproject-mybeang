@@ -1,29 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class BridgeBelt : ObjectOnTile, IBeltBehavior, IInteractableBeltPut
+public class BridgeBelt : ObjectOnTile
 {
-    public IEnumerator GetItem()
-    {
-        yield return null;
-    }
-
-    public IEnumerator PutItem()
-    {
-        yield return null;
-    }
-
-    public void InteractBeltPut(BaseBelt baseBelt)
-    {
-        
-    }
-
     protected override void InitNumberOfConnectPoint()
     {
         
     }
 
     public override void PutOnTileHandler()
+    {
+        
+    }
+
+    public override void TakeOffTileHandler()
     {
         
     }
