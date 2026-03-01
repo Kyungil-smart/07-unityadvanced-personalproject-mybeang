@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Factory : ObjectOnTile, IMovableBuilding
+public class FactorySlave : ObjectOnTile, IMovableBuilding
 {
     protected override void InitNumberOfConnectPoint()
     {

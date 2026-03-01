@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2758242842772758971}
   - component: {fileID: 3785621467845011444}
+  - component: {fileID: 8122538602066052982}
   m_Layer: 0
   m_Name: CopperOre
   m_TagString: Untagged
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -955567485
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 8ea2ea1f28e7447ac943714f1ef7fae9, type: 3}
@@ -91,3 +92,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &8122538602066052982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7230520241021545595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85da2387bfdf9c54d9195c157a3f54bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OreCopper
+  itemType: 1
+  spriteRenderer: {fileID: 3785621467845011444}

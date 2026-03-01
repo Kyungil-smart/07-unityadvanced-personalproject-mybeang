@@ -1,5 +1,6 @@
 ﻿public enum ConnectPointType
 {
     Tail,
-    Head
+    Head,
+    Both
 }

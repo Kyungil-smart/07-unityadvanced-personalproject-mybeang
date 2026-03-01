@@ -10,7 +10,7 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     [SerializeField] private int _currentResourceCount;
     [SerializeField] private int _maxResourceCount;
 
-    public Queue<GameObject> items = new();
+    public Queue<Item> items = new();
     private WaitForSeconds _oneSecond = new WaitForSeconds(1f);
     private Coroutine _minerCoroutine;
     private bool _connectedMine;
@@ -22,6 +22,7 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
     
     private void Start()
@@ -42,12 +43,13 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     public void DataLoad()
     {
         if (_mine == null) return;
-        string key = $"{_mine.resourceType}MinerSO";
+        string key = $"{_mine.itemType}MinerSO";
         _minerData = DataManager.Instance.minerData[key];
     }
 
     public override void PutOnTileHandler()
     {
+        _spriteRenderer.sortingLayerName = "FactoryMine";
         if (SearchMine(myTile.GridPos))
         {
             ConnectToMine();
@@ -131,11 +133,11 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
         }
     }
     
-    public void InteractBeltGet(BasicBelt basicBelt)
+    public void InteractBeltGet<T>(T belt) where T : ObjectOnTile, IBelt
     {
         if (items.Count == 0) return;
-        if (basicBelt.item == null)
-            basicBelt.item = items.Dequeue();
+        if (belt.item == null)
+            belt.item = items.Dequeue();
     }
 
     protected override void InitNumberOfConnectPoint()

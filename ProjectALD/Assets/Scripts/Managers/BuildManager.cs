@@ -42,11 +42,15 @@ public class BuildManager : MonoBehaviour
             BuildBelt(tile);
         }
         // miner type
-        else if (SelectedBuilding?.GetComponent<Miner>() != null)
+        else if (script is Miner)
         {
             BuildMiner(tile);
         }
         // factory type
+        else if (script is FactoryMaster)
+        {
+            BuildFactory(tile);
+        }
         // tower
     }
 
@@ -69,9 +73,10 @@ public class BuildManager : MonoBehaviour
         SelectedBuilding = null;
     }
 
-    private void BuildFactory()
+    private void BuildFactory(Tile tile)
     {
-        
+        tile.HasObject = SelectedBuilding;
+        SelectedBuilding = null;
     }
 
     private void BuildTower()

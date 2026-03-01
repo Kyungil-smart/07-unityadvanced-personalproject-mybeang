@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24e4e3d7a2ca46a7933865ddf78df546, type: 3}
-  m_Name: DarkMaterSO
+  m_Name: DarkMatterSO
   m_EditorClassIdentifier: Assembly-CSharp::BulletData
   copperCnt: 10
   iconCnt: 10
@@ -21,4 +21,4 @@ MonoBehaviour:
   damageTypes: 0100000005000000
   range: 30
   speed: 10
-  craftingSpeed: 0.1
+  count: 1

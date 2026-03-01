@@ -21,4 +21,4 @@ MonoBehaviour:
   damageTypes: 0100000002000000
   range: 22
   speed: 10
-  craftingSpeed: 0.5
+  count: 5

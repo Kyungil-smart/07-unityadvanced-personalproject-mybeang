@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -44,20 +45,29 @@ TagManager:
   - name: TopTrees
     uniqueID: 2699282857
     locked: 0
+  - name: Belt
+    uniqueID: 827990765
+    locked: 0
+  - name: ItemOnBelt
+    uniqueID: 3339399811
+    locked: 0
   - name: Wall
     uniqueID: 3559482093
     locked: 0
   - name: Tower
     uniqueID: 212210231
     locked: 0
-  - name: Belt
-    uniqueID: 827990765
-    locked: 0
   - name: FactoryMine
     uniqueID: 922763363
     locked: 0
-  - name: Trees
+  - name: BottomTrees
     uniqueID: 3022797429
+    locked: 0
+  - name: Enemy
+    uniqueID: 2946437079
+    locked: 0
+  - name: Bullets
+    uniqueID: 489455669
     locked: 0
   - name: GrapHand
     uniqueID: 2846183449

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2492032015085146776}
   - component: {fileID: 3080423981514417740}
   m_Layer: 0
-  m_Name: item
+  m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1448783847
-  m_SortingLayer: 7
+  m_SortingLayer: 10
   m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 4219616638661913783}
   - component: {fileID: 4253774574184839584}
   m_Layer: 0
-  m_Name: BaseBelt
+  m_Name: BasicBelt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1448783847
-  m_SortingLayer: 7
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 163a46bfc103feb46aee500873be3674, type: 2}
@@ -198,8 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseBelt
   myTile: {fileID: 0}
-  item: {fileID: 0}
   subSpriteRenderer: {fileID: 3080423981514417740}
+  iconPrefab: {fileID: 663636675141753465}
 --- !u!95 &4253774574184839584
 Animator:
   serializedVersion: 7

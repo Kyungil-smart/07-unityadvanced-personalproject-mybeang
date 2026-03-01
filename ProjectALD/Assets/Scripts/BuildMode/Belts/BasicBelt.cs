@@ -2,13 +2,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable
+public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable
 {
-    public GameObject item;
+    public Item item { get; set; }
     public SpriteRenderer subSpriteRenderer;
-    private WaitForSeconds _waitOneSecond;
-    private Sprite _cacheItemSprite;
-    private Color _cacheItemColor = Color.white;
+    public GameObject iconPrefab;
+    private WaitForSeconds _deliveryInterval;
 
     public ConnectPoint tail
     {
@@ -51,7 +50,7 @@ public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMov
 
     private void Start()
     {
-        _waitOneSecond = new WaitForSeconds(1f);
+        _deliveryInterval = new WaitForSeconds(1f); // ToDO. 게임벨런스 패치
         InitNumberOfConnectPoint();
     }
 
@@ -73,6 +72,7 @@ public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMov
 
     public override void PutOnTileHandler()
     {
+        _spriteRenderer.sortingLayerName = "Belt";
         ConnectToNeighbor(head);
         ConnectToNeighbor(tail);
     }
@@ -100,7 +100,7 @@ public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMov
         {
             PutItem();
             GetItem();
-            yield return _waitOneSecond;
+            yield return _deliveryInterval;
         }
     }
 
@@ -112,20 +112,15 @@ public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMov
         }
         if (item != null)
         {
-            if (_cacheItemSprite == null && _cacheItemColor == Color.white)
+            subSpriteRenderer.sprite = item.spriteRenderer.sprite;
+            subSpriteRenderer.color = item.spriteRenderer.color;
+            if (item.itemType == ItemType.BulletBox)
             {
-                PrintLog("아직 뭐가 없으니까 그림 그릴거 내놔");
-                SpriteRenderer itemSR = item.GetComponent<SpriteRenderer>();   
-                _cacheItemSprite = itemSR.sprite;
-                _cacheItemColor = itemSR.color;
-                subSpriteRenderer.sprite = itemSR.sprite;
-                subSpriteRenderer.color = itemSR.color;
+                iconPrefab.transform.localScale = new Vector3(0.4f, 0.5f, 1);
             }
             else
             {
-                PrintLog("캐싱된거써");
-                subSpriteRenderer.sprite = _cacheItemSprite;
-                subSpriteRenderer.color = _cacheItemColor;
+                iconPrefab.transform.localScale = new Vector3(1, 1, 1);
             }
         }
         else
@@ -150,12 +145,19 @@ public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMov
 
     public void Rotate()
     {
+        // 동작 멈춤
+        StopOperation();
+        // 아이템 비움
         item = null;
+        // 이미지 변경
         RotateImage();
+        
+        // Connect Point 변경
         RotateConnectPoint(head);
         RotateConnectPoint(tail);
         if (myTile != null)
         {
+            // 타일 위에 이미 지어진 것이면 다시 Connection 시도.
             ConnectToNeighbor(head);
             ConnectToNeighbor(tail);    
         }
@@ -168,25 +170,12 @@ public class BasicBelt : ObjectOnTile, IInteractableBeltPut, IBeltBehavior, IMov
 
     private void RotateConnectPoint(ConnectPoint cpoint) => DirectionUtil.Rotate(ref cpoint.direction);
     
-    private void ConnectToNeighbor(ConnectPoint cpoint)
+    public void InteractBeltPut<T>(T belt) where T : ObjectOnTile, IBelt
     {
-        cpoint.neighbor = null;
-        Vector2Int neighborPos = myTile.GridPos + DirectionUtil.ToAxis[cpoint.direction];
-        GameObject neighbor = GridManager.Instance.GetObjectOnTile(neighborPos);
-        if (IsConnectable(neighbor, cpoint))
-        {
-            cpoint.neighbor = neighbor;
-        }
-    }
-
-    public void InteractBeltPut(BasicBelt basicBelt)
-    {
-        PrintLog("줄거 있다며?");
-        if (basicBelt.item != null && item == null)
-        {
-            PrintLog($"내놓지그래?");
-            item = basicBelt.item;
-            basicBelt.item = null;
+        if (belt.item != null && item == null)
+        {   
+            item = belt.item;
+            belt.item = null;
         }
     }
 }

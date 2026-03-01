@@ -1,7 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
-    [SerializeField] private Image _image;
+    public ItemType itemType;
+    public SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    
+    public void PrintLog(string text) 
+        => Debug.Log($"({gameObject.name};{itemType}) {text}");
+
+    public BulletData LoadBulletData(string ScriptableObjectName)
+        => DataManager.Instance.bulletData[ScriptableObjectName];
 }

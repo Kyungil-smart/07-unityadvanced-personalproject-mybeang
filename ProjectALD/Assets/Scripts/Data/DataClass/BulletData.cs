@@ -13,5 +13,5 @@ public class BulletData : ScriptableObject
     public DamageType[] damageTypes;
     public float range;
     public float speed;
-    public float craftingSpeed;
+    public float count;  // 객체 1개당 지닐 수 있는 탄환 개수
 }

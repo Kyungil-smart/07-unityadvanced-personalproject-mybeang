@@ -6,6 +6,7 @@ public class MonsterData : ScriptableObject
 {
     public int HP;
     public int damage;
+    public int moveSpeed;
     public List<MonsterAmmorType> amorType;
     public MonsterAttackType attackType;
     public float attackRange;

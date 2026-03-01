@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   HP: 40
   damage: 40
+  moveSpeed: 5
   amorType: 00000000
   attackType: 1
   attackRange: 5

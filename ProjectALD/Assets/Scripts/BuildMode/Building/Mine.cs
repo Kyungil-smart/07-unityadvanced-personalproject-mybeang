@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
 {
-    public ResourceType resourceType;
+    public ItemType itemType;
     [SerializeField] private GameObject _resourcePrefab;
     private bool IsLocked;
     [SerializeField] private GameObject _lockObject;
@@ -36,9 +36,10 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
 
     public void InteractMiner(Miner miner)
     {
+        // ToDo. Object Pool 관리 필요
         GameObject item = Instantiate(_resourcePrefab);
         item.SetActive(false);
-        miner.items.Enqueue(item);
+        miner.items.Enqueue(item.GetComponent<Item>());
     }
 
     public void Unlock()
