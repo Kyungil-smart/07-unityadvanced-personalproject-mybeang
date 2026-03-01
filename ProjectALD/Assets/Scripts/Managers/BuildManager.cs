@@ -32,7 +32,7 @@ public class BuildManager : MonoBehaviour
         if (tile.HasObject != null)
         {
             string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["AlreayBuildingOnTile"];
-            UIControlManager.Instance.WarningText = text;
+            MainUIControlManager.Instance.WarningText = text;
             return;
         }
         MonoBehaviour script = SelectedBuilding?.GetComponent<MonoBehaviour>();
@@ -66,7 +66,7 @@ public class BuildManager : MonoBehaviour
         if (!miner.SearchMine(tile.GridPos))
         {
             string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["MinerMustBuildNearMine"];
-            UIControlManager.Instance.WarningText = text;
+            MainUIControlManager.Instance.WarningText = text;
             return;  
         }
         tile.HasObject = SelectedBuilding;

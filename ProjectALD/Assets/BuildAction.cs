@@ -145,6 +145,24 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd0f1e46-1116-48b7-bb3b-859a9c29f175"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""c643b2ab-4a62-41b9-af36-09e65f299571"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +330,28 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""RotateBuilding"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ec888a6-d0ca-4c84-bd7e-28d97df0565e"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""005e8dad-c297-4bac-86e2-546f064fa79b"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -343,6 +383,8 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_TrackingMousePosition = m_Build.FindAction("TrackingMousePosition", throwIfNotFound: true);
         m_Build_Cancel = m_Build.FindAction("Cancel", throwIfNotFound: true);
         m_Build_RotateBuilding = m_Build.FindAction("RotateBuilding", throwIfNotFound: true);
+        m_Build_Move = m_Build.FindAction("Move", throwIfNotFound: true);
+        m_Build_MoveCamera = m_Build.FindAction("MoveCamera", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -429,6 +471,8 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_TrackingMousePosition;
     private readonly InputAction m_Build_Cancel;
     private readonly InputAction m_Build_RotateBuilding;
+    private readonly InputAction m_Build_Move;
+    private readonly InputAction m_Build_MoveCamera;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -464,6 +508,14 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/RotateBuilding".
         /// </summary>
         public InputAction @RotateBuilding => m_Wrapper.m_Build_RotateBuilding;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/Move".
+        /// </summary>
+        public InputAction @Move => m_Wrapper.m_Build_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/MoveCamera".
+        /// </summary>
+        public InputAction @MoveCamera => m_Wrapper.m_Build_MoveCamera;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -508,6 +560,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @RotateBuilding.started += instance.OnRotateBuilding;
             @RotateBuilding.performed += instance.OnRotateBuilding;
             @RotateBuilding.canceled += instance.OnRotateBuilding;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @MoveCamera.started += instance.OnMoveCamera;
+            @MoveCamera.performed += instance.OnMoveCamera;
+            @MoveCamera.canceled += instance.OnMoveCamera;
         }
 
         /// <summary>
@@ -537,6 +595,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @RotateBuilding.started -= instance.OnRotateBuilding;
             @RotateBuilding.performed -= instance.OnRotateBuilding;
             @RotateBuilding.canceled -= instance.OnRotateBuilding;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @MoveCamera.started -= instance.OnMoveCamera;
+            @MoveCamera.performed -= instance.OnMoveCamera;
+            @MoveCamera.canceled -= instance.OnMoveCamera;
         }
 
         /// <summary>
@@ -632,5 +696,19 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotateBuilding(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MoveCamera" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMoveCamera(InputAction.CallbackContext context);
     }
 }

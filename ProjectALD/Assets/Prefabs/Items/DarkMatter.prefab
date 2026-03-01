@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1551255239950702498}
   - component: {fileID: 991069560510146088}
   - component: {fileID: 5764326395982210518}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DarkMatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

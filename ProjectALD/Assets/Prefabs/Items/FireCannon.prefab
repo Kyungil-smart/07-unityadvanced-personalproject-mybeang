@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5339135773459708912}
   - component: {fileID: 1173285095674861938}
   - component: {fileID: 736733560401622793}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,21 +9,44 @@ public class GameManager : SingleTon<GameManager>
     public bool IsPause;
     public int CurrentWave = 1;
     public int TotalWave = 30;
+
+    private int _currentHp;
+
+    public int currentHp
+    {
+        get { return _currentHp; }
+        set
+        {
+            _currentHp = value;
+            OnChangeCurrentHp?.Invoke(value);
+        }
+    }
+    public UnityEvent<int> OnChangeCurrentHp;
+    private int _totalHp;
+    public UnityEvent<int> OnChangeTotalHp;
+    public int totalHp
+    {
+        get { return _totalHp; }
+        set
+        {
+            _totalHp = value;
+            OnChangeTotalHp?.Invoke(value);
+        }
+    }
+    public int maximumHp = 3000;
+    public int RepairCost => totalHp;  // 어디에 두는게 좋을까?
+    public float HealPoint => totalHp * 0.5f;  // 어디에 두는게 좋을까?
     
-    public int HP;
-    public int RepairCost => HP;
-    public float HealPoint => HP * 0.5f;
-    
-    private int _gold = 1000000;
+    private int _gold;
     public int Gold { 
         get => _gold;
         set
         {
             _gold = value;
-            OnChangedGold?.Invoke();
+            OnChangedGold?.Invoke(value);
         }
     }
-    public UnityEvent OnChangedGold;
+    public UnityEvent<int> OnChangedGold;
     public List<MonoBehaviour> InitialTargetObjects;
     private int _loadingCurStep = 0;
     public UnityEvent OnChangedCurrentStep;
@@ -45,6 +68,9 @@ public class GameManager : SingleTon<GameManager>
 
     private async void Start()
     {
+        totalHp = 100;
+        currentHp = totalHp;
+        Gold = 1000000;
         await Loading();
         StartCoroutine(GameTimeCoroutine());
     }

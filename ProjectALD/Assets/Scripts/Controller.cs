@@ -7,13 +7,16 @@ public class Controller : MonoBehaviour
 {
     private BuildAction _buildAction;
     private Camera _camera;
+    private CameraMovement _cameraMovement;
     private Tile _selectedTile;
     private Vector3 _mouseWorldPos;
+    
 
     private void Awake()
     {
         _buildAction = new BuildAction();
         _camera = Camera.main;
+        _cameraMovement = _camera.gameObject.GetComponent<CameraMovement>();
     }
 
     private void OnEnable()
@@ -26,6 +29,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.TrackingMousePosition.performed += OnTrackingMousePosition;
         _buildAction.Build.Cancel.started += OnCancel;
         _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
+        _buildAction.Build.MoveCamera.started += OnMoveCamera;
     }
 
     private void OnDisable()
@@ -37,6 +41,12 @@ public class Controller : MonoBehaviour
         _buildAction.Build.TrackingMousePosition.performed -= OnTrackingMousePosition;
         _buildAction.Build.Cancel.started -= OnCancel;
         _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
+        _buildAction.Build.MoveCamera.started -= OnMoveCamera;
+    }
+
+    private void OnMoveCamera(InputAction.CallbackContext obj)
+    {
+        _cameraMovement.IsBattleField = !_cameraMovement.IsBattleField;
     }
 
     private void OnSelectBuilding(InputAction.CallbackContext context)
@@ -134,7 +144,7 @@ public class Controller : MonoBehaviour
         } 
     }
 
-public void PickUp(GameObject gameObject)
+    public void PickUp(GameObject gameObject)
     {
         // UI 에서 건물 이동시
     }

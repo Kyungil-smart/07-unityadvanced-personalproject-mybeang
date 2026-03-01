@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6739006202366851363}
   - component: {fileID: 8486696296934699230}
   - component: {fileID: 4363801011417268405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: IceCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
