@@ -4,12 +4,12 @@ using UnityEngine;
 public class SpawanManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> monsterPrefabs;
-    private float minX = 50, maxX = 58, minY = -11, maxY = 11;
+    private float minX = 50, maxX = 58, minY = -6, maxY = 7;
     private bool isSpawan = false;
 
     private void Update()
     {
-        if (!GameManager.Instance.IsPause)
+        if (!GameManager.Instance.IsLoading)
         {
             if (!isSpawan)
             {

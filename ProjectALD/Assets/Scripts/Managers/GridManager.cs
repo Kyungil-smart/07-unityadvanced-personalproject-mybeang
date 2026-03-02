@@ -12,8 +12,8 @@ public class GridManager : MonoBehaviour, IInitializable
     public List<GameObject> MineList;
     public float WallPosX; 
 
-    private int _width = 39;
-    private int _height = 20;
+    private int _width = 25;
+    private int _height = 12;
 
     private int _startPosX;
     private int _startPosY;
@@ -59,12 +59,12 @@ public class GridManager : MonoBehaviour, IInitializable
 
     private void PositioningMines()
     {
-        int y = 7;
+        int y = 8;
         foreach (var mine in MineList)
         {
-            mine.transform.position = _grid[y + 10, 0].transform.position;
-            _grid[y + 10, 0].GetComponent<Tile>().HasObject = mine;
-            y -= 5;
+            mine.transform.position = _grid[y, 19].transform.position;
+            _grid[y, 19].GetComponent<Tile>().HasObject = mine;
+            y -= 4;
         }
     }
 

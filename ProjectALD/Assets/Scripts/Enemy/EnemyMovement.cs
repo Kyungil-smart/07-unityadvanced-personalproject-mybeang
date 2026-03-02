@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     
     private void Start()
     {
-        targetPos = new Vector3(GridManager.Instance.WallPosX, transform.position.y, transform.position.z);
+        targetPos = new Vector3(GridManager.Instance.WallPosX - 0.1f, transform.position.y, transform.position.z);
         status = gameObject.GetComponent<EnemyStatus>();
     }
     

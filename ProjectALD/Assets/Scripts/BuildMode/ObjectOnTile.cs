@@ -103,7 +103,10 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
             cpoint.neighbor = neighbor;
             PrintLog($"{neighbor.name} 와(과) 정상적으로 연결되었음");
         }
-        PrintLog("상대방과 연결에 실패하였음.");
+        else
+        {
+            PrintLog("상대방과 연결에 실패하였음.");    
+        }
     }
     
     public void SetLayerPriority(int priority)

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LbBelt : ObjectOnTile
 {
+    // NotImplement...
     protected override void InitNumberOfConnectPoint()
     {
         

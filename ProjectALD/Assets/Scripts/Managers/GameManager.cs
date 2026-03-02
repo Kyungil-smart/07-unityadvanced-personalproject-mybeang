@@ -7,8 +7,9 @@ using UnityEngine.Events;
 public class GameManager : SingleTon<GameManager>
 {
     public bool IsPause;
+    public bool IsLoading;
     public int CurrentWave = 1;
-    public int TotalWave = 30;
+    public int TotalWave = 15;
 
     private int _currentHp;
 
@@ -65,6 +66,7 @@ public class GameManager : SingleTon<GameManager>
     {
         SingleTonInit();
         IsPause = true;
+        IsLoading = true;
     }
 
     private async void Start()
@@ -98,5 +100,6 @@ public class GameManager : SingleTon<GameManager>
             Debug.Log($"Loading {LoadingCurStep}/{LoadingTotalStep}");
         }
         IsPause = false;
+        IsLoading = false;
     }
 }

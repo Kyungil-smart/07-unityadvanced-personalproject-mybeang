@@ -5,5 +5,6 @@
     Physic,
     Fire,
     Ice,
-    Normal
+    Normal,
+    None
 }

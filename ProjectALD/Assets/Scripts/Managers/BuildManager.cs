@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +8,7 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance;
     public GameObject SelectedBuilding;
+    private int _selectedNumber;
     
     [SerializeField] private List<GameObject> _buildings;
 
@@ -15,24 +17,52 @@ public class BuildManager : MonoBehaviour
         if (Instance == null) Instance = this;
     }
 
+    public void OpenBuildWarningMessage(string key)
+    {
+        string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"][key];
+        MainUIControlManager.Instance.WarningText = text;
+    }
+    
     public void SelectBuilding(int selectNumber, Vector3 position)
     {   // ToDo: Object Pool for buildings
+        _selectedNumber = selectNumber;
         if (SelectedBuilding != null)
         {
             Destroy(SelectedBuilding);
             SelectedBuilding = null;
         }
+
         if (selectNumber > -1)
-            SelectedBuilding = BuildingObject.Create(_buildings[selectNumber - 1], position, Quaternion.identity);
+        {
+            if (selectNumber == 3 || (selectNumber >= 7 && selectNumber <= 9))
+            {
+                OpenBuildWarningMessage("ToDoBuilding");
+                return;
+            }
+            if (selectNumber == 0) selectNumber = _buildings.Count - 1;
+            else selectNumber -= 1;
+            SelectedBuilding = BuildingObject.Create(_buildings[selectNumber], position, Quaternion.identity);
+        }
     }
 
+    private bool AlreayOnBuild(Tile tile)
+    {
+        if (tile.HasObject != null)
+        {
+            Wall wall = tile.HasObject.GetComponent<Wall>();
+            if (wall != null && wall.DefenceUnit == null && SelectedBuilding.tag.Contains("Tower"))
+                return true;
+            return false;
+        }
+        return true;
+    }
+    
     public void Build(Tile tile)
     {
         // 이미 다른 빌딩이 tile 에 있으면 안되야함.
-        if (tile.HasObject != null)
+        if (!AlreayOnBuild(tile))
         {
-            string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["AlreayBuildingOnTile"];
-            MainUIControlManager.Instance.WarningText = text;
+            OpenBuildWarningMessage("AlreayBuildingOnTile");
             return;
         }
         MonoBehaviour script = SelectedBuilding?.GetComponent<MonoBehaviour>();
@@ -52,12 +82,25 @@ public class BuildManager : MonoBehaviour
             BuildFactory(tile);
         }
         // tower
+        else if (script is Tower)
+        {
+            BuildTower(tile);
+        }
     }
 
     private void BuildBelt(Tile tile)
     {
         tile.HasObject = SelectedBuilding;
-        SelectedBuilding = null;
+        if (_selectedNumber == 1)
+        {
+            Vector3 position = SelectedBuilding.transform.position;
+            Quaternion rotation = SelectedBuilding.transform.rotation;
+            SelectedBuilding = BuildingObject.Create(_buildings[_selectedNumber-1], position, rotation);
+        }
+        else
+        {
+            SelectedBuilding = null;    
+        }
     }
 
     private void BuildMiner(Tile tile)
@@ -65,8 +108,7 @@ public class BuildManager : MonoBehaviour
         Miner miner = SelectedBuilding.GetComponent<Miner>();
         if (!miner.SearchMine(tile.GridPos))
         {
-            string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["MinerMustBuildNearMine"];
-            MainUIControlManager.Instance.WarningText = text;
+            OpenBuildWarningMessage("MinerMustBuildNearMine");
             return;  
         }
         tile.HasObject = SelectedBuilding;
@@ -79,9 +121,19 @@ public class BuildManager : MonoBehaviour
         SelectedBuilding = null;
     }
 
-    private void BuildTower()
+    private void BuildTower(Tile tile)
     {
-        
+        if (tile.HasObject?.GetComponent<Wall>() == null)
+        {
+            OpenBuildWarningMessage("TowerShoudBeOnWall");
+            return;
+        }
+        Wall wall = tile.HasObject.GetComponent<Wall>();
+        wall.DefenceUnit = SelectedBuilding;
+        Vector3 curPos = wall.DefenceUnit.transform.position;
+        Vector3 newPos = new Vector3(curPos.x, curPos.y + 1f, 0);
+        wall.DefenceUnit.transform.position = newPos;
+        SelectedBuilding = null;
     }
      
 }

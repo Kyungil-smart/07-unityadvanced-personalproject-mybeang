@@ -12,6 +12,8 @@ public class BulletBox : Item
         items = new Queue<GameObject>();
     }
 
+    public int GetBulletCount() => items.Count;
+
     public void SetLabel(ItemType itemType, SpriteRenderer spriteRenderer)
     {
         label = itemType;
@@ -36,7 +38,7 @@ public class BulletBox : Item
             items.Enqueue(bulletObj);
     }
     
-    public GameObject GetBullet(GameObject bulletObj)
+    public GameObject GetBullet()
     {   // 타워에서 쓸 용도
         if (items.Count > 0)
             return items.Dequeue();

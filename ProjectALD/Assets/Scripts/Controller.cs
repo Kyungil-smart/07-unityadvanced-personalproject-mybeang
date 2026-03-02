@@ -68,7 +68,16 @@ public class Controller : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
             if (hit.collider != null)
             {
-                Tile tile = hit.collider.gameObject.GetComponent<Tile>();
+                Tile tile;
+                if (hit.collider.tag == "Wall")
+                {
+                    Wall wall = hit.collider.GetComponent<Wall>();
+                    tile = wall.myTile;
+                }
+                else
+                {
+                    tile = hit.collider.gameObject.GetComponent<Tile>(); 
+                }
                 tile.DrawOutline(true);
                 _selectedTile = tile;
                 if (BuildManager.Instance.SelectedBuilding != null)
