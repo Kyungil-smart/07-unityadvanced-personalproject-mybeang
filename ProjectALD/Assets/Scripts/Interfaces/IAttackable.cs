@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public interface IAttackable
 {
-    public void Attack();
+    public IEnumerator Attack();
 }

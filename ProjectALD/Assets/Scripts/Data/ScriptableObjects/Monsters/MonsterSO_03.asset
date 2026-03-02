@@ -17,7 +17,7 @@ MonoBehaviour:
   moveSpeed: 5
   amorType: 0100000005000000
   attackType: 0
-  attackRange: 1
+  attackRange: 2
   maxAvailableSpawnCount: 40
   firstSpawnCount: 5
   multiplierHpForWave: 1.3

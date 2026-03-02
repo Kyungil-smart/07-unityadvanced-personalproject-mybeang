@@ -10,6 +10,7 @@ public class GridManager : MonoBehaviour, IInitializable
     public GameObject TilePrefab;
     public GameObject WallPrefab;
     public List<GameObject> MineList;
+    public float WallPosX; 
 
     private int _width = 39;
     private int _height = 20;
@@ -47,7 +48,10 @@ public class GridManager : MonoBehaviour, IInitializable
                 Tile t = tile.GetComponent<Tile>();
                 t.GridPos = new Vector2Int(x, y);
                 if (x == _width - 1)
+                {
                     t.HasObject = Instantiate(WallPrefab, pos, Quaternion.identity);
+                    WallPosX = t.transform.position.x;
+                }
                 _grid[y, x] = tile;
             }
         }

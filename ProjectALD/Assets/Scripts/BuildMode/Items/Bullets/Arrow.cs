@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Arrow : Item, IAttackable
@@ -18,11 +19,12 @@ public class Arrow : Item, IAttackable
         }
     }
 
-    public void Attack()
+    public IEnumerator Attack()
     {
         if (_target != null)
         {
             _target.GetComponent<IDamagable>()?.TakeDamage(data.damage);
         }
+        yield return null;
     }
 }

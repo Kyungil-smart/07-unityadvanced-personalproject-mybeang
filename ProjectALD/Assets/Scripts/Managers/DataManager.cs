@@ -29,7 +29,9 @@ public class DataManager : MonoBehaviour, IInitializable
         {
             IList<T> dataList = handle.Result;
             foreach (var data in dataList)
+            {
                 dict.TryAdd(data.name, data);
+            }
         }
         
     }

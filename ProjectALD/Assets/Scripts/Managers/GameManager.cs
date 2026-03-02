@@ -33,7 +33,7 @@ public class GameManager : SingleTon<GameManager>
             OnChangeTotalHp?.Invoke(value);
         }
     }
-    public int maximumHp = 3000;
+    public int maximumHp = 5000;
     public int RepairCost => totalHp;  // 어디에 두는게 좋을까?
     public float HealPoint => totalHp * 0.5f;  // 어디에 두는게 좋을까?
     
@@ -64,11 +64,12 @@ public class GameManager : SingleTon<GameManager>
     private void Awake()
     {
         SingleTonInit();
+        IsPause = true;
     }
 
     private async void Start()
     {
-        totalHp = 100;
+        totalHp = 1000;
         currentHp = totalHp;
         Gold = 1000000;
         await Loading();
@@ -96,5 +97,6 @@ public class GameManager : SingleTon<GameManager>
             }
             Debug.Log($"Loading {LoadingCurStep}/{LoadingTotalStep}");
         }
+        IsPause = false;
     }
 }

@@ -8577,6 +8577,52 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &668723113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668723114}
+  - component: {fileID: 668723115}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &668723114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668723113}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.4, y: -11.86, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &668723115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668723113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6533a7c47b947e4a5cc0e619a8d103d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawanManager
+  monsterPrefabs:
+  - {fileID: 5840038882737305133, guid: 58340704ef495df4fbf0957fdbe6ea7d, type: 3}
 --- !u!1 &670683510
 GameObject:
   m_ObjectHideFlags: 0
@@ -47338,6 +47384,7 @@ MonoBehaviour:
   - {fileID: 1991074654}
   - {fileID: 749093597}
   - {fileID: 146074894}
+  WallPosX: 0
 --- !u!1 &2023904275
 GameObject:
   m_ObjectHideFlags: 0
@@ -48821,6 +48868,7 @@ SceneRoots:
   - {fileID: 1396696743}
   - {fileID: 231811616}
   - {fileID: 2012554019}
+  - {fileID: 668723114}
   - {fileID: 976192834}
   - {fileID: 619394802}
   - {fileID: 1028954595}
