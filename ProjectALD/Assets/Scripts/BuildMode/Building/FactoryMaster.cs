@@ -5,7 +5,17 @@ using UnityEngine;
 public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGet, IInteractableBeltPut, ISelectableBullet
 {
     // Inspector
-    public ItemType curBulletType;
+    [SerializeField] private ItemType _curBulletType;
+
+    public ItemType curBulletType
+    {
+        get { return _curBulletType; }
+        set
+        {
+            _curBulletType = value;
+            SelectBullet(value);
+        }
+    }
     [SerializeField] private GameObject _bulletBoxPrefab;
     [SerializeField] private List<GameObject> _bulletPrefabs;  // pairing to _cacheBullets
     [SerializeField] private GameObject _panel;
@@ -72,26 +82,34 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
         {
             ConnectToNeighbor(both);
         }
-        
-        // Test 용. 추후 UI 로 select 진행.
-        ReadyToCreate(ItemType.Arrow); 
-        
         // connectable 확인 된 후에 진행.
         _createCoroutine = StartCoroutine(CreateCroutine());
     }
-
-    private void ReadyToCreate(ItemType itemType)
+    
+    private void ReadyToCreate()
     {
-        curBulletType = itemType;
-        InputStorage = new ();
-        
-        // ToDo. 레시피 참고해서 데이터 구성 필요
-        InputStorage.Add(ItemType.Copper, new Queue<Item>());
+        ClearStorage();
+        SetStorage();
         
         // 공장에 간판 걸기
-        (var item, var prefab) = GetBulletData(curBulletType);
+        (var item, var prefab) = GetBulletData(_curBulletType);
+        if (item.itemType == ItemType.Cannon)
+        {
+            _bulletSROnPanel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        }
+        else
+        {
+            _bulletSROnPanel.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
         _bulletSROnPanel.sprite = item.spriteRenderer.sprite;
         _panel.SetActive(true);
+
+        if (_createCoroutine != null)
+        {   // bullet Type 변경 후 이미 생산중인 것이 있으면 모두 버리고 새로 시작
+            StopCoroutine(_createCoroutine);
+            _bulletBox = null;
+            _createCoroutine = StartCoroutine(CreateCroutine());
+        }
     }
 
     public override void TakeOffTileHandler()
@@ -119,33 +137,40 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
     private void ReadyBulletBox()
     {
         // ToDo. Object Pool 관리 필요.
-        GameObject bulletBoxObj = Instantiate(_bulletBoxPrefab);
-        bulletBoxObj.SetActive(false);
-        _bulletBox = bulletBoxObj.GetComponent<BulletBox>();
-        (Item bullet, GameObject bulletObj) = GetBulletData(curBulletType);
-        _bulletBox.SetLabel(curBulletType, bullet.spriteRenderer);
+        if (_curBulletType != ItemType.None)
+        {
+            GameObject bulletBoxObj = Instantiate(_bulletBoxPrefab);
+            bulletBoxObj.SetActive(false);
+            _bulletBox = bulletBoxObj.GetComponent<BulletBox>();
+            (Item bullet, GameObject bulletObj) = GetBulletData(_curBulletType);
+            _bulletBox.SetLabel(_curBulletType, bullet.spriteRenderer);    
+        }
     }
     
     private bool IsEnoughResources()
     {
         PrintLog("재고를 확인한다.");
-        bool result = true;
+        List<bool> results =  new();
         if (_bulletBox == null) return false;
-        PrintLog("BulletBox 는 확인되었다.");
+        PrintLog("탄약 박스는 확인되었다.");
         if (_bulletBox.data.copperCnt > 0)
-            result = InputStorage[ItemType.Copper].Count >= _bulletBox.data.copperCnt;
+            results.Add(InputStorage[ItemType.Copper].Count >= _bulletBox.data.copperCnt);
         if (_bulletBox.data.iconCnt > 0)
-            result = InputStorage[ItemType.Iron].Count >= _bulletBox.data.iconCnt;
+            results.Add(InputStorage[ItemType.Iron].Count >= _bulletBox.data.iconCnt);
         if (_bulletBox.data.fireEleCnt > 0)
-            result = InputStorage[ItemType.Fire].Count >= _bulletBox.data.fireEleCnt;
+            results.Add(InputStorage[ItemType.Fire].Count >= _bulletBox.data.fireEleCnt);
         if (_bulletBox.data.iceEleCnt > 0)
-            result = InputStorage[ItemType.Ice].Count >= _bulletBox.data.iceEleCnt;
-        PrintLog($"재고가 충분한가? {result}");
-        if (!result)
+            results.Add(InputStorage[ItemType.Ice].Count >= _bulletBox.data.iceEleCnt);
+        foreach (var res in results)
         {
-            PrintLog($"{ItemType.Copper} 재고: {InputStorage[ItemType.Copper].Count}");
+            if (!res)
+            {
+                PrintLog($"재고가 충분하지 않다.");
+                return false;
+            } 
         }
-        return result;
+        PrintLog($"재고가 충분하다.");
+        return true;
     }
 
     private void WastResource(ItemType itemType, int count)
@@ -157,7 +182,15 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
     
     private void CreateBulletBox()
     {
-        // TODO: State pattern 으로 가능할 것 같음.
+        if (_curBulletType == ItemType.None) return;
+        if (_outputStorage.Count > _maxOutput) return;
+
+        if (InputStorage.Keys.Count == 0)
+        {
+            PrintLog("인입 창고가 비었다. 창고 준비하자.");
+            ReadyToCreate();
+        }
+        
         PrintLog("탄환 박스 생성 시작.");
         // bulletbox 가 없으면 생성
         if (_bulletBox == null)
@@ -175,7 +208,7 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
         
         // 생산
         PrintLog("탄환을 생산해 탄환 박스에 넣는다.");
-        (Item bullet, GameObject bulletPrefab) = GetBulletData(curBulletType);
+        (Item bullet, GameObject bulletPrefab) = GetBulletData(_curBulletType);
         while (!_bulletBox.IsFull())
         {
             // ToDo. Object Pool 최적화 필요 포인트.
@@ -191,21 +224,25 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
 
     public void ClearStorage()
     {
+        InputStorage = null;
         InputStorage = new ();
         _outputStorage.Clear();
     }
 
-    public void SetStorage(List<ItemType> itemTypes)
+    public void SetStorage()
     {
-        foreach (var item in itemTypes)
-        {
-            InputStorage.Add(item, new Queue<Item>());
-        }
+        // 레시피에 맞춰 인입 창고 재구성
+        BulletData bulletData = DataManager.Instance.bulletData[$"{_curBulletType}SO"];
+        PrintLog($"{_curBulletType} 의 창고 재구성.");
+        if (bulletData.copperCnt > 0) InputStorage.Add(ItemType.Copper, new Queue<Item>());
+        if (bulletData.iconCnt > 0) InputStorage.Add(ItemType.Iron, new Queue<Item>());
+        if (bulletData.fireEleCnt > 0) InputStorage.Add(ItemType.Fire, new Queue<Item>());
+        if (bulletData.iceEleCnt > 0) InputStorage.Add(ItemType.Ice, new Queue<Item>());
     }
 
     public void SelectBullet(ItemType itemType)  
-    {  // UI 에서 어떤 bullet 을 만들건지 고르는 것.
-        
+    {   // Interface 의 명분을 주기 위해...
+        ReadyToCreate();
     }
 
     public void InteractBeltPut(Item acquiredItem)

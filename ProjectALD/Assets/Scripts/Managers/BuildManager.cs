@@ -11,6 +11,7 @@ public class BuildManager : MonoBehaviour
     private int _selectedNumber;
     
     [SerializeField] private List<GameObject> _buildings;
+    [SerializeField] private FactoryUIControl _factoryUI;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class BuildManager : MonoBehaviour
     public void OpenBuildWarningMessage(string key)
     {
         string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"][key];
-        MainUIControlManager.Instance.WarningText = text;
+        MainUIControl.Instance.WarningText = text;
     }
     
     public void SelectBuilding(int selectNumber, Vector3 position)
@@ -118,7 +119,23 @@ public class BuildManager : MonoBehaviour
     private void BuildFactory(Tile tile)
     {
         tile.HasObject = SelectedBuilding;
+        OpenFactoryUI(tile);
         SelectedBuilding = null;
+    }
+
+    public void OpenFactoryUI(Tile tile)
+    {
+        FactoryMaster factory = tile.HasObject.GetComponent<FactoryMaster>();
+        if (factory != null)
+        {
+            _factoryUI.factory = factory;
+            _factoryUI.gameObject.SetActive(true);
+        }
+    }
+
+    public void CloseFactoryUI()
+    {
+        _factoryUI.gameObject.SetActive(false);
     }
 
     private void BuildTower(Tile tile)

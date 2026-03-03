@@ -13,7 +13,6 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     public Queue<Item> items = new();
     private WaitForSeconds _oneSecond = new WaitForSeconds(1f);
     private Coroutine _minerCoroutine;
-    private bool _connectedMine;
     private Mine _mine;
     private GameObject _mineObj;
     private MinerData _minerData;
@@ -79,7 +78,6 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     public bool SearchMine(Vector2Int gridPos)
     {
         // Stop Mining before search.
-        _connectedMine = false;
         StopMining();
         
         PrintLog("주변 광산 탐색 시작");
@@ -107,7 +105,6 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
             if (_mine.IsConnectWith(gameObject, tail))
             {
                 tail.neighbor = _mineObj;
-                _connectedMine = true;
                 PrintLog($"{tail.direction} 연결됨");
                 StartMining();
                 return;

@@ -5,9 +5,9 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 
-public class MainUIControlManager : MonoBehaviour
+public class MainUIControl : MonoBehaviour
 {
-    public static MainUIControlManager Instance;
+    public static MainUIControl Instance;
     // UI 제어용 Inspector 에 노출하여 연결해 주어야 할 것들.
     [Header("For Warning Text")]
     [SerializeField] private GameObject _WarningWindow;

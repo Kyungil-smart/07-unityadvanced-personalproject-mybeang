@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     private Tile _selectedTile;
     private Vector3 _mouseWorldPos;
     // 일단 넣어봐.. 어디서 어떻게 하는게 좋은지 좀.. 생각좀..
-    [SerializeField] private Canvas _menuUICanvas;
+    [SerializeField] private MenuUIControl _menuUI;
     
     private void Awake()
     {
@@ -51,12 +51,13 @@ public class Controller : MonoBehaviour
 
     private void OnOpenMenu(InputAction.CallbackContext obj)
     {
-        _menuUICanvas.gameObject.SetActive(!_menuUICanvas.gameObject.activeSelf);
+        _menuUI.gameObject.SetActive(!_menuUI.gameObject.activeSelf);
     }
 
     private void OnMoveCamera(InputAction.CallbackContext obj)
     {
         _cameraMovement.IsBattleField = !_cameraMovement.IsBattleField;
+        _menuUI.IsBattleField = !_menuUI.IsBattleField;
     }
 
     private void OnSelectBuilding(InputAction.CallbackContext context)
@@ -79,7 +80,7 @@ public class Controller : MonoBehaviour
             if (hit.collider != null)
             {
                 Tile tile;
-                if (hit.collider.tag == "Wall")
+                if (hit.collider.tag.Contains("Wall"))
                 {
                     Wall wall = hit.collider.GetComponent<Wall>();
                     tile = wall.myTile;
@@ -92,12 +93,15 @@ public class Controller : MonoBehaviour
                 _selectedTile = tile;
                 if (BuildManager.Instance.SelectedBuilding != null)
                 {
-                    Debug.Log($"{BuildManager.Instance.SelectedBuilding.name} 빌딩을 지어라");
+                    Debug.Log($"build {BuildManager.Instance.SelectedBuilding.name}");
                     BuildManager.Instance.Build(tile);
                 }
                 else if (tile.HasObject != null)
                 {
-                    Debug.Log("해당하는 메뉴를 열어라");
+                    if (tile.HasObject.GetComponent<FactoryMaster>() != null)
+                    {
+                        BuildManager.Instance.OpenFactoryUI(tile);
+                    }
                 }
             }
             else
@@ -111,6 +115,7 @@ public class Controller : MonoBehaviour
     {
         if (_selectedTile != null) _selectedTile.DrawOutline(false);
         _selectedTile = null;
+        BuildManager.Instance.CloseFactoryUI();
         BuildManager.Instance.SelectBuilding(-1, Vector2.zero);
     }
 
