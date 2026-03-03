@@ -17,26 +17,26 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
     public abstract void TakeOffTileHandler();
 
     public void PrintLog(string text) 
-        => Debug.Log($"[{myTile.GridPos.x},{myTile.GridPos.y}]({gameObject.name}) {text}");
+        => Debug.Log($"[{myTile?.GridPos.x},{myTile?.GridPos.y}]({gameObject.name}) {text}");
     
     public bool IsConnectable(GameObject neigbor, ConnectPoint cpoint)
     {   // 상대방이 연결 가능한 상태인지 확인하는 함수.
-        PrintLog($"{cpoint.direction}) -> {neigbor}; 연결 가능 여부 확인 시작");
+        PrintLog($"{cpoint.direction}) -> {neigbor.name}; 연결 가능 여부 확인 시작");
         if (neigbor == null) return false;
         // 벨트 액션이 가능한지 여부 확인.
         if (neigbor.GetComponent<IInteractableBeltGet>() == null && neigbor.GetComponent<IInteractableBeltPut>() == null)
             return false;
-        PrintLog($"{cpoint.direction}) -> {neigbor}; 벨트 액션이 가능한지 여부 확인 완료.");
+        PrintLog($"{cpoint.direction}) -> {neigbor.name}; 벨트 액션이 가능한지 여부 확인 완료.");
         ObjectOnTile neighborOot = neigbor.GetComponent<ObjectOnTile>();
         if (neighborOot == null) return false;
         // 상대방에게 나와 Interaction 을 위한 맺음이 가능한지 여부 질의
-        PrintLog($"{cpoint.direction}) -> {neigbor}; 상대방에게 나와 Interaction 을 위한 맺음이 가능한지 여부 질의.");
+        PrintLog($"{cpoint.direction}) -> {neigbor.name}; 상대방에게 나와 Interaction 을 위한 맺음이 가능한지 여부 질의.");
         if (!neighborOot.IsConnectWith(gameObject, cpoint))
         {
-            PrintLog($"{cpoint.direction}) -> {neigbor}; 연결 불가");
+            PrintLog($"{cpoint.direction}) -> {neigbor.name}; 연결 불가");
             return false;
         }
-        PrintLog($"{cpoint.direction}) -> {neigbor}; 연결 가능");
+        PrintLog($"{cpoint.direction}) -> {neigbor.name}; 연결 가능");
         return true;
     }
     
@@ -49,28 +49,35 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
         bool result;
         if (neighborCpoint.type == ConnectPointType.Tail)
         {
+            PrintLog($"check Tail -> Head");
             result = ValidateNeighbor(neighbor, neighborCpoint, heads);
             if (!result)
             {
+                PrintLog($"check Tail -> Both");
                 result = ValidateNeighbor(neighbor, neighborCpoint, bothes);
             }
         }
         else if (neighborCpoint.type == ConnectPointType.Head)
         {
+            PrintLog($"check Head -> Tail");
             result = ValidateNeighbor(neighbor, neighborCpoint, tails);
             if (!result)
             {
+                PrintLog($"check Head -> Both");
                 result = ValidateNeighbor(neighbor, neighborCpoint, bothes);
             }
         }
         else
         {  // Both Type
+            PrintLog($"check Both -> Both");
             result = ValidateNeighbor(neighbor, neighborCpoint, bothes); 
             if (!result)
             {
+                PrintLog($"check Both -> Head");
                 result = ValidateNeighbor(neighbor, neighborCpoint, heads);
                 if (!result)
                 {
+                    PrintLog($"check Both -> Tail");
                     result = ValidateNeighbor(neighbor, neighborCpoint, tails);
                 }
             }
@@ -80,13 +87,17 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
 
     private bool ValidateNeighbor(GameObject neighbor, ConnectPoint neighborCpoint, List<ConnectPoint> cpoints)
     {
+        PrintLog($"validate neighbor => {neighbor.name}.{neighborCpoint.direction} // {cpoints.Count}");
         foreach (var cpoint in cpoints)
         {
+            PrintLog($"validate neighbor => {neighbor.name}.{neighborCpoint.direction} vs {cpoint.direction}");
             if (DirectionUtil.IsOppositeDirection(cpoint.direction, neighborCpoint.direction))
             {   // validate 과정에서 connect 발생. 좋은지 안좋은지 잘 모르겠음....
                 cpoint.neighbor = neighbor;
+                PrintLog($"validate neighbor => {neighbor.name}.{neighborCpoint.direction} vs {cpoint.direction} ; 성공");
                 return true;
             }
+            PrintLog($"validate neighbor => {neighbor.name}.{neighborCpoint.direction} vs {cpoint.direction} ; 실패");
         }
         return false;
     }

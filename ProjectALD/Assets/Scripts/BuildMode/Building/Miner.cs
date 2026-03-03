@@ -16,8 +16,20 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     private bool _connectedMine;
     private Mine _mine;
     private GameObject _mineObj;
-    
     private MinerData _minerData;
+    public ConnectPoint head
+    {
+        get
+        {
+            if (heads.Count == 0) return null;
+            return heads[0];
+        }
+        set
+        {
+            if (heads.Count == 0) heads.Add(value);
+            else heads[0] = value;
+        } 
+    }
 
     private void Awake()
     {
@@ -50,6 +62,8 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     public override void PutOnTileHandler()
     {
         _spriteRenderer.sortingLayerName = "FactoryMine";
+        foreach (var head in heads)
+            ConnectToNeighbor(head);
         if (SearchMine(myTile.GridPos))
         {
             ConnectToMine();
@@ -68,12 +82,15 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
         _connectedMine = false;
         StopMining();
         
+        PrintLog("주변 광산 탐색 시작");
         GameObject[] objects = GridManager.Instance.GetObjectsAroundTile(gridPos);
         if (objects.Length == 0) return false;
+        PrintLog("주변 뭔가 있음");
         foreach (var obj in objects)
         {
             if (obj?.GetComponent<Mine>() != null)
             {
+                PrintLog("주변 광산 있음");
                 _mineObj = obj;
                 _mine = obj.GetComponent<IInteracterableMiner>() as Mine;
                 return true;
@@ -86,25 +103,30 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     {
         foreach (ConnectPoint tail in tails)
         {
+            PrintLog($"{tail.direction} 은 연결 가능?");
             if (_mine.IsConnectWith(gameObject, tail))
             {
                 tail.neighbor = _mineObj;
                 _connectedMine = true;
+                PrintLog($"{tail.direction} 연결됨");
                 StartMining();
                 return;
             }
+            PrintLog($"{tail.direction} 은 연결 안됨");
         }
         _mine = null;
     }
 
     private void StartMining()
     {
+        PrintLog("일하기 시작");
         _animator.SetBool("IsPicking", true);
         _minerCoroutine = StartCoroutine(MiningRoutine());
     }
 
     private void StopMining()
     {
+        PrintLog("퇴근");
         _animator.SetBool("IsPicking", false);
         if(_minerCoroutine != null) StopCoroutine(_minerCoroutine);
         _minerCoroutine = null;
@@ -133,23 +155,22 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
         }
     }
     
-    public void InteractBeltGet<T>(T belt) where T : ObjectOnTile, IBelt
+    public Item InteractBeltGet()
     {
-        if (items.Count == 0) return;
-        if (belt.item == null)
-            belt.item = items.Dequeue();
+        if (items.Count == 0) return null;
+        return items.Dequeue();
     }
 
     protected override void InitNumberOfConnectPoint()
     {
         heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.East, null));
         heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.South, null));
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.West, null));
         heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.North, null));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.West, null));
         
         tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.East, null));
+        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.North, null));
         tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.South, null));
         tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.West, null));
-        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.North, null));
     }
 }

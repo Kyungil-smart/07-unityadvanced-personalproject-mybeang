@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-public class Tile : MonoBehaviour, IPlacable, IRotatable
+public class Tile : MonoBehaviour, IPlacable, IRotatable, IFlip
 {
     private GameObject _hasObject;
 
@@ -69,5 +69,10 @@ public class Tile : MonoBehaviour, IPlacable, IRotatable
     public void Rotate()
     {
         (HasObject.GetComponent<MonoBehaviour>() as IRotatable)?.Rotate();
+    }
+
+    public void Flip()
+    {
+        (HasObject.GetComponent<MonoBehaviour>() as IFlip)?.Flip();
     }
 }

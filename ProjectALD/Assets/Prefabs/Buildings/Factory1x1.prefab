@@ -293,7 +293,8 @@ MonoBehaviour:
   _bulletBoxPrefab: {fileID: 4182596077263317047, guid: 05cf4e150348e1d4d8fb05480cd6e530, type: 3}
   _bulletPrefabs:
   - {fileID: 2454203789908914030, guid: 3bffdbab403d58b4ab995c7be8726890, type: 3}
+  - {fileID: 2508728815587909875, guid: 1bc10ddaabcc413419b3593bdbf6a4df, type: 3}
+  - {fileID: 2170536744875202000, guid: 23d46ef646d555e4abe3420af1f29b10, type: 3}
   _panel: {fileID: 547100117737361413}
   _bulletSROnPanel: {fileID: 4826377734417621468}
   _factorySlaves: []
-  outputStorageCount: 0

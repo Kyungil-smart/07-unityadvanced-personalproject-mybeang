@@ -11,7 +11,6 @@ public class Controller : MonoBehaviour
     private Tile _selectedTile;
     private Vector3 _mouseWorldPos;
     
-
     private void Awake()
     {
         _buildAction = new BuildAction();
@@ -30,6 +29,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.Cancel.started += OnCancel;
         _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
         _buildAction.Build.MoveCamera.started += OnMoveCamera;
+        _buildAction.Build.FlipCurvBelt.started += OnFlipCurvBelt;
     }
 
     private void OnDisable()
@@ -42,6 +42,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.Cancel.started -= OnCancel;
         _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
         _buildAction.Build.MoveCamera.started -= OnMoveCamera;
+        _buildAction.Build.FlipCurvBelt.started -= OnFlipCurvBelt;
     }
 
     private void OnMoveCamera(InputAction.CallbackContext obj)
@@ -153,6 +154,21 @@ public class Controller : MonoBehaviour
         } 
     }
 
+    private void OnFlipCurvBelt(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (BuildManager.Instance.SelectedBuilding != null)
+            {
+                BuildManager.Instance.SelectedBuilding.GetComponent<IFlip>()?.Flip();
+            } 
+            else if (_selectedTile != null)
+            {
+                _selectedTile.Flip();
+            }
+        }
+    }
+    
     public void PickUp(GameObject gameObject)
     {
         // UI 에서 건물 이동시

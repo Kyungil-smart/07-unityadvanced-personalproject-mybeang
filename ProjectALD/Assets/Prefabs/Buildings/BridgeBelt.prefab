@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1448783847
-  m_SortingLayer: 7
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: e28db06cb1b77ef4ea7eaaa845a1a558, type: 2}
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BridgeBelt
   myTile: {fileID: 0}
+  upperItem: {fileID: 0}
 --- !u!95 &8118692762467944375
 Animator:
   serializedVersion: 7

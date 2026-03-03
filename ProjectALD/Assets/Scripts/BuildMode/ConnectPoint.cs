@@ -24,4 +24,8 @@ public class ConnectPoint
         this.direction = direction;
         this.neighbor = neighbor;
     }
+    
+    public void RotateConnectPoint() => DirectionUtil.Rotate(ref direction);
+
+    public void FlipConnectPoint() => DirectionUtil.Flip(ref direction);
 }

@@ -7,6 +7,7 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
     public Item item { get; set; }
     public SpriteRenderer subSpriteRenderer;
     public GameObject iconPrefab;
+    public Canvas helpCanvas;
     private WaitForSeconds _deliveryInterval;
 
     public ConnectPoint tail
@@ -39,9 +40,6 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
     
     private Coroutine _deliverItemRoutine;
 
-    private IInteractableBeltGet _getFromNeighbor;
-    private IInteractableBeltPut _putToNeighbor;
-    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -72,6 +70,7 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
 
     public override void PutOnTileHandler()
     {
+        helpCanvas.gameObject.SetActive(false); 
         _spriteRenderer.sortingLayerName = "Belt";
         ConnectToNeighbor(head);
         ConnectToNeighbor(tail);
@@ -85,7 +84,7 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
 
     private void StartOperation()
     {
-        _deliverItemRoutine = StartCoroutine(DeliverItem());
+        _deliverItemRoutine = StartCoroutine(DeliverItemCoroutine());
     }
 
     private void StopOperation()
@@ -94,7 +93,7 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
         _deliverItemRoutine = null;
     }
 
-    public IEnumerator DeliverItem()
+    public IEnumerator DeliverItemCoroutine()
     {
         while (true)
         {
@@ -106,10 +105,15 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
 
     public void GetItem()
     {
-        if (item == null)
+        if (item == null && tail.getFromNeighbor != null)
         {
-            tail.getFromNeighbor?.InteractBeltGet(this);
+            item = tail.getFromNeighbor.InteractBeltGet();
+            UpdateSubItemIcon();
         }
+    }
+
+    private void UpdateSubItemIcon()
+    {
         if (item != null)
         {
             subSpriteRenderer.sprite = item.spriteRenderer.sprite;
@@ -125,7 +129,6 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
         }
         else
         {
-            PrintLog("아이템이없다고?");
             subSpriteRenderer.sprite = null;
             subSpriteRenderer.color = Color.white;
         }
@@ -133,7 +136,11 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
 
     public void PutItem()
     {
-        head.putToNeighbor?.InteractBeltPut(this);
+        if (item != null && head.putToNeighbor != null)
+        {
+            head.putToNeighbor.InteractBeltPut(item);
+            item = null;
+        }
     }
 
     private bool IsConnected()
@@ -153,8 +160,8 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
         RotateImage();
         
         // Connect Point 변경
-        RotateConnectPoint(head);
-        RotateConnectPoint(tail);
+        head.RotateConnectPoint();
+        tail.RotateConnectPoint();
         if (myTile != null)
         {
             // 타일 위에 이미 지어진 것이면 다시 Connection 시도.
@@ -167,15 +174,13 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
     {
         _animator?.SetTrigger("Rotate");
     }
-
-    private void RotateConnectPoint(ConnectPoint cpoint) => DirectionUtil.Rotate(ref cpoint.direction);
     
-    public void InteractBeltPut<T>(T belt) where T : ObjectOnTile, IBelt
+    public void InteractBeltPut(Item acquiredItem)
     {
-        if (belt.item != null && item == null)
-        {   
-            item = belt.item;
-            belt.item = null;
+        if (item == null)
+        {
+            item = acquiredItem;
+            UpdateSubItemIcon();
         }
     }
 }

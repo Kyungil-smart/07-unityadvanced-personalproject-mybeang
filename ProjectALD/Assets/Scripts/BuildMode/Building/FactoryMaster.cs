@@ -100,13 +100,11 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
         _createCoroutine = null;
     }
 
-    public void InteractBeltGet<T>(T belt) where T : ObjectOnTile, IBelt
+    public Item InteractBeltGet()
     {
-        if (_outputStorage.Count > 0 && belt.item == null)
-        {
-            Item bulletBox = _outputStorage.Dequeue();
-            belt.item = bulletBox;
-        }
+        if (_outputStorage.Count > 0)
+            return _outputStorage.Dequeue();
+        return null;
     }
 
     private IEnumerator CreateCroutine()
@@ -210,16 +208,15 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
         
     }
 
-    public void InteractBeltPut<T>(T belt) where T : ObjectOnTile, IBelt
+    public void InteractBeltPut(Item acquiredItem)
     {
         PrintLog("벨트에서 뭔가 들어온다.");
-        if (InputStorage == null || belt.item == null) return;
-        PrintLog($"{belt.item.itemType} 이 들어온다. ");
-        if (InputStorage.ContainsKey(belt.item.itemType) && InputStorage[belt.item.itemType].Count < _maxInput)
+        if (InputStorage == null || acquiredItem == null) return;
+        PrintLog($"{acquiredItem.itemType} 이 들어온다. ");
+        if (InputStorage.ContainsKey(acquiredItem.itemType) && InputStorage[acquiredItem.itemType].Count < _maxInput)
         {
-            PrintLog($"{belt.item.itemType}를 창고에 쌓자. ");
-            InputStorage[belt.item.itemType].Enqueue(belt.item);
-            belt.item = null;
+            PrintLog($"{acquiredItem.itemType}를 창고에 쌓자. ");
+            InputStorage[acquiredItem.itemType].Enqueue(acquiredItem);
         }
     }
 }

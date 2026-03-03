@@ -18,9 +18,11 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
 
     protected override void InitNumberOfConnectPoint()
     {
+        PrintLog($"{gameObject.name} work init number of connect point.");
         heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.East, null));
         heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.South, null));
         heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.North, null));
+        PrintLog($"{gameObject.name} makes {heads.Count} connect points.");
     }
 
     public override void PutOnTileHandler()

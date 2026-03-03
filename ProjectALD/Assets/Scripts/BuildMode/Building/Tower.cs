@@ -75,6 +75,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
             } 
             else if (bulletBox != null && bulletBox.GetBulletCount() == 0)
             {
+                PrintLog("탄약이 모두 소비되었습니다.");
                 // ToDo. Object Pool
                 Destroy(bulletBox);
                 bulletBox = null;
@@ -115,12 +116,12 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
     public override void TakeOffTileHandler()
     { }
 
-    public void InteractBeltPut<T>(T belt) where T : ObjectOnTile, IBelt
+    public void InteractBeltPut(Item acquiredItem)
     {
         if (bulletBox == null)
         {
             PrintLog("탄약 수급");
-            bulletBox = belt.item as BulletBox;
+            bulletBox = acquiredItem as BulletBox;
             data = bulletBox.data;
             attackInterval = new WaitForSeconds(data.attackRate);
         }

@@ -30,12 +30,31 @@ public static class DirectionUtil
         }
     }
 
+    public static void Flip(ref Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.East:
+                dir = Direction.West;
+                break;
+            case Direction.South:
+                dir = Direction.North;
+                break;
+            case Direction.North:
+                dir = Direction.South;
+                break;
+            default:
+                dir = Direction.East;
+                break;
+        }
+    }
+
     public static bool IsOppositeDirection(Direction orgDir, Direction targetDir)
     {
         if ((orgDir == Direction.East && targetDir == Direction.West) ||
             (orgDir == Direction.West && targetDir == Direction.East) ||
-            (orgDir == Direction.North && targetDir == Direction.North) ||
-            (orgDir == Direction.East && targetDir == Direction.South))
+            (orgDir == Direction.North && targetDir == Direction.South) ||
+            (orgDir == Direction.South && targetDir == Direction.North))
             return true;
         return false;
     }
