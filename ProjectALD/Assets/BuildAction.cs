@@ -172,6 +172,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1c0e6cd-4dd4-4754-be15-f4409a603aac"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -372,6 +381,17 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""FlipCurvBelt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4659749c-4904-4113-b2b0-14fb09fed773"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -406,6 +426,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_Move = m_Build.FindAction("Move", throwIfNotFound: true);
         m_Build_MoveCamera = m_Build.FindAction("MoveCamera", throwIfNotFound: true);
         m_Build_FlipCurvBelt = m_Build.FindAction("FlipCurvBelt", throwIfNotFound: true);
+        m_Build_OpenMenu = m_Build.FindAction("OpenMenu", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -495,6 +516,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_Move;
     private readonly InputAction m_Build_MoveCamera;
     private readonly InputAction m_Build_FlipCurvBelt;
+    private readonly InputAction m_Build_OpenMenu;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -542,6 +564,10 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/FlipCurvBelt".
         /// </summary>
         public InputAction @FlipCurvBelt => m_Wrapper.m_Build_FlipCurvBelt;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/OpenMenu".
+        /// </summary>
+        public InputAction @OpenMenu => m_Wrapper.m_Build_OpenMenu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -595,6 +621,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @FlipCurvBelt.started += instance.OnFlipCurvBelt;
             @FlipCurvBelt.performed += instance.OnFlipCurvBelt;
             @FlipCurvBelt.canceled += instance.OnFlipCurvBelt;
+            @OpenMenu.started += instance.OnOpenMenu;
+            @OpenMenu.performed += instance.OnOpenMenu;
+            @OpenMenu.canceled += instance.OnOpenMenu;
         }
 
         /// <summary>
@@ -633,6 +662,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @FlipCurvBelt.started -= instance.OnFlipCurvBelt;
             @FlipCurvBelt.performed -= instance.OnFlipCurvBelt;
             @FlipCurvBelt.canceled -= instance.OnFlipCurvBelt;
+            @OpenMenu.started -= instance.OnOpenMenu;
+            @OpenMenu.performed -= instance.OnOpenMenu;
+            @OpenMenu.canceled -= instance.OnOpenMenu;
         }
 
         /// <summary>
@@ -749,5 +781,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFlipCurvBelt(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenMenu(InputAction.CallbackContext context);
     }
 }

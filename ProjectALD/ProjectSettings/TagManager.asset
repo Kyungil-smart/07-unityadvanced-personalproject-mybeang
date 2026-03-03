@@ -74,5 +74,11 @@ TagManager:
   - name: GrapHand
     uniqueID: 2846183449
     locked: 0
+  - name: UpgradeUI
+    uniqueID: 1609910809
+    locked: 0
+  - name: MenuUI
+    uniqueID: 2514269387
+    locked: 0
   m_RenderingLayers:
   - Default

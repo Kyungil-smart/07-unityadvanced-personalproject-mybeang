@@ -33,7 +33,6 @@ public class DataManager : MonoBehaviour, IInitializable
                 dict.TryAdd(data.name, data);
             }
         }
-        
     }
 
     private Task LoadUIMessageData()

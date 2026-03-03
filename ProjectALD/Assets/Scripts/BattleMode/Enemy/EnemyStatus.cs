@@ -7,27 +7,32 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     public MonsterData data;
     private WaitForSeconds wait;
     private Animator anim;
+    private float _hp;
+    private string _soName;
 
     public void Awake()
     {
         anim = GetComponent<Animator>();
-        wait = new WaitForSeconds(1f);
+        wait = new WaitForSeconds(1.5f);
     }
     
-    public void UpdateStatus(MonsterData data)
+    public void UpdateStatus(MonsterData data, float hp, string soName)
     {
         this.data = data;
+        _hp = hp;
+        _soName = soName;
     }
 
     public void TakeDamage(float damage, DamageType damageType)
     {
-        data.HP -= (int)damage;
-        if (data.HP <= 0) StartCoroutine(Dead());
+        _hp -= damage;
+        if (_hp <= 0) StartCoroutine(Dead());
     }
     public IEnumerator Dead()
     {
         isDead = true;
         // ToDo. Object Pool
+        SpawanManager.Instance.DecreseSpawnCount(_soName);
         anim.SetTrigger("DeathTrigger");
         yield return wait;
         Destroy(gameObject);

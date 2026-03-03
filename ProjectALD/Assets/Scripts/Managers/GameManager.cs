@@ -1,60 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameManager : SingleTon<GameManager>
 {
-    public bool IsPause;
-    public bool IsLoading;
     public int CurrentWave = 1;
     public int TotalWave = 15;
 
-    private int _currentHp;
+    private GameState _gameState;
+    public GameState gameState
+    {
+        get { return _gameState; }
+        set
+        {
+            _gameState = value;
+            OnChangeGameState(value);
+        }
+    }
 
-    public int currentHp
-    {
-        get { return _currentHp; }
-        set
-        {
-            _currentHp = value;
-            OnChangeCurrentHp?.Invoke(value);
-        }
-    }
-    public UnityEvent<int> OnChangeCurrentHp;
-    private int _totalHp;
-    public UnityEvent<int> OnChangeTotalHp;
-    public int totalHp
-    {
-        get { return _totalHp; }
-        set
-        {
-            _totalHp = value;
-            OnChangeTotalHp?.Invoke(value);
-        }
-    }
-    public int maximumHp = 5000;
-    public int RepairCost => totalHp;  // 어디에 두는게 좋을까?
-    public float HealPoint => totalHp * 0.5f;  // 어디에 두는게 좋을까?
-    
-    private int _gold;
-    public int Gold { 
-        get => _gold;
-        set
-        {
-            _gold = value;
-            OnChangedGold?.Invoke(value);
-        }
-    }
-    public UnityEvent<int> OnChangedGold;
     public List<MonoBehaviour> InitialTargetObjects;
     private int _loadingCurStep = 0;
     public UnityEvent OnChangedCurrentStep;
     public int LoadingCurStep
     {
         get => _loadingCurStep;
-        set
+        private set
         {
             _loadingCurStep = value;
             OnChangedCurrentStep?.Invoke();
@@ -65,17 +38,49 @@ public class GameManager : SingleTon<GameManager>
     private void Awake()
     {
         SingleTonInit();
-        IsPause = true;
-        IsLoading = true;
     }
 
-    private async void Start()
+    private void Start()
     {
-        totalHp = 1000;
-        currentHp = totalHp;
-        Gold = 1000000;
-        await Loading();
-        StartCoroutine(GameTimeCoroutine());
+        StateToEnterGame(); // 추후 Title 에서 GameStart 버튼 클릭시 작용
+    }
+
+    private async Task OnChangeGameState(GameState value)
+    {
+        // state machine
+        switch (value)
+        {
+            case GameState.EnterGame:
+                Init();
+                break;
+            case GameState.DataLoading:
+                await Loading();
+                break;
+            case GameState.WaveStart:
+                StartCoroutine(GameTimeCoroutine());
+                break;
+            case GameState.Pause:
+                Pause();
+                break;
+            default:
+                Resume();
+                break;
+        }
+    }
+    
+    public void StateToIdle() => gameState = GameState.Idle;
+    public void StateToPause() => gameState = GameState.Pause;
+    public void StateToDataLoading() => gameState = GameState.DataLoading;
+    public void StateToEnterGame() => gameState = GameState.EnterGame;
+    public void StateToWaveStart() => gameState = GameState.WaveStart;
+
+    private void Init()
+    {
+        gameState = GameState.Idle;
+        CurrentWave = 1;
+        TotalWave = 15;
+        PlayerStatusManager.Instance.Init();
+        StateToDataLoading();
     }
     
     private IEnumerator GameTimeCoroutine()
@@ -86,6 +91,9 @@ public class GameManager : SingleTon<GameManager>
             CurrentWave++;
         }
     }
+
+    private void Pause() => Time.timeScale = 0;
+    private void Resume() => Time.timeScale = 1;
 
     private async Task Loading()
     {
@@ -99,7 +107,6 @@ public class GameManager : SingleTon<GameManager>
             }
             Debug.Log($"Loading {LoadingCurStep}/{LoadingTotalStep}");
         }
-        IsPause = false;
-        IsLoading = false;
+        StateToIdle();
     }
 }

@@ -46,7 +46,7 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
 
     public void Unlock()
     {
-        if (GameManager.Instance.Gold >= _unlockCost)
+        if (PlayerStatusManager.Instance.Gold >= _unlockCost)
         {
             _lockObject?.GetComponent<Animator>()?.SetTrigger("Unlocked");
             InitNumberOfConnectPoint();

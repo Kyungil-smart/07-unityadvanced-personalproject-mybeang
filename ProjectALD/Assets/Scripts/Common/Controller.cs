@@ -10,6 +10,8 @@ public class Controller : MonoBehaviour
     private CameraMovement _cameraMovement;
     private Tile _selectedTile;
     private Vector3 _mouseWorldPos;
+    // 일단 넣어봐.. 어디서 어떻게 하는게 좋은지 좀.. 생각좀..
+    [SerializeField] private Canvas _menuUICanvas;
     
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
         _buildAction.Build.MoveCamera.started += OnMoveCamera;
         _buildAction.Build.FlipCurvBelt.started += OnFlipCurvBelt;
+        _buildAction.Build.OpenMenu.started += OnOpenMenu;
     }
 
     private void OnDisable()
@@ -43,6 +46,12 @@ public class Controller : MonoBehaviour
         _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
         _buildAction.Build.MoveCamera.started -= OnMoveCamera;
         _buildAction.Build.FlipCurvBelt.started -= OnFlipCurvBelt;
+        _buildAction.Build.OpenMenu.started -= OnOpenMenu;
+    }
+
+    private void OnOpenMenu(InputAction.CallbackContext obj)
+    {
+        _menuUICanvas.gameObject.SetActive(!_menuUICanvas.gameObject.activeSelf);
     }
 
     private void OnMoveCamera(InputAction.CallbackContext obj)
@@ -121,7 +130,8 @@ public class Controller : MonoBehaviour
     {
         if (context.started)
         {
-            GameManager.Instance.IsPause = !GameManager.Instance.IsPause;
+            // ToDo. 조금 더 생각해보자.
+            GameManager.Instance.StateToPause();
         }
     }
 
@@ -173,4 +183,6 @@ public class Controller : MonoBehaviour
     {
         // UI 에서 건물 이동시
     }
+    
+    
 }

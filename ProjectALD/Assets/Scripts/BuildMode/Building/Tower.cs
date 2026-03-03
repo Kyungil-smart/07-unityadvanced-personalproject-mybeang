@@ -8,7 +8,8 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
     private GameObject _target;
     public BulletBox bulletBox;
     private WaitForSeconds attackInterval = new WaitForSeconds(1f);
-    private BulletData data;
+    private BulletData bulletData;
+    private TowerData data;
     private string _state;
     private WaitForSeconds animWait = new WaitForSeconds(0.25f);
     [SerializeField] private LayerMask enemyLayer;
@@ -89,10 +90,10 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
     private void FindEnemy()
     {
         _animator.SetTrigger("IsIdle");
-        if (_target == null && data != null)
+        if (_target == null && bulletData != null)
         {
-            PrintLog($"적을 찾습니다. 범위: {data.range}");
-            Collider2D target = Physics2D.OverlapCircle(transform.position, data.range, enemyLayer);
+            PrintLog($"적을 찾습니다. 범위: {bulletData.range}");
+            Collider2D target = Physics2D.OverlapCircle(transform.position, bulletData.range, enemyLayer);
             if (target != null)
             {
                 PrintLog("적 포착!");
@@ -109,8 +110,14 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
 
     public override void PutOnTileHandler()
     {
+        LoadTowerData();
         ConnectToNeighbor(tail);
         _state = "IsFinding";
+    }
+
+    private void LoadTowerData()
+    {
+        data = DataManager.Instance.towerData["TowerSO"];
     }
 
     public override void TakeOffTileHandler()
@@ -122,8 +129,8 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
         {
             PrintLog("탄약 수급");
             bulletBox = acquiredItem as BulletBox;
-            data = bulletBox.data;
-            attackInterval = new WaitForSeconds(data.attackRate);
+            bulletData = bulletBox.data;
+            attackInterval = new WaitForSeconds(bulletData.attackRate);
         }
     }
 }
