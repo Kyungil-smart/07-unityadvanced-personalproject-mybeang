@@ -109,6 +109,9 @@ MonoBehaviour:
   itemType: 5
   spriteRenderer: {fileID: 2133175046386960613}
   data: {fileID: 0}
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &4306942345357526113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a76ad69c379492893694058a09de8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletMovement
-  data: {fileID: 0}
   IsFire: 0
 --- !u!61 &3117050717080142065
 BoxCollider2D:

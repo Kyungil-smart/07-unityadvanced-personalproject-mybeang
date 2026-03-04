@@ -208,6 +208,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RunTestScript"",
+                    ""type"": ""Button"",
+                    ""id"": ""685146b5-6918-4e8b-9508-cd5da1913d7d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -452,6 +461,17 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""OpenFactroyMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56596ec4-bb13-493b-9416-37083a51e8a9"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RunTestScript"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -490,6 +510,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_SellBuilding = m_Build.FindAction("SellBuilding", throwIfNotFound: true);
         m_Build_OnTestDamaged = m_Build.FindAction("OnTestDamaged", throwIfNotFound: true);
         m_Build_OpenFactroyMenu = m_Build.FindAction("OpenFactroyMenu", throwIfNotFound: true);
+        m_Build_RunTestScript = m_Build.FindAction("RunTestScript", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -583,6 +604,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_SellBuilding;
     private readonly InputAction m_Build_OnTestDamaged;
     private readonly InputAction m_Build_OpenFactroyMenu;
+    private readonly InputAction m_Build_RunTestScript;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -646,6 +668,10 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/OpenFactroyMenu".
         /// </summary>
         public InputAction @OpenFactroyMenu => m_Wrapper.m_Build_OpenFactroyMenu;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/RunTestScript".
+        /// </summary>
+        public InputAction @RunTestScript => m_Wrapper.m_Build_RunTestScript;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -711,6 +737,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @OpenFactroyMenu.started += instance.OnOpenFactroyMenu;
             @OpenFactroyMenu.performed += instance.OnOpenFactroyMenu;
             @OpenFactroyMenu.canceled += instance.OnOpenFactroyMenu;
+            @RunTestScript.started += instance.OnRunTestScript;
+            @RunTestScript.performed += instance.OnRunTestScript;
+            @RunTestScript.canceled += instance.OnRunTestScript;
         }
 
         /// <summary>
@@ -761,6 +790,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @OpenFactroyMenu.started -= instance.OnOpenFactroyMenu;
             @OpenFactroyMenu.performed -= instance.OnOpenFactroyMenu;
             @OpenFactroyMenu.canceled -= instance.OnOpenFactroyMenu;
+            @RunTestScript.started -= instance.OnRunTestScript;
+            @RunTestScript.performed -= instance.OnRunTestScript;
+            @RunTestScript.canceled -= instance.OnRunTestScript;
         }
 
         /// <summary>
@@ -905,5 +937,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenFactroyMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RunTestScript" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRunTestScript(InputAction.CallbackContext context);
     }
 }

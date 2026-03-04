@@ -16,9 +16,9 @@ MonoBehaviour:
   iconCnt: 8
   fireEleCnt: 0
   iceEleCnt: 0
-  damage: 25
+  damage: 50
   attackRate: 1
   damageTypes: 0100000002000000
-  range: 5
+  range: 10
   speed: 10
   count: 5

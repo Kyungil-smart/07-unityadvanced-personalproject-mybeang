@@ -9,14 +9,12 @@ public class SpawanManager : MonoBehaviour
     private float minX = 50, maxX = 58, minY = -5, maxY = 5;
     private WaitForSeconds _spwanInterval;
     private Coroutine _spwanCoroutine;
-    
-    // ToDO. Object Pool 화 시킬시 고려 할 것.
     private Dictionary<string, (int acc, int max)> _spawnCount;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        _spwanInterval = new WaitForSeconds(10f);  // 1분으로 늘리기
+        _spwanInterval = new WaitForSeconds(30f);  // 1분으로 늘리기
         _spawnCount = new();
     }
     
@@ -73,7 +71,9 @@ public class SpawanManager : MonoBehaviour
                 {
                     Vector3 spawnPos = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY), 0);
                     // 몬스터 팝업
-                    GameObject monster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
+                    GameObject monster = ObjectPoolManager.Instance.PopGameObject(monsterPrefab.name);
+                    monster.transform.position = spawnPos;
+                    monster.SetActive(true);
                 
                     // 몬스터 HP 조절
                     float hp = data.HP;

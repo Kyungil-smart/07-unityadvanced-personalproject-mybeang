@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -18,7 +19,12 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
     private void Start()
     {
         _deliveryInterval = new WaitForSeconds(1f); // ToDO. 게임벨런스 패치
+    }
+
+    private void OnEnable()
+    {
         InitNumberOfConnectPoint();
+        _animator.Rebind();
     }
 
     private void Update()
@@ -113,7 +119,10 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
         // 동작 멈춤
         StopOperation();
         // 아이템 비움
+        if (item != null) ObjectPoolManager.Instance.PushGameObject(item.gameObject);
+        if (upperItem != null) ObjectPoolManager.Instance.PushGameObject(upperItem.gameObject);
         item = null;
+        upperItem = null;
         // 이미지 변경
         RotateImage();
         
@@ -145,7 +154,7 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
     public void SellSelf()
     {
         ClearAllConnectPoints();
-        // ToDo. ObjectPool
-        Destroy(gameObject);
+        helpCanvas.gameObject.SetActive(true);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

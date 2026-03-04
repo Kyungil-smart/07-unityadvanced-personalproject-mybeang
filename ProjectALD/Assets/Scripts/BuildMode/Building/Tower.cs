@@ -30,11 +30,11 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
         _state = "IsNotWorking";
+    }
+    
+    private void OnEnable()
+    {
         InitNumberOfConnectPoint();
     }
 
@@ -84,8 +84,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
             else if (bulletBox != null && bulletBox.GetBulletCount() == 0)
             {
                 PrintLog("탄약이 모두 소비되었습니다.");
-                // ToDo. Object Pool
-                Destroy(bulletBox);
+                ObjectPoolManager.Instance.PushGameObject(bulletBox.gameObject);
                 bulletBox = null;
             }
             yield return attackInterval;
@@ -120,6 +119,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
         LoadTowerData();
         ConnectToNeighbor(tail);
         _state = "IsFinding";
+        PrintLog($"PutOnTileHandler. Now State is {_state}");
     }
 
     private void LoadTowerData()
@@ -145,7 +145,6 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
     {
         PlayerStatusManager.Instance.EarnGold(DataManager.Instance.buildCostData["Tower"]);
         ClearAllConnectPoints();
-        // ToDo. ObjectPool
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

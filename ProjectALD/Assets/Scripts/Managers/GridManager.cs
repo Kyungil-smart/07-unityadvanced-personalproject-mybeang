@@ -10,7 +10,8 @@ public class GridManager : MonoBehaviour, IInitializable
     public GameObject TilePrefab;
     public GameObject WallPrefab;
     public List<GameObject> MineList;
-    public float WallPosX; 
+    public float WallPosX;
+    [SerializeField] private Transform _wallParent;
 
     private int _width = 25;
     private int _height = 11;
@@ -45,11 +46,14 @@ public class GridManager : MonoBehaviour, IInitializable
             {
                 Vector3 pos = new Vector3(x + _startPosX, y + _startPosY, 0);
                 GameObject tile = Instantiate(TilePrefab, pos, Quaternion.identity);
+                tile.transform.parent = transform;
                 Tile t = tile.GetComponent<Tile>();
                 t.GridPos = new Vector2Int(x, y);
                 if (x == _width - 1)
                 {
-                    t.HasObject = Instantiate(WallPrefab, pos, Quaternion.identity);
+                    GameObject wall = Instantiate(WallPrefab, pos, Quaternion.identity);
+                    wall.transform.parent = _wallParent.transform;
+                    t.HasObject = wall;
                     WallPosX = t.transform.position.x;
                 }
                 _grid[y, x] = t;
@@ -66,6 +70,11 @@ public class GridManager : MonoBehaviour, IInitializable
             _grid[y, 0].HasObject = mine;
             y -= 4;
         }
+    }
+
+    public void SetObjectOnTile(int x, int y, GameObject gObject)
+    {
+        _grid[y, x].HasObject = gObject;
     }
 
     public GameObject GetObjectOnTile(Vector2Int pos)

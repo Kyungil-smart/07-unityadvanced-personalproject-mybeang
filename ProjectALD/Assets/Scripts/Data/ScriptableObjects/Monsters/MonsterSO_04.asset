@@ -19,7 +19,7 @@ MonoBehaviour:
   attackType: 1
   attackRange: 6
   maxAvailableSpawnCount: 40
-  firstSpawnCount: 5
+  firstSpawnCount: 3
   multiplierHpForWave: 1.2
   firstSpawnWave: 6
-  incrementCountForWave: 5
+  incrementCountForWave: 2

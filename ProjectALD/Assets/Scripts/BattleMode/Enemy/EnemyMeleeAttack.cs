@@ -43,7 +43,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IAttackable
         while (!status.isDead)
         {
             _animator.SetTrigger("AttackTrigger");
-            // target.GetComponent<IDamagable>().TakeDamage(status.data.damage, DamageType.None);
+            target.GetComponent<IDamagable>().TakeDamage(status.data.damage, DamageType.None);
             yield return attackInterval;
         }
     }

@@ -23,30 +23,27 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
     [SerializeField] private List<FactorySlave> _factorySlaves;
     
     // Storage
-    private Dictionary<ItemType, Queue<Item>> InputStorage;
-    private Queue<Item> _outputStorage;
+    private Dictionary<ItemType, Queue<Item>> InputStorage = new();
+    private Queue<Item> _outputStorage = new();
     
     // Others
     private readonly int _maxInput = 10;
     private readonly int _maxOutput = 10;
     private BulletBox _bulletBox;
-    private List<Item> _cacheBullets;  // pairing to bulletPrefabs
+    private List<Item> _cacheBullets = new();  // pairing to bulletPrefabs
     private Coroutine _createCoroutine;
     
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-    
-    private void Start()
-    {
-        _outputStorage = new();
-        _cacheBullets = new();
         foreach (var prefab in _bulletPrefabs)
         {
             _cacheBullets.Add(prefab.GetComponent<Item>()); 
         }
-
+    }
+    
+    private void OnEnable()
+    {
         InitNumberOfConnectPoint();
     }
 
@@ -130,16 +127,15 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
         while (true)
         {
             CreateBulletBox();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
     }
 
     private void ReadyBulletBox()
     {
-        // ToDo. Object Pool 관리 필요.
         if (_curBulletType != ItemType.None)
         {
-            GameObject bulletBoxObj = Instantiate(_bulletBoxPrefab);
+            GameObject bulletBoxObj = ObjectPoolManager.Instance.PopGameObject(_bulletBoxPrefab.name);
             bulletBoxObj.SetActive(false);
             _bulletBox = bulletBoxObj.GetComponent<BulletBox>();
             (Item bullet, GameObject bulletObj) = GetBulletData(_curBulletType);
@@ -211,8 +207,7 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
         (Item bullet, GameObject bulletPrefab) = GetBulletData(_curBulletType);
         while (!_bulletBox.IsFull())
         {
-            // ToDo. Object Pool 최적화 필요 포인트.
-            GameObject bulletObj = Instantiate(bulletPrefab);
+            GameObject bulletObj = ObjectPoolManager.Instance.PopGameObject(bulletPrefab.name);
             bulletObj.SetActive(false);
             _bulletBox.PutBullet(bulletObj);
         }
@@ -261,7 +256,8 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
     {
         PlayerStatusManager.Instance.EarnGold(DataManager.Instance.buildCostData["Factory"]);
         ClearAllConnectPoints();
-        // ToDo. ObjectPool
-        Destroy(gameObject);
+        _bulletSROnPanel.sprite = null;
+        _panel.SetActive(false);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

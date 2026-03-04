@@ -19,11 +19,11 @@ public class BulletMovement : MonoBehaviour
     }
     
     private void DestroySelf()
-    {   // ToDo. Object Pool
+    {   
         if (_target == null && gameObject.activeSelf)
         {
             Debug.Log($"{gameObject.name} 자멸");
-            Destroy(gameObject);
+            ObjectPoolManager.Instance.PushGameObject(gameObject);
         }
     }
 

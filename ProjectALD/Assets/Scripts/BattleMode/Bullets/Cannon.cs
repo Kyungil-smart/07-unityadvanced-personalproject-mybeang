@@ -25,9 +25,8 @@ public class Cannon : Item, IBullet
             {
                 _target = col.gameObject;
                 Attack();
-            }
-            // ToDo. Object Pool
-            Destroy(gameObject);
+            }            
+            ObjectPoolManager.Instance.PushGameObject(gameObject);
         }
     }
 

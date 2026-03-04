@@ -11,10 +11,15 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     private string _soName;
     private float _speed;
 
-    public void Awake()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         wait = new WaitForSeconds(1.5f);
+    }
+
+    private void OnEnable()
+    {
+        anim.Rebind();
     }
     
     public void UpdateStatus(MonsterData data, float hp, string soName)
@@ -33,10 +38,9 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     public IEnumerator Dead()
     {
         isDead = true;
-        // ToDo. Object Pool
         SpawanManager.Instance.DecreseSpawnCount(_soName);
         anim.SetTrigger("DeathTrigger");
         yield return wait;
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

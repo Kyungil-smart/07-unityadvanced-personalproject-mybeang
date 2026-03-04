@@ -49,9 +49,14 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
     private void Start()
     {
         _deliveryInterval = new WaitForSeconds(1f); // ToDO. 게임벨런스 패치
-        InitNumberOfConnectPoint();
     }
 
+    private void OnEnable()
+    {
+        InitNumberOfConnectPoint();
+        _animator.Rebind();
+    }
+    
     private void Update()
     {
         if (IsConnected() && _deliverItemRoutine == null)
@@ -155,6 +160,7 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
         // 동작 멈춤
         StopOperation();
         // 아이템 비움
+        if (item != null) ObjectPoolManager.Instance.PushGameObject(item.gameObject);
         item = null;
         // 이미지 변경
         RotateImage();
@@ -186,8 +192,8 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
 
     public void SellSelf()
     {
-        ClearAllConnectPoints();
-        // ToDo. ObjectPool
-        Destroy(gameObject);
+        ClearAllConnectPoints();        
+        helpCanvas.gameObject.SetActive(true);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

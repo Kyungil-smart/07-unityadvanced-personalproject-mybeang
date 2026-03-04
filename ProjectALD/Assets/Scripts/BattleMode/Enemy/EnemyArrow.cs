@@ -24,9 +24,8 @@ public class EnemyArrow : Item, IBullet
         {
             Debug.Log($"{gameObject.name}, {_target.name} 에게 적중");
             _target = collision.gameObject;
-            Attack();
-            // ToDo. Object Pool
-            Destroy(gameObject);
+            Attack();            
+            ObjectPoolManager.Instance.PushGameObject(gameObject);
         }
     }
 
@@ -47,6 +46,6 @@ public class EnemyArrow : Item, IBullet
     public void Attack()
     {   
         Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
-        // _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, DamageType.None);
+        _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, DamageType.None);
     }
 }

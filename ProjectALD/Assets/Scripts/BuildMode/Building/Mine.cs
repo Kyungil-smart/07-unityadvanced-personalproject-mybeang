@@ -38,8 +38,7 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
 
     public void InteractMiner(Miner miner)
     {
-        // ToDo. Object Pool 관리 필요
-        GameObject item = Instantiate(_resourcePrefab);
+        GameObject item = ObjectPoolManager.Instance.PopGameObject(_resourcePrefab.name);
         item.SetActive(false);
         miner.items.Enqueue(item.GetComponent<Item>());
     }

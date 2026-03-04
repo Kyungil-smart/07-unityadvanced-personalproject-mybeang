@@ -102,7 +102,7 @@ public class GameManager : SingleTon<GameManager>
         while (CurrentWave <= TotalWave)
         {  
             Debug.Log($"Current wave: {CurrentWave}");
-            yield return new WaitForSecondsRealtime(30f);  // wave test 후 300f 로 원복하기
+            yield return new WaitForSecondsRealtime(120f); 
             CurrentWave++;
         }
     }

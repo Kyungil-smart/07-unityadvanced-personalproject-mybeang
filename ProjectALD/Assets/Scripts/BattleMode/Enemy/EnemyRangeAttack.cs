@@ -42,9 +42,8 @@ public class EnemyRangeAttack : MonoBehaviour, IAttackable
 
     public void AttackOneShot()
     {
-        // ToDo. Object Pool
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            
+        GameObject bullet = ObjectPoolManager.Instance.PopGameObject(bulletPrefab.name);
+        bullet.transform.position = transform.position;
         _iBullet = bullet.GetComponent<IBullet>();
         _iBullet.SetTarget(target);
         _iBullet.Fire();

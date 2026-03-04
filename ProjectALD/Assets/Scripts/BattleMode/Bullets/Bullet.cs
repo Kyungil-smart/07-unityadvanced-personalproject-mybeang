@@ -19,9 +19,8 @@ public class Bullet : Item, IBullet
         {
             Debug.Log($"{gameObject.name}, {_target.name} 에게 적중");
             _target = collision.gameObject;
-            Attack();
-            // ToDo. Object Pool
-            Destroy(gameObject);
+            Attack();            
+            ObjectPoolManager.Instance.PushGameObject(gameObject);
         }
     }
 

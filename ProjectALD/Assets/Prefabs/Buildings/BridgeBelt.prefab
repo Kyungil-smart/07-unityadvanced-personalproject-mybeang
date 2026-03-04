@@ -59,7 +59,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 827990765
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &2550441518365186590
@@ -347,7 +347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BridgeBelt
   myTile: {fileID: 0}
   helpCanvas: {fileID: 2049564563836961321}
-  upperItem: {fileID: 0}
 --- !u!95 &8118692762467944375
 Animator:
   serializedVersion: 7

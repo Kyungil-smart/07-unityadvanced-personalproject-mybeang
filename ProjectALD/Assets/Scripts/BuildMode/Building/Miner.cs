@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ToDo: 개별 UI 개발 후 Upgrade Logic 구현 
-
 public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding, ISellable
 {
     [SerializeField] private int _currentResourceCount;
@@ -21,15 +19,10 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding, ISell
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    
-    private void Start()
-    {
-        InitNumberOfConnectPoint();
-    }
-    
     private void OnEnable()
     {
         _minerCoroutine = null;
+        InitNumberOfConnectPoint();
     }
 
     private void OnDisable()
@@ -151,7 +144,6 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding, ISell
     {
         PlayerStatusManager.Instance.EarnGold(DataManager.Instance.buildCostData["Miner"]);
         ClearAllConnectPoints();
-        // ToDo. ObjectPool
-        Destroy(gameObject);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

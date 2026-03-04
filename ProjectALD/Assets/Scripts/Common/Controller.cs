@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -21,6 +22,11 @@ public class Controller : MonoBehaviour
         _cameraMovement = _camera.gameObject.GetComponent<CameraMovement>();
     }
 
+    private void Update()
+    {
+        
+    }
+
     private void OnEnable()
     {
         _buildAction.Enable();
@@ -38,7 +44,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.SellBuilding.started += OnSellBuilding;
         
         _buildAction.Build.OnTestDamaged.started += OnTestDamaged;
-        
+        _buildAction.Build.RunTestScript.started += OnRunTestScript;
     }
 
     private void OnDisable()
@@ -57,6 +63,12 @@ public class Controller : MonoBehaviour
         _buildAction.Build.SellBuilding.started -= OnSellBuilding;
         
         _buildAction.Build.OnTestDamaged.started -= OnTestDamaged;
+        _buildAction.Build.RunTestScript.started -= OnRunTestScript;
+    }
+
+    private void OnRunTestScript(InputAction.CallbackContext obj)
+    {
+        StartCoroutine(TestScript.Instance.StartScript());
     }
 
     private void OnSellBuilding(InputAction.CallbackContext obj)

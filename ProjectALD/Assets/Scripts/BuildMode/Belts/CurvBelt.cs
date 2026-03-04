@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, IFlip, ISellable
@@ -49,7 +50,6 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
     private void Start()
     {
         _deliveryInterval = new WaitForSeconds(1f); // ToDO. 게임벨런스 패치
-        InitNumberOfConnectPoint();
     }
 
     private void Update()
@@ -61,7 +61,13 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
         else if (!IsConnected() && _deliverItemRoutine != null)
             StopOperation();
     }
-    
+
+    private void OnEnable()
+    {
+        InitNumberOfConnectPoint();
+        _animator.Rebind();
+    }
+
     protected override void InitNumberOfConnectPoint()
     {
         tails.Add(new(ConnectPointType.Tail, Direction.South, null, gameObject));
@@ -133,6 +139,7 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
         // 동작 멈춤
         StopOperation();
         // 아이템 비움
+        if (item != null) ObjectPoolManager.Instance.PushGameObject(item.gameObject);
         item = null;
         // 이미지 변경
         RotateImage();
@@ -161,6 +168,7 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
         // 동작 멈춤
         StopOperation();
         // 아이템 비움
+        if (item != null) ObjectPoolManager.Instance.PushGameObject(item.gameObject);
         item = null;
         // 이미지 변경
         FlipImage();
@@ -196,7 +204,7 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
     public void SellSelf()
     {
         ClearAllConnectPoints();
-        // ToDo. ObjectPool
-        Destroy(gameObject);
+        helpCanvas.gameObject.SetActive(true);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

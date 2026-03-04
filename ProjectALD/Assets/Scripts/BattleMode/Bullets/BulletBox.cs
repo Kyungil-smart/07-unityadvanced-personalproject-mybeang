@@ -5,12 +5,8 @@ public class BulletBox : Item
 {
     public BulletData data;
     public ItemType label;
-    private Queue<GameObject> items;
+    private Queue<GameObject> items = new();
     public SpriteRenderer bulletSpriteRenderer;
-    private void Start()
-    {
-        items = new Queue<GameObject>();
-    }
 
     public int GetBulletCount() => items.Count;
 
@@ -27,8 +23,8 @@ public class BulletBox : Item
     public bool IsFull()
     {
         if (items == null) items = new Queue<GameObject>();
-        PrintLog($"current items count: {items.Count}");
-        PrintLog($"Max count: {data.count}");
+        // PrintLog($"current items count: {items.Count}");
+        // PrintLog($"Max count: {data.count}");
         return items.Count == data.count;
     } 
 

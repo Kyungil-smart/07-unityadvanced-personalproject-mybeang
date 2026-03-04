@@ -30,6 +30,7 @@ public class Wall : ObjectOnTile, IPlacable, IDamagable, ISellable
     
     private void TowerSetOn()
     {
+        PrintLog("Tower set on");
         int priority = 100 - myTile.GridPos.y;
         Tower tower = _defenceUnit.GetComponent<Tower>();
         _defenceUnit.transform.position = transform.position;

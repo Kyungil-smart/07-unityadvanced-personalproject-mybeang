@@ -101,8 +101,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7230520241021545595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85da2387bfdf9c54d9195c157a3f54bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 6586699dce074e65af3bd5f5f5da32cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OreCopper
   itemType: 1
-  spriteRenderer: {fileID: 3785621467845011444}
+  spriteRenderer: {fileID: 0}

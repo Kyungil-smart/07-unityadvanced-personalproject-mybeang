@@ -28,11 +28,11 @@ public class BuildManager : MonoBehaviour
     }
     
     public void SelectBuilding(int selectNumber, Vector3 position)
-    {   // ToDo: Object Pool for buildings
+    {   
         _selectedNumber = selectNumber;
         if (SelectedBuilding != null)
         {
-            Destroy(SelectedBuilding);
+            ObjectPoolManager.Instance.PushGameObject(SelectedBuilding);
             SelectedBuilding = null;
         }
 
@@ -50,7 +50,11 @@ public class BuildManager : MonoBehaviour
                 position = new Vector3(position.x, position.y + 1f, 0);
             }
             else selectNumber -= 1;
-            SelectedBuilding = BuildingObject.Create(_buildings[selectNumber], position, Quaternion.identity);
+
+            GameObject building = ObjectPoolManager.Instance.PopGameObject(_buildings[selectNumber].name);
+            building.transform.position = position;
+            building.SetActive(true);
+            SelectedBuilding = building;
         }
     }
 
@@ -104,7 +108,10 @@ public class BuildManager : MonoBehaviour
         {
             Vector3 position = SelectedBuilding.transform.position;
             Quaternion rotation = SelectedBuilding.transform.rotation;
-            SelectedBuilding = BuildingObject.Create(_buildings[_selectedNumber-1], position, rotation);
+            SelectedBuilding = ObjectPoolManager.Instance.PopGameObject(_buildings[_selectedNumber - 1].name);
+            SelectedBuilding.transform.position = position;
+            SelectedBuilding.transform.rotation = rotation;
+            SelectedBuilding.SetActive(true);
         }
         else
         {
@@ -174,6 +181,11 @@ public class BuildManager : MonoBehaviour
     public void SellBuilding(Tile tile)
     {
         if (tile.HasObject == null) return;
+        FactoryMaster factory = tile.HasObject.GetComponent<FactoryMaster>();
+        if (factory != null)
+        {
+            _factoryUI.gameObject.SetActive(false);
+        }
         tile.SellBuilding();
     }
 }
