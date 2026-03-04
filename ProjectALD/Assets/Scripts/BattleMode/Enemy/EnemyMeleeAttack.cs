@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour, IAttackable
+public class EnemyMeleeAttack : MonoBehaviour, IAttackable
 {
     private Animator _animator;
     private EnemyStatus status;
@@ -29,7 +29,7 @@ public class EnemyAttack : MonoBehaviour, IAttackable
     {
         ray = new Ray2D(transform.position, transform.right * -1);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, status.data.attackRange + 0.1f);
-        if (hit.collider != null && hit.collider.tag == "Wall")
+        if (hit.collider != null && hit.collider.tag.Contains("Wall"))
         {
             target = hit.collider.gameObject;
             if (attackCoroutine == null) 

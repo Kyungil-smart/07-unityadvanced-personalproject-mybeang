@@ -1,20 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
-public class Bullet : Item, IBullet
+
+public class EnemyArrow : Item, IBullet
 {
-    public BulletData data;
     private GameObject _target;
     private BulletMovement _movement;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _damage;
     
     private void Start()
     {
-        data = LoadBulletData("BulletSO");
+        // 추후 다른 MonsterSO 도 받을 수 있도록 변경 필요.
+        MonsterData data = DataManager.Instance.monsterData["MonsterSO_04"];
+        _damage = data.damage;
+        _speed = 10f;
         _movement = GetComponent<BulletMovement>();
     }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {   // 해당 타겟에 맞거나 중간에 다른 몹과 부딧히면 공격
-        if (collision.gameObject.tag.Contains("Enemy"))
+        if (collision.gameObject.tag.Contains("Wall"))
         {
             Debug.Log($"{gameObject.name}, {_target.name} 에게 적중");
             _target = collision.gameObject;
@@ -27,7 +33,7 @@ public class Bullet : Item, IBullet
     public void SetTarget(GameObject target)
     {
         _target = target;
-        _movement.SetData(data.speed, target);
+        _movement.SetData(_speed, target);
     }
 
     public void Fire()
@@ -37,9 +43,8 @@ public class Bullet : Item, IBullet
     }
 
     public void Attack()
-    {   // 데미지를 입히자. 추후 데미지 계산식 추가 필요.
-        Debug.Log($"{gameObject.name}, {_target.name} 에게 {data.damage}의 데미지");
-        _target?.GetComponent<IDamagable>()?.TakeDamage(data.damage, data.damageTypes[1]);
-        
+    {   
+        Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
+        // _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, DamageType.None);
     }
 }

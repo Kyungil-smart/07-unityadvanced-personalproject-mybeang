@@ -2,7 +2,7 @@
 
 public class BulletMovement : MonoBehaviour
 {
-    public BulletData data;
+    private float _speed;
     private GameObject _target;
     public bool IsFire;
 
@@ -12,9 +12,9 @@ public class BulletMovement : MonoBehaviour
         DestroySelf();
     }
     
-    public void SetData(BulletData newData, GameObject target)
+    public void SetData(float speed, GameObject target)
     {
-        data = newData;
+        _speed = speed;
         _target = target;
     }
     
@@ -41,7 +41,7 @@ public class BulletMovement : MonoBehaviour
         {
             LookAtTarget();
             transform.position = Vector3.MoveTowards(
-                transform.position, _target.transform.position, data.speed * Time.deltaTime);
+                transform.position, _target.transform.position, _speed * Time.deltaTime);
         }
             
     }

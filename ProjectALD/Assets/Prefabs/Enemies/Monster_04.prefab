@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3161660409418925878}
   - component: {fileID: 2999445612191698016}
   - component: {fileID: 6181526822365274396}
-  - component: {fileID: 8046913369806940037}
   - component: {fileID: 2641264138759719247}
   - component: {fileID: 8135782679281113514}
+  - component: {fileID: 6792713119153061100}
   - component: {fileID: 4706357621368873990}
   - component: {fileID: 1091315029711480763}
   m_Layer: 6
@@ -120,18 +120,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8046913369806940037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6182288618252217468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 298bcf5e89d744c4fbc06667297440db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
 --- !u!114 &2641264138759719247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +147,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatus
   isDead: 0
   data: {fileID: 0}
+--- !u!114 &6792713119153061100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6182288618252217468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74863856883d44d0a535f2273c218b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeAttack
+  bulletPrefab: {fileID: 2454203789908914030, guid: 9fe241041f195654c80a0076951df441, type: 3}
 --- !u!50 &4706357621368873990
 Rigidbody2D:
   serializedVersion: 5

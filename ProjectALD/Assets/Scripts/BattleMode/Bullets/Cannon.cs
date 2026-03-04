@@ -33,7 +33,7 @@ public class Cannon : Item, IBullet
     public void SetTarget(GameObject target)
     {
         _target = target;
-        _movement.SetData(data, target);
+        _movement.SetData(data.speed, target);
     }
 
     public void Fire()
