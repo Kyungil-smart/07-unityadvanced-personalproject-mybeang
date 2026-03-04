@@ -183,9 +183,27 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SellBuilding"",
+                    ""type"": ""Button"",
+                    ""id"": ""d44e3d7e-f38e-4601-8b8d-9e5e2971b1d2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""OnTestDamaged"",
                     ""type"": ""Button"",
                     ""id"": ""a091610f-adf4-448f-a26a-c98c0dfafd49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenFactroyMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""9dd689a7-c9e7-43f6-953f-b488ed278f9b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -412,6 +430,28 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""OnTestDamaged"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9918f54-bc69-47c3-b71a-30a6b884f821"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SellBuilding"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da8e0ef1-9683-468d-beb1-4cbd1fc40fe7"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenFactroyMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -447,7 +487,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_MoveCamera = m_Build.FindAction("MoveCamera", throwIfNotFound: true);
         m_Build_FlipCurvBelt = m_Build.FindAction("FlipCurvBelt", throwIfNotFound: true);
         m_Build_OpenMenu = m_Build.FindAction("OpenMenu", throwIfNotFound: true);
+        m_Build_SellBuilding = m_Build.FindAction("SellBuilding", throwIfNotFound: true);
         m_Build_OnTestDamaged = m_Build.FindAction("OnTestDamaged", throwIfNotFound: true);
+        m_Build_OpenFactroyMenu = m_Build.FindAction("OpenFactroyMenu", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -538,7 +580,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_MoveCamera;
     private readonly InputAction m_Build_FlipCurvBelt;
     private readonly InputAction m_Build_OpenMenu;
+    private readonly InputAction m_Build_SellBuilding;
     private readonly InputAction m_Build_OnTestDamaged;
+    private readonly InputAction m_Build_OpenFactroyMenu;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -591,9 +635,17 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @OpenMenu => m_Wrapper.m_Build_OpenMenu;
         /// <summary>
+        /// Provides access to the underlying input action "Build/SellBuilding".
+        /// </summary>
+        public InputAction @SellBuilding => m_Wrapper.m_Build_SellBuilding;
+        /// <summary>
         /// Provides access to the underlying input action "Build/OnTestDamaged".
         /// </summary>
         public InputAction @OnTestDamaged => m_Wrapper.m_Build_OnTestDamaged;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/OpenFactroyMenu".
+        /// </summary>
+        public InputAction @OpenFactroyMenu => m_Wrapper.m_Build_OpenFactroyMenu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -650,9 +702,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @OpenMenu.started += instance.OnOpenMenu;
             @OpenMenu.performed += instance.OnOpenMenu;
             @OpenMenu.canceled += instance.OnOpenMenu;
+            @SellBuilding.started += instance.OnSellBuilding;
+            @SellBuilding.performed += instance.OnSellBuilding;
+            @SellBuilding.canceled += instance.OnSellBuilding;
             @OnTestDamaged.started += instance.OnOnTestDamaged;
             @OnTestDamaged.performed += instance.OnOnTestDamaged;
             @OnTestDamaged.canceled += instance.OnOnTestDamaged;
+            @OpenFactroyMenu.started += instance.OnOpenFactroyMenu;
+            @OpenFactroyMenu.performed += instance.OnOpenFactroyMenu;
+            @OpenFactroyMenu.canceled += instance.OnOpenFactroyMenu;
         }
 
         /// <summary>
@@ -694,9 +752,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @OpenMenu.started -= instance.OnOpenMenu;
             @OpenMenu.performed -= instance.OnOpenMenu;
             @OpenMenu.canceled -= instance.OnOpenMenu;
+            @SellBuilding.started -= instance.OnSellBuilding;
+            @SellBuilding.performed -= instance.OnSellBuilding;
+            @SellBuilding.canceled -= instance.OnSellBuilding;
             @OnTestDamaged.started -= instance.OnOnTestDamaged;
             @OnTestDamaged.performed -= instance.OnOnTestDamaged;
             @OnTestDamaged.canceled -= instance.OnOnTestDamaged;
+            @OpenFactroyMenu.started -= instance.OnOpenFactroyMenu;
+            @OpenFactroyMenu.performed -= instance.OnOpenFactroyMenu;
+            @OpenFactroyMenu.canceled -= instance.OnOpenFactroyMenu;
         }
 
         /// <summary>
@@ -821,11 +885,25 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenMenu(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "SellBuilding" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSellBuilding(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "OnTestDamaged" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOnTestDamaged(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenFactroyMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenFactroyMenu(InputAction.CallbackContext context);
     }
 }

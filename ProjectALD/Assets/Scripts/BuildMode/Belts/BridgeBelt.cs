@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable
+public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, ISellable
 {
     public Item item { get; set; }  // 초기 가로
     public Item upperItem; // 초기 세로
@@ -33,10 +33,10 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
     protected override void InitNumberOfConnectPoint()
     {
         // 초기 기준 0번이 가로, 1번이 세로.
-        tails.Add(new(ConnectPointType.Tail, Direction.West, null));
-        tails.Add(new(ConnectPointType.Tail, Direction.South, null));
-        heads.Add(new(ConnectPointType.Head, Direction.East, null));
-        heads.Add(new(ConnectPointType.Head, Direction.North, null));
+        tails.Add(new(ConnectPointType.Tail, Direction.West, null, gameObject));
+        tails.Add(new(ConnectPointType.Tail, Direction.South, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.East, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.North, null, gameObject));
     }
 
     public override void PutOnTileHandler()
@@ -138,5 +138,12 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
     public void InteractBeltPut(Item acquiredItem)  // 어디를 통해 들어온 녀석일까?
     {
         // 이걸 어떻게 처리한담?
+    }
+
+    public void SellSelf()
+    {
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

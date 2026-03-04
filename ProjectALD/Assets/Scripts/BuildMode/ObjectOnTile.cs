@@ -125,4 +125,15 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
         if (_spriteRenderer != null) 
             _spriteRenderer.sortingOrder = priority;
     }
+
+    public void ClearAllConnectPoints()
+    {
+        foreach (var cpoint in bothes) cpoint.Clear();
+        foreach (var cpoint in heads) cpoint.Clear();
+        foreach (var cpoint in tails) cpoint.Clear();
+        
+        bothes.Clear();
+        heads.Clear();
+        tails.Clear();
+    }
 }

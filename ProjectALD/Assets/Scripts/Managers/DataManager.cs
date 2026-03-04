@@ -62,5 +62,4 @@ public class DataManager : MonoBehaviour, IInitializable
     }
 
     public int GetObjectId() => _objectId++;
-    
 }

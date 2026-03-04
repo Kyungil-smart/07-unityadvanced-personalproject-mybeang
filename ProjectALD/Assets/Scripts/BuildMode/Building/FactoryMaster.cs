@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGet, IInteractableBeltPut, ISelectableBullet
+public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGet, IInteractableBeltPut, ISelectableBullet, ISellable
 {
     // Inspector
     [SerializeField] private ItemType _curBulletType;
@@ -68,10 +68,10 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
     protected override void InitNumberOfConnectPoint()
     {
         // ToDo. factory slave 가 있는 경우 고려 필요.
-        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.East, null));
-        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.West, null));
-        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.South, null));
-        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.North, null));  
+        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.East, null, gameObject));
+        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.West, null, gameObject));
+        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.South, null, gameObject));
+        bothes.Add(new ConnectPoint(ConnectPointType.Both, Direction.North, null, gameObject));  
     }
     
     public override void PutOnTileHandler()
@@ -255,5 +255,13 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
             PrintLog($"{acquiredItem.itemType}를 창고에 쌓자. ");
             InputStorage[acquiredItem.itemType].Enqueue(acquiredItem);
         }
+    }
+
+    public void SellSelf()
+    {
+        PlayerStatusManager.Instance.EarnGold(DataManager.Instance.buildCostData["Factory"]);
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, IFlip
+public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, IFlip, ISellable
 {
     public Item item { get; set; }
     public Canvas helpCanvas;
@@ -64,8 +64,8 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
     
     protected override void InitNumberOfConnectPoint()
     {
-        tails.Add(new(ConnectPointType.Tail, Direction.South, null));
-        heads.Add(new(ConnectPointType.Head, Direction.East, null));
+        tails.Add(new(ConnectPointType.Tail, Direction.South, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.East, null, gameObject));
     }
 
     public override void PutOnTileHandler()
@@ -191,5 +191,12 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
         {
             item = acquiredItem;
         }
+    }
+
+    public void SellSelf()
+    {
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

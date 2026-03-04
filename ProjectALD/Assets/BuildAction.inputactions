@@ -97,9 +97,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SellBuilding",
+                    "type": "Button",
+                    "id": "d44e3d7e-f38e-4601-8b8d-9e5e2971b1d2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "OnTestDamaged",
                     "type": "Button",
                     "id": "a091610f-adf4-448f-a26a-c98c0dfafd49",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenFactroyMenu",
+                    "type": "Button",
+                    "id": "9dd689a7-c9e7-43f6-953f-b488ed278f9b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -324,6 +342,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "OnTestDamaged",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9918f54-bc69-47c3-b71a-30a6b884f821",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SellBuilding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da8e0ef1-9683-468d-beb1-4cbd1fc40fe7",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenFactroyMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

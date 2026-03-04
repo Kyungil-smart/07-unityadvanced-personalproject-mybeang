@@ -18,7 +18,7 @@ public class GridManager : MonoBehaviour, IInitializable
     private int _startPosX;
     private int _startPosY;
     
-    private GameObject[,] _grid;
+    private Tile[,] _grid;
     
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class GridManager : MonoBehaviour, IInitializable
     
     private void CreateGrid()
     {
-        _grid = new GameObject[_height, _width];
+        _grid = new Tile[_height, _width];
         for (int y = 0; y < _height; y++)
         {
             for (int x = 0; x < _width; x++)
@@ -52,7 +52,7 @@ public class GridManager : MonoBehaviour, IInitializable
                     t.HasObject = Instantiate(WallPrefab, pos, Quaternion.identity);
                     WallPosX = t.transform.position.x;
                 }
-                _grid[y, x] = tile;
+                _grid[y, x] = t;
             }
         }
     }
@@ -63,7 +63,7 @@ public class GridManager : MonoBehaviour, IInitializable
         foreach (var mine in MineList)
         {
             mine.transform.position = _grid[y, 0].transform.position;
-            _grid[y, 0].GetComponent<Tile>().HasObject = mine;
+            _grid[y, 0].HasObject = mine;
             y -= 4;
         }
     }
@@ -74,7 +74,8 @@ public class GridManager : MonoBehaviour, IInitializable
     }
     public GameObject GetObjectOnTile(int x, int y)
     {
-        return _grid[y, x].GetComponent<Tile>().HasObject;
+        if (x < 0 || x >= _width || y < 0 || y >= _height) return null;
+        return _grid[y, x].HasObject;
     }
 
     public GameObject[] GetObjectsAroundTile(Vector2Int pos)
@@ -90,20 +91,10 @@ public class GridManager : MonoBehaviour, IInitializable
         {
             if (dir.x + x < 0 || dir.x + x >= _width) continue;
             if (dir.y + y < 0 || dir.y + y >= _height) continue;
-            GameObject go = _grid[dir.y + y, dir.x + x]?.GetComponent<Tile>().HasObject; 
+            GameObject go = _grid[dir.y + y, dir.x + x]?.HasObject; 
             if (go) objects.Add(go);
         }
         return objects.ToArray();
-    }
-
-    public void PutObjectOnTile(int x, int y, GameObject go)
-    {
-        _grid[y, x].GetComponent<Tile>().HasObject = go;
-    }
-
-    public bool IsObjectOnTile(int x, int y)
-    {
-        return  _grid[y, x].GetComponent<Tile>().HasObject != null;
     }
 
     public bool IsTargetObjectOnAroundTile(Vector2Int pos, GameObject targetObject)
@@ -116,7 +107,7 @@ public class GridManager : MonoBehaviour, IInitializable
         (int y, int x)[] directions = {(0, 1), (0, -1), (1, 0), (-1, 0)};
         foreach (var dir in directions)
         {
-            if (_grid[dir.y + y, dir.x + x].GetComponent<Tile>().HasObject == targetObject)
+            if (_grid[dir.y + y, dir.x + x].HasObject == targetObject)
             {
                 return true;
             }

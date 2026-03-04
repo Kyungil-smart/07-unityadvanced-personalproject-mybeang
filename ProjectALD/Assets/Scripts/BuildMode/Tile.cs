@@ -5,8 +5,12 @@ using UnityEngine.InputSystem;
 
 public class Tile : MonoBehaviour, IPlacable, IRotatable, IFlip
 {
+    // for inspecter
+    public Material _materialOn;
+    public Material _materialOff;
+    [SerializeField] private Canvas _sellText;
+    
     private GameObject _hasObject;
-
     public GameObject HasObject
     {
         get { return _hasObject; }
@@ -17,8 +21,6 @@ public class Tile : MonoBehaviour, IPlacable, IRotatable, IFlip
         }
     }
     public UnityEvent OnChangedObject;
-    public Material _materialOn;
-    public Material _materialOff;
     private SpriteRenderer _spriteRenderer;
     public Vector2Int GridPos;
 
@@ -45,9 +47,15 @@ public class Tile : MonoBehaviour, IPlacable, IRotatable, IFlip
     public void DrawOutline(bool enable)
     {
         if (enable)
+        {
+            _sellText.gameObject.SetActive(true);
             _spriteRenderer.material = _materialOn;
+        }
         else
+        {
+            _sellText.gameObject.SetActive(false);
             _spriteRenderer.material = _materialOff;
+        }
     }
     
     private void OnDrawGizmos()
@@ -74,5 +82,11 @@ public class Tile : MonoBehaviour, IPlacable, IRotatable, IFlip
     public void Flip()
     {
         (HasObject.GetComponent<MonoBehaviour>() as IFlip)?.Flip();
+    }
+
+    public void SellBuilding()
+    {
+        (HasObject.GetComponent<MonoBehaviour>() as ISellable)?.SellSelf();
+        HasObject = null;
     }
 }

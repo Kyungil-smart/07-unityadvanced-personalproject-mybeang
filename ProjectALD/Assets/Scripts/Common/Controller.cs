@@ -25,31 +25,43 @@ public class Controller : MonoBehaviour
     {
         _buildAction.Enable();
         _buildAction.Build.Enable();
-        _buildAction.Build.SelectBuilding.started += OnSelectBuilding;
         _buildAction.Build.Action.started += OnAction;
-        _buildAction.Build.GameTime.started += OnGameTime;
-        _buildAction.Build.TrackingMousePosition.performed += OnTrackingMousePosition;
         _buildAction.Build.Cancel.started += OnCancel;
-        _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
-        _buildAction.Build.MoveCamera.started += OnMoveCamera;
-        _buildAction.Build.FlipCurvBelt.started += OnFlipCurvBelt;
         _buildAction.Build.OpenMenu.started += OnOpenMenu;
+        _buildAction.Build.GameTime.started += OnGameTime;
+        _buildAction.Build.MoveCamera.started += OnMoveCamera;
+        _buildAction.Build.TrackingMousePosition.performed += OnTrackingMousePosition;
+        
+        _buildAction.Build.SelectBuilding.started += OnSelectBuilding;
+        _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
+        _buildAction.Build.FlipCurvBelt.started += OnFlipCurvBelt;
+        _buildAction.Build.SellBuilding.started += OnSellBuilding;
+        
         _buildAction.Build.OnTestDamaged.started += OnTestDamaged;
+        
     }
 
     private void OnDisable()
     {
         _buildAction.Disable();
-        _buildAction.Build.SelectBuilding.started -= OnSelectBuilding;
         _buildAction.Build.Action.started -= OnAction;
-        _buildAction.Build.GameTime.started -= OnGameTime;
-        _buildAction.Build.TrackingMousePosition.performed -= OnTrackingMousePosition;
         _buildAction.Build.Cancel.started -= OnCancel;
-        _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
-        _buildAction.Build.MoveCamera.started -= OnMoveCamera;
-        _buildAction.Build.FlipCurvBelt.started -= OnFlipCurvBelt;
         _buildAction.Build.OpenMenu.started -= OnOpenMenu;
+        _buildAction.Build.GameTime.started -= OnGameTime;
+        _buildAction.Build.MoveCamera.started -= OnMoveCamera;
+        _buildAction.Build.TrackingMousePosition.performed -= OnTrackingMousePosition;
+        
+        _buildAction.Build.SelectBuilding.started -= OnSelectBuilding;
+        _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
+        _buildAction.Build.FlipCurvBelt.started -= OnFlipCurvBelt;
+        _buildAction.Build.SellBuilding.started -= OnSellBuilding;
+        
         _buildAction.Build.OnTestDamaged.started -= OnTestDamaged;
+    }
+
+    private void OnSellBuilding(InputAction.CallbackContext obj)
+    {
+        if (_selectedTile != null) BuildManager.Instance.SellBuilding(_selectedTile);
     }
 
     private void OnTestDamaged(InputAction.CallbackContext obj)

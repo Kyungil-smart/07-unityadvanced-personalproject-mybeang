@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +13,8 @@ public class BuildManager : MonoBehaviour
     
     [SerializeField] private List<GameObject> _buildings;
     [SerializeField] private FactoryUIControl _factoryUI;
-    private Dictionary<string, Mine> _mines;
+    [SerializeField] private Mine _copperMine;
+    [SerializeField] private Mine _ironMine;
     
     private void Awake()
     {
@@ -159,7 +161,14 @@ public class BuildManager : MonoBehaviour
 
     public void UnlockMine()
     {
-        
+        // 추후 여러 mine 에 대해 선택 할 수 있는 logic 필요.
+        // 현 시점 ironMine 만 해금하므로 해당 코드만 진행.
+        _ironMine.Unlock();
     }
-     
+
+    public void SellBuilding(Tile tile)
+    {
+        if (tile.HasObject == null) return;
+        tile.SellBuilding();
+    }
 }

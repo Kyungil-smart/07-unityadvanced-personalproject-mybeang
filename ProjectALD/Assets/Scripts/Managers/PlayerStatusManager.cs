@@ -96,6 +96,10 @@ public class PlayerStatusManager : MonoBehaviour, IInitializable
     {
         Gold -= gold;
     }
+    public void EarnGold(int gold)
+    {
+        Gold += gold;
+    }
 
     public void Init()
     {

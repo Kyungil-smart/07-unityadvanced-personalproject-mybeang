@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable
+public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, ISellable
 {
     public Item item { get; set; }
     public SpriteRenderer subSpriteRenderer;
@@ -64,8 +64,8 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
     
     protected override void InitNumberOfConnectPoint()
     {
-        tails.Add(new(ConnectPointType.Tail, Direction.East, null));
-        heads.Add(new(ConnectPointType.Head, Direction.West, null));
+        tails.Add(new(ConnectPointType.Tail, Direction.East, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.West, null, gameObject));
     }
 
     public override void PutOnTileHandler()
@@ -182,5 +182,12 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
             item = acquiredItem;
             UpdateSubItemIcon();
         }
+    }
+
+    public void SellSelf()
+    {
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

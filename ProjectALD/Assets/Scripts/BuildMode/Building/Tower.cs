@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableBeltPut
+public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableBeltPut, ISellable
 {
     private Coroutine _attackCoroutine;
     private GameObject _target;
@@ -112,7 +112,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
 
     protected override void InitNumberOfConnectPoint()
     {
-        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.West, null));
+        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.West, null, gameObject));
     }
 
     public override void PutOnTileHandler()
@@ -139,5 +139,13 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
             bulletData = bulletBox.data;
             attackInterval = new WaitForSeconds(bulletData.attackRate);
         }
+    }
+
+    public void SellSelf()
+    {
+        PlayerStatusManager.Instance.EarnGold(DataManager.Instance.buildCostData["Tower"]);
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

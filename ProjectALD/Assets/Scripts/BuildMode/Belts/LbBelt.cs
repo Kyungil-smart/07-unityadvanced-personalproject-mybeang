@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class LbBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable
+public class LbBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, ISellable
 {
     public Item item { get; set; }
     private WaitForSeconds _deliveryInterval;
@@ -46,10 +46,10 @@ public class LbBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, 
     
     protected override void InitNumberOfConnectPoint()
     {
-        tails.Add(new(ConnectPointType.Tail, Direction.South, null));
-        heads.Add(new(ConnectPointType.Head, Direction.West, null));
-        heads.Add(new(ConnectPointType.Head, Direction.North, null));
-        heads.Add(new(ConnectPointType.Head, Direction.East, null));
+        tails.Add(new(ConnectPointType.Tail, Direction.South, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.West, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.North, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.East, null, gameObject));
     }
 
     public override void PutOnTileHandler()
@@ -157,5 +157,12 @@ public class LbBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, 
         {
             item = acquiredItem;
         }
+    }
+
+    public void SellSelf()
+    {
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

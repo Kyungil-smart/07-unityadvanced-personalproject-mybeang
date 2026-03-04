@@ -7,7 +7,7 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
 {
     public ItemType itemType;
     [SerializeField] private GameObject _resourcePrefab;
-    private bool IsLocked;
+    public bool isLocked;
     [SerializeField] private GameObject _lockObject;
     private int _unlockCost;
 
@@ -19,16 +19,16 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
     protected override void InitNumberOfConnectPoint()
     {
         PrintLog($"{gameObject.name} work init number of connect point.");
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.East, null));
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.South, null));
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.North, null));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.East, null, gameObject));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.South, null, gameObject));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.North, null, gameObject));
         PrintLog($"{gameObject.name} makes {heads.Count} connect points.");
     }
 
     public override void PutOnTileHandler()
     {
-        IsLocked = _lockObject != null;
-        if (!IsLocked)
+        isLocked = _lockObject != null;
+        if (!isLocked)
         {
             InitNumberOfConnectPoint();
         }
@@ -50,15 +50,16 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
         {
             _lockObject?.GetComponent<Animator>()?.SetTrigger("Unlocked");
             InitNumberOfConnectPoint();
-            IsLocked = false;
-            _lockObject.SetActive(false);
+            isLocked = false;
+            _lockObject?.SetActive(false);
+            PlayerStatusManager.Instance.WastGold(_unlockCost);
         }
     }
 
     public Task InitDataAsync()
     {
         _unlockCost = DataManager.Instance.minerData[$"{gameObject.name}rSO"].unlockCost;
-        if (_unlockCost > 0) IsLocked = true;
+        if (_unlockCost > 0) isLocked = true;
         
         return Task.CompletedTask;
     }

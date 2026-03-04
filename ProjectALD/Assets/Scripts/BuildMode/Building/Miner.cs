@@ -5,7 +5,7 @@ using UnityEngine;
 
 // ToDo: 개별 UI 개발 후 Upgrade Logic 구현 
 
-public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
+public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding, ISellable
 {
     [SerializeField] private int _currentResourceCount;
     [SerializeField] private int _maxResourceCount;
@@ -15,21 +15,7 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
     private Coroutine _minerCoroutine;
     private Mine _mine;
     private GameObject _mineObj;
-    private MinerData _minerData;
-    public ConnectPoint head
-    {
-        get
-        {
-            if (heads.Count == 0) return null;
-            return heads[0];
-        }
-        set
-        {
-            if (heads.Count == 0) heads.Add(value);
-            else heads[0] = value;
-        } 
-    }
-
+    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -51,23 +37,13 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
         StopMining();
     }
 
-    public void DataLoad()
-    {
-        if (_mine == null) return;
-        string key = $"{_mine.itemType}MinerSO";
-        _minerData = DataManager.Instance.minerData[key];
-    }
-
     public override void PutOnTileHandler()
     {
         _spriteRenderer.sortingLayerName = "FactoryMine";
         foreach (var head in heads)
             ConnectToNeighbor(head);
         if (SearchMine(myTile.GridPos))
-        {
             ConnectToMine();
-            DataLoad();    
-        }
     }
 
     public override void TakeOffTileHandler()
@@ -91,7 +67,7 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
                 PrintLog("주변 광산 있음");
                 _mineObj = obj;
                 _mine = obj.GetComponent<IInteracterableMiner>() as Mine;
-                return true;
+                if (!_mine.isLocked) return true;
             }
         }
         return false;
@@ -160,14 +136,22 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding
 
     protected override void InitNumberOfConnectPoint()
     {
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.East, null));
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.South, null));
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.North, null));
-        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.West, null));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.East, null, gameObject));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.South, null, gameObject));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.North, null, gameObject));
+        heads.Add(new ConnectPoint(ConnectPointType.Head, Direction.West, null, gameObject));
         
-        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.East, null));
-        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.North, null));
-        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.South, null));
-        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.West, null));
+        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.East, null, gameObject));
+        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.North, null, gameObject));
+        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.South, null, gameObject));
+        tails.Add(new ConnectPoint(ConnectPointType.Tail, Direction.West, null, gameObject));
+    }
+
+    public void SellSelf()
+    {
+        PlayerStatusManager.Instance.EarnGold(DataManager.Instance.buildCostData["Miner"]);
+        ClearAllConnectPoints();
+        // ToDo. ObjectPool
+        Destroy(gameObject);
     }
 }

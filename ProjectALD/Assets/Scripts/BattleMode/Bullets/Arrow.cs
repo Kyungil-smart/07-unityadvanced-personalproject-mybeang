@@ -46,6 +46,6 @@ public class Arrow : Item, IBullet
     public void Attack()
     {   
         Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
-        _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
+        // _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
     }
 }
