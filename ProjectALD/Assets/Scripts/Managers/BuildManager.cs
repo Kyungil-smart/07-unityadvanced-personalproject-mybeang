@@ -113,6 +113,7 @@ public class BuildManager : MonoBehaviour
             return;  
         }
         tile.HasObject = SelectedBuilding;
+        PlayerStatusManager.Instance.WastGold(DataManager.Instance.buildCostData["Miner"]);
         SelectedBuilding = null;
     }
 
@@ -120,6 +121,7 @@ public class BuildManager : MonoBehaviour
     {
         tile.HasObject = SelectedBuilding;
         OpenFactoryUI(tile);
+        PlayerStatusManager.Instance.WastGold(DataManager.Instance.buildCostData["Factory"]);
         SelectedBuilding = null;
     }
 
@@ -150,6 +152,7 @@ public class BuildManager : MonoBehaviour
         Vector3 curPos = wall.DefenceUnit.transform.position;
         Vector3 newPos = new Vector3(curPos.x, curPos.y + 1f, 0);
         wall.DefenceUnit.transform.position = newPos;
+        PlayerStatusManager.Instance.WastGold(DataManager.Instance.buildCostData["Tower"]);
         SelectedBuilding = null;
     }
      

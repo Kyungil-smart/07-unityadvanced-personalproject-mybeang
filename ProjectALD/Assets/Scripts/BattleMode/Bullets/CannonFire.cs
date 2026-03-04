@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// ToDo. Not Implement
 public class CannonFire : Item, IBullet
 {
     public BulletData data;

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
 {
+    public static Controller Instance;
     private BuildAction _buildAction;
     private Camera _camera;
     private CameraMovement _cameraMovement;
@@ -15,6 +16,7 @@ public class Controller : MonoBehaviour
     
     private void Awake()
     {
+        if (Instance == null) Instance = this;
         _buildAction = new BuildAction();
         _camera = Camera.main;
         _cameraMovement = _camera.gameObject.GetComponent<CameraMovement>();
@@ -140,12 +142,16 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private void OnTrackingMousePosition(InputAction.CallbackContext context)
+    public Vector3 GetMousePosition()
     {
         Vector2 screenPos = _buildAction.Build.TrackingMousePosition.ReadValue<Vector2>();
-        _mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f));
+        return Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f));
+    }
+    
+    private void OnTrackingMousePosition(InputAction.CallbackContext context)
+    {
         if (BuildManager.Instance.SelectedBuilding != null)
-            BuildManager.Instance.SelectedBuilding.transform.position = _mouseWorldPos;
+            BuildManager.Instance.SelectedBuilding.transform.position = GetMousePosition();
     }
 
     private void OnCancel(InputAction.CallbackContext context)

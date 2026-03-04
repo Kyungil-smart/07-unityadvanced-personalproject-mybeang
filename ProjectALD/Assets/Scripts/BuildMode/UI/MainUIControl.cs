@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 
-public class MainUIControl : MonoBehaviour
+public class MainUIControl : MonoBehaviour, IInitializable
 {
     public static MainUIControl Instance;
     // UI 제어용 Inspector 에 노출하여 연결해 주어야 할 것들.
@@ -22,7 +24,12 @@ public class MainUIControl : MonoBehaviour
     [Header("For UI Control")]
     [SerializeField] private Image _buildIconBar;
     [SerializeField] private Button _upgradeButton;
+    [SerializeField] private Button _repairButton;
     [SerializeField] private Canvas _upgardeUICanvas;
+    
+    [Header("For Build Button")]
+    [SerializeField] private List<Button> _buildButtons;
+    [SerializeField] private List<TextMeshProUGUI> _buildButtonCost;
     
     // 그외 Inspector 에서는 신경쓰지 않아도 될 것들.
     public UnityEvent<string> OnChangedWarningText;
@@ -62,7 +69,17 @@ public class MainUIControl : MonoBehaviour
         PlayerStatusManager.Instance.OnChangeCurrentHp.AddListener(ChangeCurrentHp);
         PlayerStatusManager.Instance.OnChangeTotalHp.AddListener(ChangeTotalHp);
         PlayerStatusManager.Instance.OnChangedGold.AddListener(ChangeGold);
-
+        
+        // add handler to buttons
+        _upgradeButton.onClick.AddListener(OnUpgradeWindowOpen);
+        _repairButton.onClick.AddListener(OnRepair);
+        for (int i = 0; i < _buildButtons.Count; i++)
+        {
+            int index;
+            if (i == 0) index = 9;
+            else index = i + 1;
+            _buildButtons[i].onClick.AddListener(() => OnClickBuildButton(index));
+        }
         _waveStartButton?.onClick.AddListener(OnWaveStart);
     }
 
@@ -74,7 +91,25 @@ public class MainUIControl : MonoBehaviour
         PlayerStatusManager.Instance.OnChangeTotalHp.RemoveListener(ChangeTotalHp);
         PlayerStatusManager.Instance.OnChangedGold.RemoveListener(ChangeGold);
         
+        // remove handler to buttons
+        _upgradeButton.onClick.RemoveListener(OnUpgradeWindowOpen);
+        _repairButton.onClick.RemoveListener(OnRepair);
+        foreach (Button button in _buildButtons)
+            button.onClick.RemoveAllListeners();
+        
         _waveStartButton?.onClick.RemoveListener(OnWaveStart);
+    }
+
+    private void InitBuildCost()
+    {
+        foreach (var costTxt in _buildButtonCost)
+        {
+            string name = costTxt.name.Replace("Cost", string.Empty);
+            if (DataManager.Instance.buildCostData.ContainsKey(name))
+            {
+                costTxt.text = DataManager.Instance.buildCostData[name].ToString();
+            }
+        }
     }
 
     public void OpenWarning(string text)
@@ -120,11 +155,22 @@ public class MainUIControl : MonoBehaviour
 
     private void OnUpgradeWindowOpen()
     {
-        
+        _upgardeUICanvas.gameObject.SetActive(!_upgardeUICanvas.gameObject.activeSelf);
+    }
+
+    private void OnClickBuildButton(int index)
+    {
+        BuildManager.Instance.SelectBuilding(index, Controller.Instance.GetMousePosition());
     }
 
     private void OnRepair()
     {
         PlayerStatusManager.Instance.Repair();
+    }
+
+    public Task InitDataAsync()
+    {
+        InitBuildCost();
+        return Task.CompletedTask;
     }
 }

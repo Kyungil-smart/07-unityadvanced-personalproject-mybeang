@@ -4,7 +4,8 @@
     "MinerMustBuildNearMine": "채광기는 광산옆에만 설치할 수 있습니다.",
     "TowerShoudBeOnWall": "방어유닛은 항상 벽 혹은 타워위에만 설치할 수 있습니다.",
     "OtherBuildShoudNotBeOnWall": "오로지 방어유닛만 벽 혹은 타워위에만 설치할 수 있습니다.",
-    "ToDoBuilding": "아직 구현되지 않았습니다."
+    "ToDoBuilding": "아직 구현되지 않았습니다.",
+    "NotEnoughGold": "소지금이 부족합니다."
   },
   "PopUpWindow": {
     "Wall": {
