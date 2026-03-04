@@ -9,6 +9,11 @@ public class CannonIce : Item, IBullet
         data = LoadBulletData("CannonIceSO");
     }
 
+    public void SetDamage(float damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void SetTarget(GameObject target)
     {
         throw new System.NotImplementedException();

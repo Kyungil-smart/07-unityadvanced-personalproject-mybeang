@@ -75,9 +75,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
         _repairButton.onClick.AddListener(OnRepair);
         for (int i = 0; i < _buildButtons.Count; i++)
         {
-            int index;
-            if (i == 0) index = 9;
-            else index = i + 1;
+            int index = i + 1;
             _buildButtons[i].onClick.AddListener(() => OnClickBuildButton(index));
         }
         _waveStartButton?.onClick.AddListener(OnWaveStart);
@@ -146,6 +144,12 @@ public class MainUIControl : MonoBehaviour, IInitializable
     private void ChangeGold(int gold) =>
         _goldText.text = gold.ToString();
     
+    public Task InitDataAsync()
+    {
+        InitBuildCost();
+        return Task.CompletedTask;
+    }
+    
     // === buttonhandler =========
     private void OnWaveStart()
     {
@@ -166,11 +170,5 @@ public class MainUIControl : MonoBehaviour, IInitializable
     private void OnRepair()
     {
         PlayerStatusManager.Instance.Repair();
-    }
-
-    public Task InitDataAsync()
-    {
-        InitBuildCost();
-        return Task.CompletedTask;
     }
 }

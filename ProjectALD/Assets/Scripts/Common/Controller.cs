@@ -10,7 +10,6 @@ public class Controller : MonoBehaviour
     private Camera _camera;
     private CameraMovement _cameraMovement;
     private Tile _selectedTile;
-    private Vector3 _mouseWorldPos;
     // 일단 넣어봐.. 어디서 어떻게 하는게 좋은지 좀.. 생각좀..
     [SerializeField] private MenuUIControl _menuUI;
     
@@ -35,6 +34,7 @@ public class Controller : MonoBehaviour
         _buildAction.Build.MoveCamera.started += OnMoveCamera;
         _buildAction.Build.FlipCurvBelt.started += OnFlipCurvBelt;
         _buildAction.Build.OpenMenu.started += OnOpenMenu;
+        _buildAction.Build.OnTestDamaged.started += OnTestDamaged;
     }
 
     private void OnDisable()
@@ -49,6 +49,12 @@ public class Controller : MonoBehaviour
         _buildAction.Build.MoveCamera.started -= OnMoveCamera;
         _buildAction.Build.FlipCurvBelt.started -= OnFlipCurvBelt;
         _buildAction.Build.OpenMenu.started -= OnOpenMenu;
+        _buildAction.Build.OnTestDamaged.started -= OnTestDamaged;
+    }
+
+    private void OnTestDamaged(InputAction.CallbackContext obj)
+    {
+        PlayerStatusManager.Instance.currentHp -= 50;
     }
 
     private void OnOpenMenu(InputAction.CallbackContext obj)
@@ -67,7 +73,7 @@ public class Controller : MonoBehaviour
         if (context.started)
         {
             int pressedKey = int.Parse(context.control.name);
-            BuildManager.Instance.SelectBuilding(pressedKey, _mouseWorldPos);
+            BuildManager.Instance.SelectBuilding(pressedKey, GetMousePosition());
         }
     }
 

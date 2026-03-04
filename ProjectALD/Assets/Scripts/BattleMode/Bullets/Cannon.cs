@@ -6,6 +6,7 @@ public class Cannon : Item, IBullet
     private GameObject _target;
     private BulletMovement _movement;
     private readonly float _effortRange = 3f;
+    private float _damage;
     
     private void Start()
     {
@@ -30,6 +31,11 @@ public class Cannon : Item, IBullet
         }
     }
 
+    public void SetDamage(float damage)
+    {
+        _damage = damage;
+    }
+
     public void SetTarget(GameObject target)
     {
         _target = target;
@@ -43,8 +49,8 @@ public class Cannon : Item, IBullet
     }
 
     public void Attack()
-    {   // 데미지를 입히자. 추후 데미지 계산식 추가 필요.
-        Debug.Log($"{gameObject.name}, {_target.name} 에게 {data.damage}의 데미지");
-        _target?.GetComponent<IDamagable>()?.TakeDamage(data.damage, data.damageTypes[1]);
+    {   
+        Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
+        _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
     }
 }

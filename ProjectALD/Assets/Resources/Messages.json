@@ -7,26 +7,6 @@
     "ToDoBuilding": "아직 구현되지 않았습니다.",
     "NotEnoughGold": "소지금이 부족합니다."
   },
-  "PopUpWindow": {
-    "Wall": {
-      "ArcherRmoeve": "궁수 철거",
-    },
-    "Upgrade": {
-      "ArcherDamageUpgrade": {
-        "BtTxt": "궁수 데미지 업그레이드",
-        "Desc": "탄약의 데미지를 조금 상승한다."
-      },
-      "HPUpgarde": {
-        "BtTxt": "체력 업그레이드",
-        "Desc": "최대 체력을 일정 수치 올린다."
-      },      
-    }
-  },
-  "ToolTips": {
-    "Repair": {      
-      "Desc": "최대 체력의 50% 를 회복한다."
-    }
-  },
   "Bullet": {
     "Arrow": "화살",
     "Bullet": "총알",

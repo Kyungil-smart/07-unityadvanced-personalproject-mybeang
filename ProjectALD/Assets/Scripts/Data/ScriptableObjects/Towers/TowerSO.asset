@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7813c789f62d4ef28a14d21c8dd93f97, type: 3}
   m_Name: TowerSO
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  HP: 100
-  incrementHP: 30
-  maxUpgradeLevel: 30
-  initUpgradeCost: 100
-  incrementUpgradeCost: 50
+  incrementHP: 500
+  maxUpgradeLevel: 8
+  initUpgradeCost: 1000
+  incrementUpgradeCost: 250
   multiplierDamage: 0.1
-  initDamageUpgradeCost: 150
-  incrementDamageUpgradeCost: 150
-  maxDamageUpgradeLevel: 15
+  initDamageUpgradeCost: 1000
+  incrementDamageUpgradeCost: 250
+  maxDamageUpgradeLevel: 10

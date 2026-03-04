@@ -51,18 +51,23 @@ public class GameManager : SingleTon<GameManager>
         switch (value)
         {
             case GameState.EnterGame:
+                Debug.Log("Enter Game");
                 Init();
                 break;
             case GameState.DataLoading:
+                Debug.Log("Data Loading");
                 await Loading();
                 break;
             case GameState.WaveStart:
+                Debug.Log("Wave Start");
                 StartCoroutine(GameTimeCoroutine());
                 break;
             case GameState.Pause:
+                Debug.Log("Pause Game");
                 Pause();
                 break;
             default:
+                Debug.Log("Idle");
                 Resume();
                 break;
         }
@@ -79,7 +84,6 @@ public class GameManager : SingleTon<GameManager>
         gameState = GameState.Idle;
         CurrentWave = 1;
         TotalWave = 15;
-        PlayerStatusManager.Instance.Init();
         StateToDataLoading();
     }
     
@@ -97,15 +101,17 @@ public class GameManager : SingleTon<GameManager>
 
     private async Task Loading()
     {
+        string name = "";
         LoadingTotalStep = InitialTargetObjects.Count;
         foreach (var i in InitialTargetObjects)
         {
             LoadingCurStep++;
             if (i is IInitializable initializable)
             {
+                name = initializable.ToString();
                 await initializable.InitDataAsync();
             }
-            Debug.Log($"Loading {LoadingCurStep}/{LoadingTotalStep}");
+            Debug.Log($"Loading - {name} {LoadingCurStep}/{LoadingTotalStep}");
         }
         StateToIdle();
     }

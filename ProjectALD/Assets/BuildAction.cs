@@ -181,6 +181,15 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OnTestDamaged"",
+                    ""type"": ""Button"",
+                    ""id"": ""a091610f-adf4-448f-a26a-c98c0dfafd49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -392,6 +401,17 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
                     ""action"": ""OpenMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1274bb1d-33df-48f5-8a9f-26d1898d7712"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnTestDamaged"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -427,6 +447,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         m_Build_MoveCamera = m_Build.FindAction("MoveCamera", throwIfNotFound: true);
         m_Build_FlipCurvBelt = m_Build.FindAction("FlipCurvBelt", throwIfNotFound: true);
         m_Build_OpenMenu = m_Build.FindAction("OpenMenu", throwIfNotFound: true);
+        m_Build_OnTestDamaged = m_Build.FindAction("OnTestDamaged", throwIfNotFound: true);
     }
 
     ~@BuildAction()
@@ -517,6 +538,7 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Build_MoveCamera;
     private readonly InputAction m_Build_FlipCurvBelt;
     private readonly InputAction m_Build_OpenMenu;
+    private readonly InputAction m_Build_OnTestDamaged;
     /// <summary>
     /// Provides access to input actions defined in input action map "Build".
     /// </summary>
@@ -568,6 +590,10 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Build/OpenMenu".
         /// </summary>
         public InputAction @OpenMenu => m_Wrapper.m_Build_OpenMenu;
+        /// <summary>
+        /// Provides access to the underlying input action "Build/OnTestDamaged".
+        /// </summary>
+        public InputAction @OnTestDamaged => m_Wrapper.m_Build_OnTestDamaged;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -624,6 +650,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @OpenMenu.started += instance.OnOpenMenu;
             @OpenMenu.performed += instance.OnOpenMenu;
             @OpenMenu.canceled += instance.OnOpenMenu;
+            @OnTestDamaged.started += instance.OnOnTestDamaged;
+            @OnTestDamaged.performed += instance.OnOnTestDamaged;
+            @OnTestDamaged.canceled += instance.OnOnTestDamaged;
         }
 
         /// <summary>
@@ -665,6 +694,9 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
             @OpenMenu.started -= instance.OnOpenMenu;
             @OpenMenu.performed -= instance.OnOpenMenu;
             @OpenMenu.canceled -= instance.OnOpenMenu;
+            @OnTestDamaged.started -= instance.OnOnTestDamaged;
+            @OnTestDamaged.performed -= instance.OnOnTestDamaged;
+            @OnTestDamaged.canceled -= instance.OnOnTestDamaged;
         }
 
         /// <summary>
@@ -788,5 +820,12 @@ public partial class @BuildAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OnTestDamaged" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOnTestDamaged(InputAction.CallbackContext context);
     }
 }

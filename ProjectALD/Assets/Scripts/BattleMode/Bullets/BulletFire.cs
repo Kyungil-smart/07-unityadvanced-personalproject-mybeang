@@ -9,6 +9,11 @@ public class BulletFire : Item, IBullet
         data = LoadBulletData("BulletFireSO");
     }
 
+    public void SetDamage(float damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void SetTarget(GameObject target)
     {
         throw new System.NotImplementedException();

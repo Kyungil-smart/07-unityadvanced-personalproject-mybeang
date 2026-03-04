@@ -9,7 +9,7 @@ public class TowerData : ScriptableObject
     public int initUpgradeCost;
     public int incrementUpgradeCost;
     public float multiplierDamage;
-    public float initDamageUpgradeCost;
-    public float incrementDamageUpgradeCost;
-    public float maxDamageUpgradeLevel;
+    public int initDamageUpgradeCost;
+    public int incrementDamageUpgradeCost;
+    public int maxDamageUpgradeLevel;
 }

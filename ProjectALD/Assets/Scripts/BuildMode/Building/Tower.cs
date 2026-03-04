@@ -56,6 +56,11 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
                 break;
         }
     }
+
+    private float ApplyDamageMultipler(float damage)
+    {
+        return PlayerStatusManager.Instance.damageMultiplier * damage;;
+    }
     
     public IEnumerator Attack()
     {
@@ -69,7 +74,9 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
                 IBullet iBullet = bullet.GetComponent<IBullet>();
                 PrintLog($"{bullet.name} 을 하나 꺼냄");
                 iBullet.SetTarget(_target);
+                iBullet.SetDamage(ApplyDamageMultipler(bulletData.damage));
                 bullet.transform.position = transform.position;
+                PrintLog($"{bullet.name} 데이터 갱신");
                 yield return animWait;
                 PrintLog($"{bullet.name} 을 쏜다");
                 iBullet.Fire();

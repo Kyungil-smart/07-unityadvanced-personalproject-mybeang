@@ -30,6 +30,8 @@ public class EnemyArrow : Item, IBullet
         }
     }
 
+    public void SetDamage(float damage) {}
+
     public void SetTarget(GameObject target)
     {
         _target = target;

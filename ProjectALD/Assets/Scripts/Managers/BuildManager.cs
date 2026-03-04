@@ -12,7 +12,8 @@ public class BuildManager : MonoBehaviour
     
     [SerializeField] private List<GameObject> _buildings;
     [SerializeField] private FactoryUIControl _factoryUI;
-
+    private Dictionary<string, Mine> _mines;
+    
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -154,6 +155,11 @@ public class BuildManager : MonoBehaviour
         wall.DefenceUnit.transform.position = newPos;
         PlayerStatusManager.Instance.WastGold(DataManager.Instance.buildCostData["Tower"]);
         SelectedBuilding = null;
+    }
+
+    public void UnlockMine()
+    {
+        
     }
      
 }
