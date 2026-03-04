@@ -10,6 +10,7 @@ public class EnemyRangeAttack : MonoBehaviour, IAttackable
     private WaitForSeconds attackInterval = new WaitForSeconds(3.0f);
     private Coroutine attackCoroutine;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private LayerMask wallLayerMask;
     private IBullet _iBullet;
     
     private void Awake()
@@ -30,7 +31,7 @@ public class EnemyRangeAttack : MonoBehaviour, IAttackable
     private void CheckAttackRange()
     {
         ray = new Ray2D(transform.position, transform.right * -1);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, status.data.attackRange + 0.1f);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, status.data.attackRange + 0.1f, wallLayerMask);
         if (hit.collider != null && hit.collider.tag.Contains("Wall"))
         {
             target = hit.collider.gameObject;
@@ -38,19 +39,23 @@ public class EnemyRangeAttack : MonoBehaviour, IAttackable
                 attackCoroutine = StartCoroutine(Attack());
         }
     }
+
+    public void AttackOneShot()
+    {
+        // ToDo. Object Pool
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            
+        _iBullet = bullet.GetComponent<IBullet>();
+        _iBullet.SetTarget(target);
+        _iBullet.Fire();
+    }
     
     public IEnumerator Attack()
     {
         while (!status.isDead)
         {
             _animator.SetTrigger("AttackTrigger");
-            
-            // ToDo. Object Pool
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            
-            _iBullet = bullet.GetComponent<IBullet>();
-            _iBullet.SetTarget(target);
-            _iBullet.Fire();
+            // AttackOneShot();
             yield return attackInterval;
         }
     }

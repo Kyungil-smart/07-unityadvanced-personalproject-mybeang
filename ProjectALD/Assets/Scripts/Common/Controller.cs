@@ -169,7 +169,15 @@ public class Controller : MonoBehaviour
     private void OnTrackingMousePosition(InputAction.CallbackContext context)
     {
         if (BuildManager.Instance.SelectedBuilding != null)
-            BuildManager.Instance.SelectedBuilding.transform.position = GetMousePosition();
+        {
+            Vector3 position = GetMousePosition();
+            if (BuildManager.Instance.SelectedBuilding.tag.Contains("Tower"))
+            {
+                position = new Vector3(position.x, position.y + 1.0f, position.z);
+            }
+            BuildManager.Instance.SelectedBuilding.transform.position = position;
+        }
+            
     }
 
     private void OnCancel(InputAction.CallbackContext context)

@@ -64,8 +64,8 @@ public class BasicBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavio
     
     protected override void InitNumberOfConnectPoint()
     {
-        tails.Add(new(ConnectPointType.Tail, Direction.East, null, gameObject));
-        heads.Add(new(ConnectPointType.Head, Direction.West, null, gameObject));
+        tails.Add(new(ConnectPointType.Tail, Direction.West, null, gameObject));
+        heads.Add(new(ConnectPointType.Head, Direction.East, null, gameObject));
     }
 
     public override void PutOnTileHandler()

@@ -41,8 +41,22 @@ public class FactoryUIControl : MonoBehaviour
     }
 
     // 이것을 굳이 MVP 패턴이나 OpserverPattern 으로 변경할 필요가... 있을가..?
-    private void OnSelectArrow() => factory.curBulletType = ItemType.Arrow;
-    private void OnSelectBullet() => factory.curBulletType = ItemType.Bullet;
-    private void OnSelectCannon() => factory.curBulletType = ItemType.Cannon;
+    private void OnSelectArrow()
+    {
+        factory.curBulletType = ItemType.Arrow;
+        OnClose();
+    }
+
+    private void OnSelectBullet()
+    {
+        factory.curBulletType = ItemType.Bullet;
+        OnClose();
+    }
+
+    private void OnSelectCannon()
+    {
+        factory.curBulletType = ItemType.Cannon;
+        OnClose();
+    } 
     private void OnClose() => gameObject.SetActive(false);
 }

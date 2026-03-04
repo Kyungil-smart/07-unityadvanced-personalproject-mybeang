@@ -72,7 +72,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
                 _animator.SetTrigger("IsAttacking");
                 GameObject bullet = bulletBox.GetBullet();
                 IBullet iBullet = bullet.GetComponent<IBullet>();
-                PrintLog($"{bullet.name} 을 하나 꺼냄");
+                PrintLog($"{bullet.name} 을 하나 꺼냄. IBullet: {iBullet}");
                 iBullet.SetTarget(_target);
                 iBullet.SetDamage(ApplyDamageMultipler(bulletData.damage));
                 bullet.transform.position = transform.position;

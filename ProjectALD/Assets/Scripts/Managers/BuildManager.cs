@@ -43,7 +43,12 @@ public class BuildManager : MonoBehaviour
                 OpenBuildWarningMessage("ToDoBuilding");
                 return;
             }
-            if (selectNumber == 0) selectNumber = _buildings.Count - 1;
+
+            if (selectNumber == 0)
+            {
+                selectNumber = _buildings.Count - 1;
+                position = new Vector3(position.x, position.y + 1f, 0);
+            }
             else selectNumber -= 1;
             SelectedBuilding = BuildingObject.Create(_buildings[selectNumber], position, Quaternion.identity);
         }

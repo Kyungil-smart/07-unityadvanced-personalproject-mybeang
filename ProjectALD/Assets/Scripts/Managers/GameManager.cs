@@ -7,8 +7,18 @@ using UnityEngine.Events;
 
 public class GameManager : SingleTon<GameManager>
 {
-    public int CurrentWave = 1;
-    public int TotalWave = 15;
+    private int _currentWave;
+    public UnityEvent<int> OnChangeCurrentWave;
+    public int CurrentWave
+    {
+        get => _currentWave;
+        private set
+        {
+            _currentWave = value;
+            OnChangeCurrentWave?.Invoke(value);
+        }
+    }
+    public int TotalWave;
 
     private GameState _gameState;
     public GameState gameState
@@ -59,7 +69,6 @@ public class GameManager : SingleTon<GameManager>
                 await Loading();
                 break;
             case GameState.WaveStart:
-                Debug.Log("Wave Start");
                 StartCoroutine(GameTimeCoroutine());
                 break;
             case GameState.Pause:
@@ -89,9 +98,11 @@ public class GameManager : SingleTon<GameManager>
     
     private IEnumerator GameTimeCoroutine()
     {
+        Debug.Log("Wave Start");
         while (CurrentWave <= TotalWave)
         {  
-            yield return new WaitForSeconds(300f);
+            Debug.Log($"Current wave: {CurrentWave}");
+            yield return new WaitForSecondsRealtime(30f);  // wave test 후 300f 로 원복하기
             CurrentWave++;
         }
     }

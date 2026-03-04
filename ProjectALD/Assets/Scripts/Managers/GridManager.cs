@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour, IInitializable
     public float WallPosX; 
 
     private int _width = 25;
-    private int _height = 12;
+    private int _height = 11;
 
     private int _startPosX;
     private int _startPosY;
@@ -59,7 +59,7 @@ public class GridManager : MonoBehaviour, IInitializable
 
     private void PositioningMines()
     {
-        int y = 8;
+        int y = 7;
         foreach (var mine in MineList)
         {
             mine.transform.position = _grid[y, 0].transform.position;

@@ -108,7 +108,16 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
         // Connect Point 가 위치한 방향의 앞쪽 Grid 에 Object 가 있는지 확인.
         Vector2Int neighborPos = myTile.GridPos + DirectionUtil.ToAxis[cpoint.direction];
         GameObject neighbor = GridManager.Instance.GetObjectOnTile(neighborPos);
+        
         if (neighbor == null) return;
+        
+        // neighor 가 벽일 경우 대비하기
+        if (neighbor.tag.Contains("Wall"))
+        {
+            Wall wall = neighbor.GetComponent<Wall>();
+            neighbor = wall.DefenceUnit;
+        }
+        
         if (IsConnectable(neighbor, cpoint))
         {
             cpoint.neighbor = neighbor;

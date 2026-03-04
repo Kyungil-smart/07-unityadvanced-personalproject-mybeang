@@ -7,7 +7,7 @@ public class Bullet : Item, IBullet
     private BulletMovement _movement;
     private float _damage;
     
-    private void Start()
+    private void Awake()
     {
         data = LoadBulletData("BulletSO");
         _movement = GetComponent<BulletMovement>();

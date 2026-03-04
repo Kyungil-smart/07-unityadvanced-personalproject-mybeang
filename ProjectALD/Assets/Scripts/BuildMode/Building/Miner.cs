@@ -92,14 +92,14 @@ public class Miner : ObjectOnTile, IInteractableBeltGet, IMovableBuilding, ISell
 
     private void StartMining()
     {
-        PrintLog("일하기 시작");
+        PrintLog("채광 시작");
         _animator.SetBool("IsPicking", true);
         _minerCoroutine = StartCoroutine(MiningRoutine());
     }
 
     private void StopMining()
     {
-        PrintLog("퇴근");
+        PrintLog("채광 중지");
         _animator.SetBool("IsPicking", false);
         if(_minerCoroutine != null) StopCoroutine(_minerCoroutine);
         _minerCoroutine = null;

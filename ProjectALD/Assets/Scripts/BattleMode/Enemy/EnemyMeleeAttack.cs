@@ -9,6 +9,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IAttackable
     private GameObject target;
     private WaitForSeconds attackInterval = new WaitForSeconds(3.0f);
     private Coroutine attackCoroutine;
+    [SerializeField] private LayerMask wallLayerMask;
     
     private void Awake()
     {
@@ -28,7 +29,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IAttackable
     private void CheckAttackRange()
     {
         ray = new Ray2D(transform.position, transform.right * -1);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, status.data.attackRange + 0.1f);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, status.data.attackRange + 0.1f, wallLayerMask);
         if (hit.collider != null && hit.collider.tag.Contains("Wall"))
         {
             target = hit.collider.gameObject;

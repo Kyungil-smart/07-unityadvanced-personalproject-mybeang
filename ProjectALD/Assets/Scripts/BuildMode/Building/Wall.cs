@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wall : ObjectOnTile, IPlacable, IDamagable
+public class Wall : ObjectOnTile, IPlacable, IDamagable, ISellable
 {
     private GameObject _defenceUnit;
     public GameObject DefenceUnit
@@ -36,5 +36,10 @@ public class Wall : ObjectOnTile, IPlacable, IDamagable
         tower.SetLayerPriority(priority);
         tower.myTile = myTile;
         tower.PutOnTileHandler();
+    }
+
+    public void SellSelf()
+    {
+        DefenceUnit.GetComponent<Tower>()?.SellSelf();
     }
 }

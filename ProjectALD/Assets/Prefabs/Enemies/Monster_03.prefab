@@ -232,6 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298bcf5e89d744c4fbc06667297440db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &5449232639755698279
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private TextMeshProUGUI _goldText;
     [SerializeField] private Button _waveStartButton;
+    [SerializeField] private TextMeshProUGUI _waveLevelText;
     
     [Header("For UI Control")]
     [SerializeField] private Image _buildIconBar;
@@ -69,6 +70,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
         PlayerStatusManager.Instance.OnChangeCurrentHp.AddListener(ChangeCurrentHp);
         PlayerStatusManager.Instance.OnChangeTotalHp.AddListener(ChangeTotalHp);
         PlayerStatusManager.Instance.OnChangedGold.AddListener(ChangeGold);
+        GameManager.Instance.OnChangeCurrentWave.AddListener(ChangeWave);
         
         // add handler to buttons
         _upgradeButton.onClick.AddListener(OnUpgradeWindowOpen);
@@ -88,6 +90,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
         PlayerStatusManager.Instance.OnChangeCurrentHp.RemoveListener(ChangeCurrentHp);
         PlayerStatusManager.Instance.OnChangeTotalHp.RemoveListener(ChangeTotalHp);
         PlayerStatusManager.Instance.OnChangedGold.RemoveListener(ChangeGold);
+        GameManager.Instance.OnChangeCurrentWave.RemoveListener(ChangeWave);
         
         // remove handler to buttons
         _upgradeButton.onClick.RemoveListener(OnUpgradeWindowOpen);
@@ -141,8 +144,9 @@ public class MainUIControl : MonoBehaviour, IInitializable
     private void ChangeTotalHp(int totalHp) =>
         _hpText.text = $"{PlayerStatusManager.Instance.currentHp} / {totalHp}";
     
-    private void ChangeGold(int gold) =>
-        _goldText.text = gold.ToString();
+    private void ChangeGold(int gold) => _goldText.text = gold.ToString();
+    
+    private void ChangeWave(int wave) => _waveLevelText.text = $"웨이브: {wave}";
     
     public Task InitDataAsync()
     {
@@ -150,7 +154,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
         return Task.CompletedTask;
     }
     
-    // === buttonhandler =========
+    // === button handler =========
     private void OnWaveStart()
     {
         GameManager.Instance.StateToWaveStart();

@@ -160,6 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeAttack
   bulletPrefab: {fileID: 2454203789908914030, guid: 9fe241041f195654c80a0076951df441, type: 3}
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!50 &4706357621368873990
 Rigidbody2D:
   serializedVersion: 5
@@ -186,7 +189,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!61 &1091315029711480763
 BoxCollider2D:
   m_ObjectHideFlags: 0

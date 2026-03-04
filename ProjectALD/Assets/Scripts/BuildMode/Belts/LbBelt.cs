@@ -4,6 +4,7 @@ using UnityEngine;
 public class LbBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, ISellable
 {
     public Item item { get; set; }
+    public Canvas helpCanvas;
     private WaitForSeconds _deliveryInterval;
     private Coroutine _deliverItemRoutine;
     private int rrIndex;
@@ -54,6 +55,7 @@ public class LbBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, 
 
     public override void PutOnTileHandler()
     {
+        helpCanvas.gameObject.SetActive(false);
         _spriteRenderer.sortingLayerName = "Belt";
         foreach(var head in heads)
             ConnectToNeighbor(head);

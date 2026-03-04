@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterData
   HP: 50
   damage: 15
-  moveSpeed: 5
+  moveSpeed: 4
   amorType: 0500000002000000
   attackType: 1
   attackRange: 6
   maxAvailableSpawnCount: 40
   firstSpawnCount: 5
   multiplierHpForWave: 1.2
-  firstSpawnWave: 7
+  firstSpawnWave: 6
   incrementCountForWave: 5

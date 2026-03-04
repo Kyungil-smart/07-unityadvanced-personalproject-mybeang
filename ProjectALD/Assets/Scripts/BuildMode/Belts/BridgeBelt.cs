@@ -4,7 +4,8 @@ using UnityEngine;
 public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior, IMovableBuilding, IRotatable, ISellable
 {
     public Item item { get; set; }  // 초기 가로
-    public Item upperItem; // 초기 세로
+    public Canvas helpCanvas;
+    public Item upperItem { get; set; } // 초기 세로
     private WaitForSeconds _deliveryInterval;
     private Coroutine _deliverItemRoutine;
     
@@ -41,6 +42,7 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
 
     public override void PutOnTileHandler()
     {
+        helpCanvas.gameObject.SetActive(false);
         _spriteRenderer.sortingLayerName = "Belt";
         foreach(var head in heads)
             ConnectToNeighbor(head);

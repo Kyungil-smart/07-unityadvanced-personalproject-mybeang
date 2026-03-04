@@ -19,6 +19,6 @@ MonoBehaviour:
   damage: 8
   attackRate: 0.5
   damageTypes: 0000000002000000
-  range: 30
+  range: 10
   speed: 20
   count: 20

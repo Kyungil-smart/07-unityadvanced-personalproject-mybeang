@@ -6,7 +6,7 @@ public class SpawanManager : MonoBehaviour
 {
     public static SpawanManager Instance;  // 흠..
     [SerializeField] List<GameObject> monsterPrefabs;
-    private float minX = 50, maxX = 58, minY = -6, maxY = 7;
+    private float minX = 50, maxX = 58, minY = -5, maxY = 5;
     private WaitForSeconds _spwanInterval;
     private Coroutine _spwanCoroutine;
     
@@ -16,11 +16,8 @@ public class SpawanManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-    }
-    
-    private void Start()
-    {
-        _spwanInterval = new WaitForSeconds(60f);
+        _spwanInterval = new WaitForSeconds(10f);  // 1분으로 늘리기
+        _spawnCount = new();
     }
     
     private void Update()
@@ -42,8 +39,11 @@ public class SpawanManager : MonoBehaviour
 
     private IEnumerator SpwanCoroutine()
     {
-        Spwan();
-        yield return _spwanInterval;
+        while (true)
+        {
+            Spwan();
+            yield return _spwanInterval;    
+        }
     }
     
     private void Spwan()
@@ -58,6 +58,12 @@ public class SpawanManager : MonoBehaviour
             if (!_spawnCount.ContainsKey(soName))
             {
                 _spawnCount.Add(soName, (0, data.maxAvailableSpawnCount));
+            }
+            Debug.Log($"Spawner: {soName} {data.firstSpawnWave} {GameManager.Instance.CurrentWave}");
+            if (data.firstSpawnWave > GameManager.Instance.CurrentWave)
+            {
+                Debug.Log($"Spawner: {soName} not spawn, yet.");
+                continue;
             }
             // Wave 별 몬스터 Spwan 계산
             int curWaveSpawnCnt = data.firstSpawnCount + data.incrementCountForWave * (GameManager.Instance.CurrentWave - 1);

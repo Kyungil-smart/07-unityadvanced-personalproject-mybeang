@@ -7,8 +7,8 @@ public class Arrow : Item, IBullet
     private GameObject _target;
     private BulletMovement _movement;
     private float _damage;
-    
-    private void Start()
+
+    private void Awake()
     {
         data = LoadBulletData("ArrowSO");
         _movement = GetComponent<BulletMovement>();
@@ -34,6 +34,7 @@ public class Arrow : Item, IBullet
     public void SetTarget(GameObject target)
     {
         _target = target;
+        Debug.Log($" >>> SetTarget : {data} {target}");
         _movement.SetData(data.speed, target);
     }
 

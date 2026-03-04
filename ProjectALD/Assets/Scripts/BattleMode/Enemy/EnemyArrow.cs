@@ -9,7 +9,7 @@ public class EnemyArrow : Item, IBullet
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
     
-    private void Start()
+    private void Awake()
     {
         // 추후 다른 MonsterSO 도 받을 수 있도록 변경 필요.
         MonsterData data = DataManager.Instance.monsterData["MonsterSO_04"];

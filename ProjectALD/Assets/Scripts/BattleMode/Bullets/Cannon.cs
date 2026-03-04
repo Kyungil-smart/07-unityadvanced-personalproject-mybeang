@@ -8,9 +8,9 @@ public class Cannon : Item, IBullet
     private readonly float _effortRange = 3f;
     private float _damage;
     
-    private void Start()
+    private void Awake()
     {
-        data = LoadBulletData("ArrowSO");
+        data = LoadBulletData("CannonSO");
         _movement = GetComponent<BulletMovement>();
     }
     

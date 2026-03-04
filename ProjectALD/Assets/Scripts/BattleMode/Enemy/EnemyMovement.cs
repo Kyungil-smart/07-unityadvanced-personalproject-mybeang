@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 targetPos;
     private EnemyStatus status;
     private Animator anim;
+    private bool isMoving = false;
 
     private void Awake()
     {
@@ -22,12 +23,14 @@ public class EnemyMovement : MonoBehaviour
     {
         if (CanMove && Mathf.Abs(targetPos.x - transform.position.x) >= status.data.attackRange)
             Move();
+        else isMoving = false;
     }
     
     private void Move()
     {
-        anim.SetTrigger("MoveTrigger");
+        if (!isMoving) anim.SetTrigger("MoveTrigger");
         transform.position = Vector3.MoveTowards(
             transform.position, targetPos, status.data.moveSpeed * Time.deltaTime);
+        isMoving = true;
     }
 }

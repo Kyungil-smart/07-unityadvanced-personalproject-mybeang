@@ -9,6 +9,7 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     private Animator anim;
     private float _hp;
     private string _soName;
+    private float _speed;
 
     public void Awake()
     {
