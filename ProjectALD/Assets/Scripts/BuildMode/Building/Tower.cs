@@ -6,6 +6,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
 {
     private Coroutine _attackCoroutine;
     private GameObject _target;
+    private EnemyStatus _targetStatus;
     public BulletBox bulletBox;
     private WaitForSeconds attackInterval = new WaitForSeconds(1f);
     private BulletData bulletData;
@@ -65,7 +66,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
     public IEnumerator Attack()
     {
         PrintLog("공격을 시작합니다.");
-        while (_target != null)
+        while (!_targetStatus.isDead)
         {
             if (bulletBox != null && bulletBox.GetBulletCount() > 0)
             {
@@ -90,6 +91,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
             yield return attackInterval;
         }
         PrintLog("타겟이 소멸하였습니다.");
+        _target = null;
         _state = "IsFinding";
     }
 
@@ -105,6 +107,7 @@ public class Tower : ObjectOnTile, IMovableBuilding, IAttackable, IInteractableB
                 PrintLog("적 포착!");
                 _state = "IsAttacking";
                 _target = target.gameObject;
+                _targetStatus = target.GetComponent<EnemyStatus>();
             }
         }
     }

@@ -81,6 +81,7 @@ public class SpawanManager : MonoBehaviour
                 
                     // 몬스터 데이터 업데이트
                     EnemyStatus status = monster.GetComponent<EnemyStatus>();
+                    status.isDead = false;
                     status.UpdateStatus(data, hp, soName);
                 
                     // 출발

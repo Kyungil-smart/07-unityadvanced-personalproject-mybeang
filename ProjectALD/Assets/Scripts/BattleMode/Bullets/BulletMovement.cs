@@ -5,6 +5,7 @@ public class BulletMovement : MonoBehaviour
     private float _speed;
     private GameObject _target;
     public bool IsFire;
+    private EnemyStatus _targetStatus;
 
     private void Update()
     {
@@ -16,11 +17,12 @@ public class BulletMovement : MonoBehaviour
     {
         _speed = speed;
         _target = target;
+        _targetStatus = _target.GetComponent<EnemyStatus>();
     }
     
     private void DestroySelf()
     {   
-        if (_target == null && gameObject.activeSelf)
+        if (_targetStatus.isDead && gameObject.activeSelf)
         {
             Debug.Log($"{gameObject.name} 자멸");
             ObjectPoolManager.Instance.PushGameObject(gameObject);
