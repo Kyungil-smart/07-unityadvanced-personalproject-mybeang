@@ -6,7 +6,7 @@
 - 총 15 Wave 를 지키면 게임 승리!
 
 # 시연
-![시연영상](https://www.youtube.com/watch?v=ZtA6EPpKJ7Y&t=1s)
+[시연영상](https://www.youtube.com/watch?v=ZtA6EPpKJ7Y&t=1s)
 
 # 조작법
 - 기본 Keyboard & Mouse
