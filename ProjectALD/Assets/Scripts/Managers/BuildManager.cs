@@ -38,7 +38,7 @@ public class BuildManager : MonoBehaviour
 
         if (selectNumber > -1)
         {
-            if (selectNumber >= 7 && selectNumber <= 9)
+            if (selectNumber == 4 || (selectNumber >= 7 && selectNumber <= 9))
             {
                 OpenBuildWarningMessage("ToDoBuilding");
                 return;
