@@ -21,8 +21,8 @@ public abstract class ObjectOnTile : MonoBehaviour, IIsConnectableWith
     
     public bool IsConnectable(GameObject neigbor, ConnectPoint cpoint)
     {   // 상대방이 연결 가능한 상태인지 확인하는 함수.
-        PrintLog($"{cpoint.direction}) -> {neigbor.name}; 연결 가능 여부 확인 시작");
         if (neigbor == null) return false;
+        PrintLog($"{cpoint.direction}) -> {neigbor.name}; 연결 가능 여부 확인 시작");
         // 벨트 액션이 가능한지 여부 확인.
         if (neigbor.GetComponent<IInteractableBeltGet>() == null && neigbor.GetComponent<IInteractableBeltPut>() == null)
             return false;
