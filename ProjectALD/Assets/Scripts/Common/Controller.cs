@@ -37,9 +37,6 @@ public class Controller : MonoBehaviour
         _buildAction.Build.RotateBuilding.started += OnRotateBuilding;
         _buildAction.Build.FlipCurvBelt.started += OnFlipCurvBelt;
         _buildAction.Build.SellBuilding.started += OnSellBuilding;
-        
-        _buildAction.Build.OnTestDamaged.started += OnTestDamaged;
-        _buildAction.Build.RunTestScript.started += OnRunTestScript;
     }
 
     private void OnDisable()
@@ -56,24 +53,11 @@ public class Controller : MonoBehaviour
         _buildAction.Build.RotateBuilding.started -= OnRotateBuilding;
         _buildAction.Build.FlipCurvBelt.started -= OnFlipCurvBelt;
         _buildAction.Build.SellBuilding.started -= OnSellBuilding;
-        
-        _buildAction.Build.OnTestDamaged.started -= OnTestDamaged;
-        _buildAction.Build.RunTestScript.started -= OnRunTestScript;
-    }
-
-    private void OnRunTestScript(InputAction.CallbackContext obj)
-    {
-        StartCoroutine(TestScript.Instance.StartScript());
     }
 
     private void OnSellBuilding(InputAction.CallbackContext obj)
     {
         if (_selectedTile != null) BuildManager.Instance.SellBuilding(_selectedTile);
-    }
-
-    private void OnTestDamaged(InputAction.CallbackContext obj)
-    {
-        PlayerStatusManager.Instance.currentHp -= 50;
     }
 
     private void OnOpenMenu(InputAction.CallbackContext obj)
