@@ -15,6 +15,6 @@ MonoBehaviour:
   initMineCount: 1
   incrementMineCount: 2
   maxMineUpgradeLevel: 12
-  unlockCost: 50
+  unlockCost: 2000
   initUpgradeCost: 200
   incrementUpgradeCost: 50
