@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MinorSO
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: MinorSO
+  m_GUID: bfffebe30b6626b4586624e9a18dbbba
+  m_SerializeEntries:
+  - m_GUID: 49295eb2ce2e7754ebadd61f40a27ddb
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Miners/IronMinerSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - minerSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f7e74b2029048a4cb3e77c4399fa602
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Miners/CopperMinerSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - minerSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a44aaed49ff42724fbf8e6ce93d2bb98
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Miners/IceMinerSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - minerSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bfeed52d6c8a87645bcf53511ec749ba
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Miners/FireMinerSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - minerSO
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6c20f537977b85346af89d9abf29743c, type: 2}
+    - {fileID: 11400000, guid: 60dc2e58f7e89d94fbe9c1748451fb23, type: 2}

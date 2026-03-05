@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MonsterSO
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: MonsterSO
+  m_GUID: ca3f01d99a3a9d6448b1231f6ae8cdff
+  m_SerializeEntries:
+  - m_GUID: 0eda98af6330fbb4daa0ae25b0b78bda
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_06.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 126f863c89ea57347989cc6c45745a22
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_01.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1310909a782bcc244997c78900825168
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_02.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a9b330851f8ade4598336a2b67a8dd8
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_07.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2da2253b5c2dedc4d908633fb0098526
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_04.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2eb62163752101446ad3f98e815fbc89
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_05.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1d75481d3a53934a9ab6843a4337230
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_08.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f31688549659dde4a81d05b8b6cd8745
+    m_Address: Assets/Scripts/Data/ScriptableObjects/Monsters/MonsterSO_03.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - monsterSO
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 12bbb5cc3297f2e4aae8bb321f55b460, type: 2}
+    - {fileID: 11400000, guid: c7c1596e09c7d8444b314d6b6d49bcd6, type: 2}

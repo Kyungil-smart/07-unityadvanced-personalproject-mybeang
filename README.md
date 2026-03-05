@@ -1,1 +1,21 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=22871655&assignment_repo_type=AssignmentRepo)
+# ProjectALD
+
+# 게임 설명
+
+# 시연
+
+# 조작법
+
+# 외부 Asset List
+- Tanks & Turrets - FREE
+- Glossy Bubbles
+- Pixel Art Farm Tools
+- Pixel Art Padlock Pack - Animated
+- Dungeon Characters 2D
+- 2D Sprite Outline
+- Tiny Swords
+- Simple 2D Platformer Assets Pack
+- Simple Free Pixel art styled UI pack
+
+# 사용된 주요 기술
+- 

@@ -1,0 +1,15 @@
+﻿{
+  "WarningWindow": {
+    "AlreayBuildingOnTile": "이미 다른 건물이 배치되어 있습니다.",
+    "MinerMustBuildNearMine": "채광 건물은 가동 중인 광산옆에만 설치할 수 있습니다.",
+    "TowerShoudBeOnWall": "방어유닛은 항상 벽 혹은 타워위에만 설치할 수 있습니다.",
+    "OtherBuildShoudNotBeOnWall": "오로지 방어유닛만 벽 혹은 타워위에만 설치할 수 있습니다.",
+    "ToDoBuilding": "아직 구현되지 않았습니다.",
+    "NotEnoughGold": "소지금이 부족합니다."
+  },
+  "Bullet": {
+    "Arrow": "화살",
+    "Bullet": "총알",
+    "Cannon": "포탄"
+  }
+}

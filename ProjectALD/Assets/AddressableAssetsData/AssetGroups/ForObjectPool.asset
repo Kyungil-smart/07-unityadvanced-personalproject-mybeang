@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ForObjectPool
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: ForObjectPool
+  m_GUID: 66693510b11beeb4f955bba26cecc6d3
+  m_SerializeEntries:
+  - m_GUID: 05cf4e150348e1d4d8fb05480cd6e530
+    m_Address: BulletBox
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bc10ddaabcc413419b3593bdbf6a4df
+    m_Address: Bullet
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23d46ef646d555e4abe3420af1f29b10
+    m_Address: Cannon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3bffdbab403d58b4ab995c7be8726890
+    m_Address: Arrow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 570611af22e061340bfb7dae6b31f7af
+    m_Address: Monster_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58340704ef495df4fbf0957fdbe6ea7d
+    m_Address: Monster_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64dcdb377443ba94382ac1d23bcc9b38
+    m_Address: CurvBelt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e740e2b92071324b8188e9c0f969a32
+    m_Address: BasicBelt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 801288c37cd501c49baa2e8e9e3f7306
+    m_Address: IronOre
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9f8d0fdd1a97735439af355a4e196a88
+    m_Address: LB_Belt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fe241041f195654c80a0076951df441
+    m_Address: EnemyArrow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a403ed4e96af9504e823238cc1a0e70a
+    m_Address: BridgeBelt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf7d26ca873df864c95ceb6c6d4b5c6d
+    m_Address: Tower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d21205e3df029d14281e04407edf06fb
+    m_Address: Miner
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d6cac288f9b90314192970ee2efc53a0
+    m_Address: Monster_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1532bb6f63e21d46854dc630da72953
+    m_Address: CopperOre
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed9f8045963806747866976710b7beea
+    m_Address: Monster_05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8489db536f2c1a4782aa447b692d0c2
+    m_Address: Factory1x1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ObjectPoolPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ff2a10a6cef13634bae9c1fbf2f2d1dc, type: 2}
+    - {fileID: 11400000, guid: 6b14e0e3943aa5645bf79bf531691782, type: 2}

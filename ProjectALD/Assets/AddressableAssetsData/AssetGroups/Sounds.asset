@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sounds
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Sounds
+  m_GUID: 96c9861b7da791e4ba256f79c904dc8a
+  m_SerializeEntries:
+  - m_GUID: 1a436a399056df74ca16c20d7e778a27
+    m_Address: BgmTitle
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20f9a95dc45bd6741918d78502711c81
+    m_Address: BulletFire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3131dc761cd13414994d12940f95ce30
+    m_Address: Build
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 379318756515e444a9c3ab5fd55743d6
+    m_Address: Repair
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 539d4ef8a31dbd04b81d78e70cabb731
+    m_Address: CannonHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6124f70f6b79ca343b7c21505c792926
+    m_Address: Click
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d869a7cd8f4ee24da1ae880020fedbb
+    m_Address: ArrowHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87e292f147d3b144099390f344a83c32
+    m_Address: CannonFire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a777464e6fe5fe04f9cf8f2ba1130a94
+    m_Address: ArrowFire
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b46701b50048a7b479ef2ef3f4abdeab
+    m_Address: BulletHit
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b880ba762eb7aa64380a010ae1a676c4
+    m_Address: BgmBuildMode
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c6946c173e369ac4184fdb66fc7a9b44
+    m_Address: Rotate
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff7bfb5799dcf0c41ac043d4cb578ae9
+    m_Address: BgmBattleMode
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Sounds
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: df23ba726731690499676434d3401ea8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6e825ac44c6381f49a430c66ccf0b1ef, type: 2}
+    - {fileID: 11400000, guid: 97770e8de10f9db4faa4739d4285c77c, type: 2}
