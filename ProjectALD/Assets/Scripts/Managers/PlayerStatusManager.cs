@@ -107,8 +107,8 @@ public class PlayerStatusManager : MonoBehaviour, IInitializable, IDamagable
         curHpLevel = 1;
         totalHp = 1000;
         currentHp = totalHp;
-        Gold = 1000000; // 테스트용 초기 자금
-        // Gold = 3000; // 실제 게임 초기 자금
+        // Gold = 1000000; // 테스트용 초기 자금
+        Gold = 3000; // 실제 게임 초기 자금
         curDmgLevel = 1;
         damageMultiplier = 1;
         curUpHpCost = data.initUpgradeCost;
