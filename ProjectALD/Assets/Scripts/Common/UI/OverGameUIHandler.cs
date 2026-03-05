@@ -2,7 +2,7 @@
 
 public class OverGameUIHandler : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
         AudioManager.Instance.StopBgm();
     }

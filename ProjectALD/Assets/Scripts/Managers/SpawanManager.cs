@@ -14,7 +14,7 @@ public class SpawanManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        _spwanInterval = new WaitForSeconds(30f);  // 1분으로 늘리기
+        _spwanInterval = new WaitForSeconds(30f);  
         _spawnCount = new();
     }
     

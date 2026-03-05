@@ -59,7 +59,11 @@ public class Mine : ObjectOnTile, IInteracterableMiner, IInitializable
     {
         _unlockCost = DataManager.Instance.minerData[$"{gameObject.name}rSO"].unlockCost;
         if (_unlockCost > 0) isLocked = true;
-        
+        else
+        {
+            string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["NotEnoughGold"];
+            MainUIControl.Instance.WarningText = text;
+        }
         return Task.CompletedTask;
     }
 }
