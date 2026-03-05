@@ -8,6 +8,7 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     private WaitForSeconds wait;
     private Animator anim;
     private float _hp;
+    private float _maxHp;
     private string _soName;
     private float _speed;
 
@@ -26,6 +27,7 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     {
         this.data = data;
         _hp = hp;
+        _maxHp = hp;
         _soName = soName;
     }
 
@@ -37,6 +39,7 @@ public class EnemyStatus : MonoBehaviour, IDamagable, IDead
     }
     public IEnumerator Dead()
     {
+        PlayerStatusManager.Instance.EarnGold((int)_maxHp);
         isDead = true;
         SpawanManager.Instance.DecreseSpawnCount(_soName);
         anim.SetTrigger("DeathTrigger");

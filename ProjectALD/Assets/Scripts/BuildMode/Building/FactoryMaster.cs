@@ -242,7 +242,6 @@ public class FactoryMaster : ObjectOnTile, IMovableBuilding, IInteractableBeltGe
 
     public void InteractBeltPut(Item acquiredItem)
     {
-        PrintLog("벨트에서 뭔가 들어온다.");
         if (InputStorage == null || acquiredItem == null) return;
         PrintLog($"{acquiredItem.itemType} 이 들어온다. ");
         if (InputStorage.ContainsKey(acquiredItem.itemType) && InputStorage[acquiredItem.itemType].Count < _maxInput)

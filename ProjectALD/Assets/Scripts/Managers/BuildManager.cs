@@ -38,7 +38,7 @@ public class BuildManager : MonoBehaviour
 
         if (selectNumber > -1)
         {
-            if (selectNumber >= 7 && selectNumber <= 9)
+            if (selectNumber == 4 || (selectNumber >= 7 && selectNumber <= 9))
             {
                 OpenBuildWarningMessage("ToDoBuilding");
                 return;
@@ -121,6 +121,9 @@ public class BuildManager : MonoBehaviour
 
     private void BuildMiner(Tile tile)
     {
+        if (PlayerStatusManager.Instance.Gold < DataManager.Instance.buildCostData["Miner"])
+            OpenBuildWarningMessage("NotEnoughGold");
+        
         Miner miner = SelectedBuilding.GetComponent<Miner>();
         if (!miner.SearchMine(tile.GridPos))
         {
@@ -134,6 +137,9 @@ public class BuildManager : MonoBehaviour
 
     private void BuildFactory(Tile tile)
     {
+        if (PlayerStatusManager.Instance.Gold < DataManager.Instance.buildCostData["Factory"])
+            OpenBuildWarningMessage("NotEnoughGold");
+        
         tile.HasObject = SelectedBuilding;
         OpenFactoryUI(tile);
         PlayerStatusManager.Instance.WastGold(DataManager.Instance.buildCostData["Factory"]);
@@ -157,6 +163,9 @@ public class BuildManager : MonoBehaviour
 
     private void BuildTower(Tile tile)
     {
+        if (PlayerStatusManager.Instance.Gold < DataManager.Instance.buildCostData["Tower"])
+            OpenBuildWarningMessage("NotEnoughGold");
+        
         if (tile.HasObject?.GetComponent<Wall>() == null)
         {
             OpenBuildWarningMessage("TowerShoudBeOnWall");

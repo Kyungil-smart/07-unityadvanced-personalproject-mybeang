@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : Item, IBullet
@@ -40,6 +41,7 @@ public class Bullet : Item, IBullet
         AudioManager.Instance.Play("BulletFire");
         gameObject.SetActive(true);
         _movement.IsFire = true;
+        StartCoroutine(Drop());
     }
 
     public void Attack()
@@ -47,5 +49,12 @@ public class Bullet : Item, IBullet
         AudioManager.Instance.Play("BulletHit");
         Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
         _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
+    }
+    
+    private IEnumerator Drop()
+    {
+        // Fire 된 후 3초 뒤에 자동 수납
+        yield return new WaitForSeconds(3f);
+        ObjectPoolManager.Instance.PushGameObject(gameObject);
     }
 }

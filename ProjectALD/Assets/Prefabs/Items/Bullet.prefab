@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8634488448576211808}
   - component: {fileID: 4481521334681636901}
   - component: {fileID: 1070046498005916014}
-  - component: {fileID: -6721504152320382626}
+  - component: {fileID: 6866156088206637580}
   - component: {fileID: 147456121676115888}
   m_Layer: 7
   m_Name: Bullet
@@ -109,7 +109,7 @@ MonoBehaviour:
   itemType: 6
   spriteRenderer: {fileID: 4481521334681636901}
   data: {fileID: 0}
---- !u!114 &-6721504152320382626
+--- !u!114 &6866156088206637580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,12 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2508728815587909875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db5cbc253fe3f114f8b66b3455a967bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a76ad69c379492893694058a09de8f3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  itemType: 0
-  spriteRenderer: {fileID: 0}
-  data: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::BulletMovement
+  IsFire: 0
 --- !u!61 &147456121676115888
 BoxCollider2D:
   m_ObjectHideFlags: 0

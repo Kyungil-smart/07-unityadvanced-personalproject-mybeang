@@ -40,7 +40,6 @@ public class Arrow : Item, IBullet
     public void SetTarget(GameObject target)
     {
         _target = target;
-        Debug.Log($" >>> SetTarget : {data} {target}");
         _movement.SetData(data.speed, target);
     }
 
