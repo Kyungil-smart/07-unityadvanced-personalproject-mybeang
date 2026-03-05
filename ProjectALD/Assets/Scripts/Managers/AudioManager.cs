@@ -57,6 +57,11 @@ public class AudioManager : SingleTon<AudioManager>
         }
     }
 
+    public void StopBgm()
+    {
+        if (_playBgmCoroutine != null) StopCoroutine(_playBgmCoroutine);
+    } 
+
     public void PlayClickSound()
     {
         PlayOneShot("Click");

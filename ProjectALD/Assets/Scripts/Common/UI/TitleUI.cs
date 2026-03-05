@@ -16,16 +16,19 @@ public class TitleUI : MonoBehaviour
 
     public void OnStartGame()
     {
+        AudioManager.Instance.PlayClickSound();
         SceneChangeManager.Instance.Change(1);
     }
 
     public void OnExitGame()
     {
+        AudioManager.Instance.PlayClickSound();
         Application.Quit();
     }
     
     public void OnOpenHowToPlayPage()
     {
+        AudioManager.Instance.PlayClickSound();
         Application.OpenURL(howToPlayUrl);
     }
 }

@@ -54,16 +54,19 @@ public class MenuUIControl : MonoBehaviour
 
     private void OnResume()
     {
+        AudioManager.Instance.PlayClickSound();
         gameObject.SetActive(false);
     }
 
     private void OnRestart()
-    {
+    {   
+        AudioManager.Instance.PlayClickSound();
         SceneChangeManager.Instance.Change(4);
     }
 
     private void OnQuit()
     {
+        AudioManager.Instance.PlayClickSound();
         GameManager.Instance.StateToGameOver();
     }
 
