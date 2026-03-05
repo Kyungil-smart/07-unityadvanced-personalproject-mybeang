@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
-public class GameManager : SingleTon<GameManager>
+public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     private int _currentWave;
     public UnityEvent<int> OnChangeCurrentWave;
     public int CurrentWave
@@ -44,15 +47,28 @@ public class GameManager : SingleTon<GameManager>
         }
     }
     public int LoadingTotalStep;
-    
+
+    private string _dataLoadingUpdateTxt;
+    public UnityEvent<string> OnDataLoadingUpdateTxt;
+
+    public string DataLoadingUpdateTxt
+    {
+        get { return _dataLoadingUpdateTxt; }
+        private set
+        {
+            _dataLoadingUpdateTxt = value;
+            OnDataLoadingUpdateTxt?.Invoke(value);
+        }
+    }
+
     private void Awake()
     {
-        SingleTonInit();
+        if (Instance == null) Instance = this;
     }
 
     private void Start()
     {
-        StateToEnterGame(); // 추후 Title 에서 GameStart 버튼 클릭시 작용
+        StateToEnterGame(); 
     }
 
     private async Task OnChangeGameState(GameState value)
@@ -65,8 +81,12 @@ public class GameManager : SingleTon<GameManager>
                 Init();
                 break;
             case GameState.DataLoading:
+                AudioManager.Instance.PlayBgm("BgmBuildMode");
                 Debug.Log("Data Loading");
                 await Loading();
+                break;
+            case GameState.DataLoadingDone:
+                CurtainUp();
                 break;
             case GameState.WaveStart:
                 StartCoroutine(GameTimeCoroutine());
@@ -74,6 +94,14 @@ public class GameManager : SingleTon<GameManager>
             case GameState.Pause:
                 Debug.Log("Pause Game");
                 Pause();
+                break;
+            case GameState.GameWon:
+                Debug.Log("Game Won");
+                ToGameVictory();
+                break;
+            case GameState.GameOver:
+                Debug.Log("Game Over");
+                ToGameOver();
                 break;
             default:
                 Debug.Log("Idle");
@@ -86,7 +114,11 @@ public class GameManager : SingleTon<GameManager>
     public void StateToPause() => gameState = GameState.Pause;
     public void StateToDataLoading() => gameState = GameState.DataLoading;
     public void StateToEnterGame() => gameState = GameState.EnterGame;
+
     public void StateToWaveStart() => gameState = GameState.WaveStart;
+    public void StateToDataLodingDone() => gameState = GameState.DataLoadingDone;
+    public void StateToGameOver() => gameState = GameState.GameOver;
+    public void StateToGameVictory() => gameState = GameState.GameWon;
 
     private void Init()
     {
@@ -105,25 +137,42 @@ public class GameManager : SingleTon<GameManager>
             yield return new WaitForSecondsRealtime(120f); 
             CurrentWave++;
         }
+        StateToGameVictory();
     }
 
     private void Pause() => Time.timeScale = 0;
     private void Resume() => Time.timeScale = 1;
-
+    
     private async Task Loading()
     {
-        string name = "";
+        Debug.Log("Loading Start");
         LoadingTotalStep = InitialTargetObjects.Count;
         foreach (var i in InitialTargetObjects)
         {
             LoadingCurStep++;
             if (i is IInitializable initializable)
-            {
-                name = initializable.ToString();
                 await initializable.InitDataAsync();
-            }
-            Debug.Log($"Loading - {name} {LoadingCurStep}/{LoadingTotalStep}");
+            
+            DataLoadingUpdateTxt = $"데이터 처리: {i.name} {LoadingCurStep}/{LoadingTotalStep}";
+            Debug.Log(DataLoadingUpdateTxt);
+            await Task.Delay(500);
         }
+        StateToDataLodingDone();
+    }
+
+    private void CurtainUp()
+    {
+        MainUIControl.Instance.CurtainUp();
         StateToIdle();
+    }
+
+    private void ToGameVictory()
+    {
+        SceneChangeManager.Instance.Change(2);
+    }
+
+    private void ToGameOver()
+    {
+        SceneChangeManager.Instance.Change(3);
     }
 }

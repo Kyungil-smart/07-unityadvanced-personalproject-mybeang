@@ -22,6 +22,7 @@ public class SingleTon<T> : MonoBehaviour where T : MonoBehaviour
     
     protected void SingleTonInit()
     {
+        if (_instance != null && _instance == this) return;
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);

@@ -27,6 +27,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
     [SerializeField] private Button _upgradeButton;
     [SerializeField] private Button _repairButton;
     [SerializeField] private Canvas _upgardeUICanvas;
+    [SerializeField] private TextMeshProUGUI _loadingText;
     
     [Header("For Build Button")]
     [SerializeField] private List<Button> _buildButtons;
@@ -47,10 +48,12 @@ public class MainUIControl : MonoBehaviour, IInitializable
         }
     }
     private CameraMovement _mainCameraMovement;
+    private Animator _animator;
 
     public void Awake()
     {
         if (Instance == null) Instance = this;
+        _animator = GetComponent<Animator>();
     }
 
     public void Start()
@@ -71,6 +74,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
         PlayerStatusManager.Instance.OnChangeTotalHp.AddListener(ChangeTotalHp);
         PlayerStatusManager.Instance.OnChangedGold.AddListener(ChangeGold);
         GameManager.Instance.OnChangeCurrentWave.AddListener(ChangeWave);
+        GameManager.Instance.OnDataLoadingUpdateTxt.AddListener(OnChangeLoadingText);
         
         // add handler to buttons
         _upgradeButton.onClick.AddListener(OnUpgradeWindowOpen);
@@ -91,6 +95,7 @@ public class MainUIControl : MonoBehaviour, IInitializable
         PlayerStatusManager.Instance.OnChangeTotalHp.RemoveListener(ChangeTotalHp);
         PlayerStatusManager.Instance.OnChangedGold.RemoveListener(ChangeGold);
         GameManager.Instance.OnChangeCurrentWave.RemoveListener(ChangeWave);
+        GameManager.Instance.OnDataLoadingUpdateTxt.RemoveListener(OnChangeLoadingText);
         
         // remove handler to buttons
         _upgradeButton.onClick.RemoveListener(OnUpgradeWindowOpen);
@@ -177,5 +182,15 @@ public class MainUIControl : MonoBehaviour, IInitializable
     {
         AudioManager.Instance.PlayOneShot("Repair");
         PlayerStatusManager.Instance.Repair();
+    }
+
+    private void OnChangeLoadingText(string text)
+    {
+        _loadingText.text = text;
+    }
+
+    public void CurtainUp()
+    {
+        _animator.SetTrigger("DataLoadingDone");
     }
 }

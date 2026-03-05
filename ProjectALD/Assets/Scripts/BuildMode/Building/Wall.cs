@@ -25,7 +25,7 @@ public class Wall : ObjectOnTile, IPlacable, IDamagable, ISellable
     public override void TakeOffTileHandler() { }
     public void TakeDamage(float damage, DamageType damageType)
     {
-        PlayerStatusManager.Instance.currentHp -= (int)damage;  // ToDo. 추후 변경
+        PlayerStatusManager.Instance.TakeDamage(damage, damageType);
     }
     
     private void TowerSetOn()

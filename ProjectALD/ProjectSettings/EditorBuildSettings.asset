@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TitleScene.unity
+    guid: c8ec038d5d75c5845bfd8e2e0281be7f
+  - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/GameVictory.unity
+    guid: f23ebb5332b1c3e4baf9b9474b979fad
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: bebd0a15178d33748bee6c31de373102
+  - enabled: 1
+    path: Assets/Scenes/RestartScene(Dummy).unity
+    guid: b1e46ae989cce3c4db5009a893644c41
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 5accd374f1ee86b4b92ac374955bc4fa, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

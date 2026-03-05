@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerStatusManager : MonoBehaviour, IInitializable
+public class PlayerStatusManager : MonoBehaviour, IInitializable, IDamagable
 {
     public static PlayerStatusManager Instance;
     
@@ -126,5 +126,11 @@ public class PlayerStatusManager : MonoBehaviour, IInitializable
     {
         Init();
         return Task.CompletedTask;
+    }
+    
+    public void TakeDamage(float damage, DamageType damageType)
+    {
+        currentHp -= (int)damage;
+        if (currentHp <= 0) GameManager.Instance.StateToGameOver();
     }
 }

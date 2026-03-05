@@ -59,12 +59,12 @@ public class MenuUIControl : MonoBehaviour
 
     private void OnRestart()
     {
-        // 어떻게 구현할까.... Restart 용 씬 만들어서 잠시 다녀오게 할까..?
+        SceneChangeManager.Instance.Change(4);
     }
 
     private void OnQuit()
     {
-        Application.Quit();
+        GameManager.Instance.StateToGameOver();
     }
 
     private void MenuMovement()

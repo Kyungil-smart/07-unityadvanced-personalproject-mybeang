@@ -13,6 +13,7 @@ public class AudioManager : SingleTon<AudioManager>
     private Dictionary<string, AudioClip> _data = new();
     private string _curBgmKey;
     private Coroutine _playBgmCoroutine;
+    public bool loadingCompleted = false;
 
     private void Awake()
     {
@@ -83,5 +84,6 @@ public class AudioManager : SingleTon<AudioManager>
             }
         }
         Addressables.Release(locHandle);
+        loadingCompleted = true;
     }
 }

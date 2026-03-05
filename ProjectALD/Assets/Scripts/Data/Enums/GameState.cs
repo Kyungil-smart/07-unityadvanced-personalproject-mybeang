@@ -7,4 +7,5 @@
     Pause,
     GameWon,
     GameOver,
+    DataLoadingDone
 }
