@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: f78908e3aae63684cbb02155daf64618
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: a118564e11f3d935d190099818e478be
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -63,6 +63,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5b2e9d9316008804eaaf9d05398b800b, type: 2}
   - {fileID: 11400000, guid: e5f74d43c0258e04099ffda5cf5f7895, type: 2}
   - {fileID: 11400000, guid: 87939f245f5c60441b8edd997eda16d0, type: 2}
+  - {fileID: 11400000, guid: 6a04722e829e9d34c98335c0d0bbfd10, type: 2}
   - {fileID: 11400000, guid: 0a7dc77d110bbc7499626b5cca083f30, type: 2}
   - {fileID: 11400000, guid: fea3c11838f1d81429f3d327b38d76d4, type: 2}
   - {fileID: 11400000, guid: e84bb0398efc5594aaee6d820f2e6c88, type: 2}
@@ -113,6 +114,7 @@ MonoBehaviour:
     - monsterSO
     - towerSO
     - ObjectPoolPrefabs
+    - Sounds
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 7fd7c4970d50eef44a9cfc920c78636f, type: 2}

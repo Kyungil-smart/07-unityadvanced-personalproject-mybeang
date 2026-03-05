@@ -67,6 +67,10 @@ public class Tile : MonoBehaviour, IPlacable, IRotatable, IFlip
     private void PutOnObject()
     {
         if (HasObject == null) return;
+        if (!HasObject.tag.Contains("Wall"))
+        {
+            AudioManager.Instance.PlayOneShot("Build");
+        }
         int priority = 100 - GridPos.y;
         ObjectOnTile objectOnTile = HasObject.GetComponent<ObjectOnTile>();
         HasObject.transform.position = transform.position;

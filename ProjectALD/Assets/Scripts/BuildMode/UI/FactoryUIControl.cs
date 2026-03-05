@@ -57,6 +57,11 @@ public class FactoryUIControl : MonoBehaviour
     {
         factory.curBulletType = ItemType.Cannon;
         OnClose();
-    } 
-    private void OnClose() => gameObject.SetActive(false);
+    }
+
+    private void OnClose()
+    {
+        AudioManager.Instance.PlayClickSound();
+        gameObject.SetActive(false);   
+    }
 }

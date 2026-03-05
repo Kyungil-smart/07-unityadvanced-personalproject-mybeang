@@ -22,11 +22,6 @@ public class Controller : MonoBehaviour
         _cameraMovement = _camera.gameObject.GetComponent<CameraMovement>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void OnEnable()
     {
         _buildAction.Enable();

@@ -37,13 +37,15 @@ public class Bullet : Item, IBullet
 
     public void Fire()
     {
+        AudioManager.Instance.Play("BulletFire");
         gameObject.SetActive(true);
         _movement.IsFire = true;
     }
 
     public void Attack()
     {   
+        AudioManager.Instance.Play("BulletHit");
         Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
-        // _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
+        _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
     }
 }

@@ -163,16 +163,19 @@ public class MainUIControl : MonoBehaviour, IInitializable
 
     private void OnUpgradeWindowOpen()
     {
+        AudioManager.Instance.PlayClickSound();
         _upgardeUICanvas.gameObject.SetActive(!_upgardeUICanvas.gameObject.activeSelf);
     }
 
     private void OnClickBuildButton(int index)
     {
+        AudioManager.Instance.PlayClickSound();
         BuildManager.Instance.SelectBuilding(index, Controller.Instance.GetMousePosition());
     }
 
     private void OnRepair()
     {
+        AudioManager.Instance.PlayOneShot("Repair");
         PlayerStatusManager.Instance.Repair();
     }
 }

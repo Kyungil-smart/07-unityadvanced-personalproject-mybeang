@@ -14,6 +14,7 @@ public class CameraMovement : MonoBehaviour
         set
         {
             _isBattleField = value;
+            PlayBgm();
         }
     }
 
@@ -33,4 +34,10 @@ public class CameraMovement : MonoBehaviour
             transform.position, 
             _isBattleField ? _battleFieldPosition : _buildFieldPosition, 
             Time.deltaTime * 5f);
+
+    private void PlayBgm()
+    {
+        if (IsBattleField) AudioManager.Instance.PlayBgm("BgmBattleMode");
+        else  AudioManager.Instance.PlayBgm("BgmBuildMode");
+    }
 }

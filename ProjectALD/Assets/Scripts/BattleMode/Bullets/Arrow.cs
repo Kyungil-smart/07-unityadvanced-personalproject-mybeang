@@ -46,6 +46,7 @@ public class Arrow : Item, IBullet
 
     public void Fire()
     {
+        AudioManager.Instance.Play("ArrowFire");
         gameObject.SetActive(true);
         _movement.IsFire = true;
         StartCoroutine(Drop());
@@ -53,6 +54,7 @@ public class Arrow : Item, IBullet
 
     public void Attack()
     {   
+        AudioManager.Instance.Play("ArrowHit");
         Debug.Log($"{gameObject.name}, {_target.name} 에게 {_damage}의 데미지");
         _target?.GetComponent<IDamagable>()?.TakeDamage(_damage, data.damageTypes[1]);
     }

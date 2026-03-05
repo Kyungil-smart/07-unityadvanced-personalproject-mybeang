@@ -31,12 +31,6 @@ public class UpgradeUIControl : MonoBehaviour
         ironUnlockBtn.onClick.AddListener(OnUnlockIronMine);
     }
 
-    private void OnUnlockIronMine()
-    {
-        BuildManager.Instance.UnlockMine();
-        ironUnlockBtn.interactable = false;
-    }
-
     private void OnDisable()
     {
         hpBtn.onClick.RemoveListener(OnUpgradeHp);
@@ -45,16 +39,28 @@ public class UpgradeUIControl : MonoBehaviour
         ironUnlockBtn.onClick.RemoveListener(OnUnlockIronMine);
     }
 
+    private void OnUnlockIronMine()
+    {
+        AudioManager.Instance.PlayClickSound();
+        BuildManager.Instance.UnlockMine();
+        ironUnlockBtn.interactable = false;
+    }
+
     private void OnUpgradeHp()
     {
         PlayerStatusManager.Instance.UpgardeHp();
         if (PlayerStatusManager.Instance.curHpLevel == 99)
         {
             hpLevelTxt.text = $"{_lvMaxFmt}";
+            hpCostTxt.text = $"{_goldTxtFmt}-";
             hpBtn.interactable = false;
-        }   
-        else hpLevelTxt.text = $"{_lvTxtFmt}{PlayerStatusManager.Instance.curHpLevel}";
-        hpCostTxt.text = $"{_goldTxtFmt}{PlayerStatusManager.Instance.curUpHpCost}";
+        }
+        else
+        {
+            hpLevelTxt.text = $"{_lvTxtFmt}{PlayerStatusManager.Instance.curHpLevel}";
+            hpCostTxt.text = $"{_goldTxtFmt}{PlayerStatusManager.Instance.curUpHpCost}";
+            AudioManager.Instance.PlayClickSound();
+        }
     }
     
     private void OnUpgradeDamageMultiplier()
@@ -63,14 +69,20 @@ public class UpgradeUIControl : MonoBehaviour
         if (PlayerStatusManager.Instance.curDmgLevel == 99)
         {
             dmgLevelTxt.text = $"{_lvMaxFmt}";
+            dmgCostTxt.text = $"{_goldTxtFmt}-";
             dmgBtn.interactable = false;
         }
-        else dmgLevelTxt.text = $"{_lvTxtFmt}{PlayerStatusManager.Instance.curDmgLevel}";
-        dmgCostTxt.text = $"{_goldTxtFmt}{PlayerStatusManager.Instance.curUpDmgCost}";
+        else
+        {
+            dmgLevelTxt.text = $"{_lvTxtFmt}{PlayerStatusManager.Instance.curDmgLevel}";
+            dmgCostTxt.text = $"{_goldTxtFmt}{PlayerStatusManager.Instance.curUpDmgCost}";
+            AudioManager.Instance.PlayClickSound();
+        }
     }
     
     private void CloseWindow()
     {
+        AudioManager.Instance.PlayClickSound();
         gameObject.SetActive(false);
     }
 }

@@ -116,6 +116,7 @@ public class BridgeBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavi
 
     public void Rotate()
     {
+        AudioManager.Instance.PlayOneShot("Rotate");
         // 동작 멈춤
         StopOperation();
         // 아이템 비움

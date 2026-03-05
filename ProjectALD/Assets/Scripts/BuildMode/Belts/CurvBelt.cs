@@ -136,6 +136,7 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
 
     public void Rotate()
     {
+        AudioManager.Instance.PlayOneShot("Rotate");
         // 동작 멈춤
         StopOperation();
         // 아이템 비움
@@ -164,6 +165,7 @@ public class CurvBelt : ObjectOnTile, IBelt, IInteractableBeltPut, IBeltBehavior
 
     public void Flip()
     {
+        AudioManager.Instance.PlayOneShot("Rotate");
         // e->w w-> 만 신경쓰면 된다!!
         // 동작 멈춤
         StopOperation();
