@@ -101,6 +101,14 @@ public class PlayerStatusManager : MonoBehaviour, IInitializable, IDamagable
         Gold += gold;
     }
 
+    public bool IsEnoughGold(int gold)
+    {
+        if (Gold >= gold) return true;
+        string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"]["NotEnoughGold"];
+        MainUIControl.Instance.WarningText = text;
+        return false;
+    }
+
     public void Init()
     {
         TowerData data = DataManager.Instance.towerData["TowerSO"];

@@ -38,16 +38,27 @@ public class UpgradeUIControl : MonoBehaviour
         closeBtn.onClick.RemoveListener(CloseWindow);
         ironUnlockBtn.onClick.RemoveListener(OnUnlockIronMine);
     }
+    
+    private void OpenBuildWarningMessage(string key)
+    {
+        string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"][key];
+        MainUIControl.Instance.WarningText = text;
+    }
 
     private void OnUnlockIronMine()
     {
         AudioManager.Instance.PlayClickSound();
+        int unlockCost = DataManager.Instance.minerData[$"IronMinerSO"].unlockCost;
+        if (!PlayerStatusManager.Instance.IsEnoughGold(unlockCost)) return;
         BuildManager.Instance.UnlockMine();
         ironUnlockBtn.interactable = false;
     }
 
     private void OnUpgradeHp()
     {
+        AudioManager.Instance.PlayClickSound();
+        if (!PlayerStatusManager.Instance.IsEnoughGold(PlayerStatusManager.Instance.curUpHpCost)) return;
+        
         PlayerStatusManager.Instance.UpgardeHp();
         if (PlayerStatusManager.Instance.curHpLevel == 99)
         {
@@ -59,12 +70,14 @@ public class UpgradeUIControl : MonoBehaviour
         {
             hpLevelTxt.text = $"{_lvTxtFmt}{PlayerStatusManager.Instance.curHpLevel}";
             hpCostTxt.text = $"{_goldTxtFmt}{PlayerStatusManager.Instance.curUpHpCost}";
-            AudioManager.Instance.PlayClickSound();
         }
     }
     
     private void OnUpgradeDamageMultiplier()
     {
+        AudioManager.Instance.PlayClickSound();
+        if (!PlayerStatusManager.Instance.IsEnoughGold(PlayerStatusManager.Instance.curUpDmgCost)) return;
+        
         PlayerStatusManager.Instance.UpgradeDamageMultipler();
         if (PlayerStatusManager.Instance.curDmgLevel == 99)
         {
@@ -76,7 +89,6 @@ public class UpgradeUIControl : MonoBehaviour
         {
             dmgLevelTxt.text = $"{_lvTxtFmt}{PlayerStatusManager.Instance.curDmgLevel}";
             dmgCostTxt.text = $"{_goldTxtFmt}{PlayerStatusManager.Instance.curUpDmgCost}";
-            AudioManager.Instance.PlayClickSound();
         }
     }
     

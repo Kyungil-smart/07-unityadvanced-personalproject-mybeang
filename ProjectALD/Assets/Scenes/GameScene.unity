@@ -14855,6 +14855,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c1c0e6cd-4dd4-4754-be15-f4409a603aac
     m_ActionName: 'Build/OpenMenu[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d44e3d7e-f38e-4601-8b8d-9e5e2971b1d2
+    m_ActionName: 'Build/SellBuilding[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a091610f-adf4-448f-a26a-c98c0dfafd49
+    m_ActionName: 'Build/OnTestDamaged[/Keyboard/backquote]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9dd689a7-c9e7-43f6-953f-b488ed278f9b
+    m_ActionName: 'Build/OpenFactroyMenu[/Keyboard/o]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 685146b5-6918-4e8b-9508-cd5da1913d7d
+    m_ActionName: 'Build/RunTestScript[/Keyboard/delete]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
   m_DefaultActionMap: Build
@@ -54118,7 +54134,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.18, y: -4.28}
+  m_AnchoredPosition: {x: 2.18, y: -3.99}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1991309041
@@ -54141,7 +54157,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uCCA0\uAD11\uC0B0\uC744 \uD574\uAE08\uD569\uB2C8\uB2E4."
+  m_text: "\uCCA0\uAD11\uC0B0\uC744 \uD574\uAE08\uD569\uB2C8\uB2E4.\n\uACE8\uB4DC:
+    2000"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1c16807d6ff1542448d86a734e23a800, type: 2}
   m_sharedMaterial: {fileID: 8514827923352386618, guid: 1c16807d6ff1542448d86a734e23a800, type: 2}
