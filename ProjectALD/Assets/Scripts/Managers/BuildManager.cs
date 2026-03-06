@@ -21,7 +21,7 @@ public class BuildManager : MonoBehaviour
         if (Instance == null) Instance = this;
     }
 
-    public void OpenBuildWarningMessage(string key)
+    private void OpenBuildWarningMessage(string key)
     {
         string text = (string)DataManager.Instance.uiMessageData.messageData["WarningWindow"][key];
         MainUIControl.Instance.WarningText = text;
@@ -121,8 +121,7 @@ public class BuildManager : MonoBehaviour
 
     private void BuildMiner(Tile tile)
     {
-        if (PlayerStatusManager.Instance.Gold < DataManager.Instance.buildCostData["Miner"])
-            OpenBuildWarningMessage("NotEnoughGold");
+        if (!PlayerStatusManager.Instance.IsEnoughGold(DataManager.Instance.buildCostData["Miner"])) return;
         
         Miner miner = SelectedBuilding.GetComponent<Miner>();
         if (!miner.SearchMine(tile.GridPos))
@@ -137,8 +136,7 @@ public class BuildManager : MonoBehaviour
 
     private void BuildFactory(Tile tile)
     {
-        if (PlayerStatusManager.Instance.Gold < DataManager.Instance.buildCostData["Factory"])
-            OpenBuildWarningMessage("NotEnoughGold");
+        if (!PlayerStatusManager.Instance.IsEnoughGold(DataManager.Instance.buildCostData["Factory"])) return;
         
         tile.HasObject = SelectedBuilding;
         OpenFactoryUI(tile);
@@ -163,8 +161,7 @@ public class BuildManager : MonoBehaviour
 
     private void BuildTower(Tile tile)
     {
-        if (PlayerStatusManager.Instance.Gold < DataManager.Instance.buildCostData["Tower"])
-            OpenBuildWarningMessage("NotEnoughGold");
+        if (!PlayerStatusManager.Instance.IsEnoughGold(DataManager.Instance.buildCostData["Tower"])) return;
         
         if (tile.HasObject?.GetComponent<Wall>() == null)
         {
